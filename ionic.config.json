@@ -1,0 +1,7 @@
+{
+  "name": "ACNH Pocket Companion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

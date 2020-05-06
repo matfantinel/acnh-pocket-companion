@@ -1,0 +1,23 @@
+ion-content {
+  --background: url('/assets/images/polka-pattern.png');
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.home-card-menu {
+  min-height: 300px;
+  width: calc(100% - 60px);
+  background: var(--ion-background-color);
+  border-radius: 70px;
+  margin: 0 30px;
+  padding: 20px;
+
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px;
+    opacity: 0.5;
+  }
+}

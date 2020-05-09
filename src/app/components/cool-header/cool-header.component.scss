@@ -1,0 +1,20 @@
+ion-toolbar {
+  position: relative;
+  height: 90px;
+  // --background: var(--ion-color-primary-light);
+
+  &:after {
+    content: '';
+    border-top-left-radius: 50% 100%;
+    border-top-right-radius: 50% 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: var(--ion-background-color);
+    height: 25%;
+  }
+}
+
+ion-back-button {
+    --background: var(--ion-background-color);
+}

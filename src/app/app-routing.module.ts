@@ -9,11 +9,27 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'about',
-    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'passport',
+    loadChildren: () => import('./pages/passport/passport.module').then( m => m.PassportPageModule)
+  },
+  {
+    path: 'island',
+    loadChildren: () => import('./pages/island/island.module').then( m => m.IslandPageModule)
+  },
+  {
+    path: 'todo',
+    loadChildren: () => import('./pages/todo/todo.module').then( m => m.TodoPageModule)
+  },
+  {
+    path: 'chores',
+    loadChildren: () => import('./pages/chores/chores.module').then( m => m.ChoresPageModule)
   }
 ];
 @NgModule({

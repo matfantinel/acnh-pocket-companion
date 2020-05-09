@@ -7,15 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
-import { FeatureIconComponent } from '../feature-icon/feature-icon.component';
+import { FeatureIconComponent } from '../../components/feature-icon/feature-icon.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    ComponentsModule
   ],
-  declarations: [HomePage, FeatureIconComponent]
+  declarations: [HomePage, FeatureIconComponent],
 })
 export class HomePageModule {}

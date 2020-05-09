@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Utils } from 'src/utils';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ export class HomePage implements OnInit {
 
   public today = new Date();
 
-  constructor() { }
+  constructor(public utils: Utils) { }
 
   ngOnInit() {
   }

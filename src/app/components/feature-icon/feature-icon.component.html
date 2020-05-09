@@ -1,6 +1,7 @@
-<a class="feature-icon" [routerLink]="route">
+<a class="feature-icon ion-activatable ripple-parent" [routerLink]="route">
   <div class="icon-content" [ngStyle]="{'background-color': color}">
     <ion-img [src]="imageSrc"></ion-img>
   </div>
   <span class="feature-name">{{ label }}</span>
+  <ion-ripple-effect type="unbounded"></ion-ripple-effect>
 </a>

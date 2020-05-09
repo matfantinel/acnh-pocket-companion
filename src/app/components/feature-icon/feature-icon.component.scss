@@ -5,6 +5,8 @@
   align-items: center;
   color: var(--ion-text-color);
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 
   .icon-content {
     height: 90px;

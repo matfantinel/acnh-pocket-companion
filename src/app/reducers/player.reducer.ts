@@ -2,7 +2,7 @@ import { createReducer, on, createAction, props, Action, createSelector, select 
 import { Player } from 'src/app/models/player';
 import { State } from '.';
 
-//#region State
+//#region State -> Responsible for keeping the data
 
 export const featureKey = 'player';
 
@@ -19,7 +19,7 @@ const initialState: PlayerState = {
 
 //#endregion
 
-//#region Actions
+//#region Actions -> Called when a component wants to change state data
 
 export const save = createAction(
   'Player Saved',
@@ -28,7 +28,7 @@ export const save = createAction(
 
 //#endregion
 
-//#region Selectors
+//#region Selectors -> Called by components to get data from state
 
 export const selectPlayer = (state: State) => state.player.player;
 
@@ -39,7 +39,7 @@ export const selectPlayerName = createSelector(
 
 //#endregion
 
-//#region Reducer
+//#region Reducer -> Handles state data transition
 
 const playerReducer = createReducer(
   initialState,

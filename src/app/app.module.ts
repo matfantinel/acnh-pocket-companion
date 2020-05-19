@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { Utils } from 'src/utils';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
+import { Database } from './database/database';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { reducers, metaReducers } from './reducers';
     })],
   providers: [
     Utils,
+    Database,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

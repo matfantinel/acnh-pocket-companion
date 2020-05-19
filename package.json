@@ -27,6 +27,7 @@
     "@ngrx/schematics": "^9.1.2",
     "@ngrx/store": "^8.6.0",
     "core-js": "^2.5.4",
+    "nedb": "^1.8.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -50,6 +51,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "nedb-promises-ts": "git+ssh://git@github.com/matfantinel/nedb-promises-ts.git",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",

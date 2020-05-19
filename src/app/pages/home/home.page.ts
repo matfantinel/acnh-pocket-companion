@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Utils } from 'src/utils';
 import { Store, select } from '@ngrx/store';
-import { PlayerState, selectPlayerName } from 'src/app/reducers/player.reducer';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,10 +11,10 @@ import { Observable } from 'rxjs';
 export class HomePage implements OnInit {
 
   today = new Date();
-  playerName$: Observable<string>;
+  playerName: string;
 
-  constructor(private store: Store<PlayerState>, public utils: Utils) {
-    this.playerName$ = this.store.pipe(select(selectPlayerName))
+  constructor(public utils: Utils) {
+    this.playerName = 'Your Name'
   }
 
   ngOnInit() {

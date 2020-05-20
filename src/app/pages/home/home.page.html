@@ -3,7 +3,7 @@
     <h1>Pocket Companion</h1>
     <div class="home-card-menu">
       <div class="header-bar">
-        <span>{{ playerName }}</span>
+        <span>{{ playerName$ | async }}</span>
         <span>{{ today | date: 'dd/MM' }}</span>
       </div>
       <ion-grid>

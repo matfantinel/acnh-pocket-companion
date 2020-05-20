@@ -9,7 +9,8 @@ export class Database {
 
     public static players = new Nedb<Player>({autoload: true});
 
-    public static getPlayer() {
+    public static getPlayer(): Promise<Player> {
+        console.log('I fired!')
         return Database.players.findOne({});
     }
 }

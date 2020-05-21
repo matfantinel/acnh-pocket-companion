@@ -32,6 +32,6 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export const selectPlayer = (state: AppState) => state.player.playerData;
-export const selectPlayerName = (state: AppState) => state.player.playerData ? state.player.playerData.name : 'Your Name';
+export const selectPlayerName = (state: AppState) => state.player.playerData ? state.player.playerData.name : '';
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];

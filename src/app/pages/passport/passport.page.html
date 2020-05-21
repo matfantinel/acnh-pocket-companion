@@ -1,3 +1,12 @@
 <app-cool-header title="Passport" [color]="utils.getCssVarValue('--passport-bg-color')"></app-cool-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <div *ngIf="player">
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input maxlength="15" [(ngModel)]="player.name"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="savePlayer()">Save</ion-button>
+  </div>
+</ion-content>

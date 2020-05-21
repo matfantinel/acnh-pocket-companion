@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { from } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, exhaustMap } from 'rxjs/operators';
 
-import { LoadPlayerFromDb, PlayerActionTypes, SetPlayer } from '../actions/player.actions';
+import { LoadPlayerFromDb, PlayerActionTypes, SetPlayer, SavePlayer } from '../actions/player.actions';
 import { Database } from '../database/database';
 
 
@@ -11,17 +11,28 @@ import { Database } from '../database/database';
 @Injectable()
 export class PlayerEffects {
 
-  @Effect()
-  loadPlayerFromDb$ = this.actions$
-    .pipe(
+  loadPlayerFromDb$ = createEffect(() => 
+    this.actions$.pipe(
       ofType<LoadPlayerFromDb>(PlayerActionTypes.LoadPlayerFromDb),
       mergeMap((action) => from(Database.getPlayer())
       .pipe(
-        map(player => {
-          return (new SetPlayer({playerData: player}))
-        })
+        map(player => 
+          new SetPlayer({playerData: player})
+        )
       ))
     )
+  );
+
+  savePlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<SavePlayer>(PlayerActionTypes.SavePlayer),
+      exhaustMap(action =>
+        from(Database.savePlayer(action.payload.playerData)).pipe(
+          map(player => new SetPlayer({playerData: player}))
+        )
+      )
+    )
+  );
 
   constructor(private actions$: Actions) {}
 

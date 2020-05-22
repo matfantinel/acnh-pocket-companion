@@ -25,7 +25,7 @@ export class PassportPage implements OnInit {
     this.store.select(selectPlayer).subscribe(
       result => {
         if (result) {
-          this.player = result;
+          this.player = {...result};
         } else {
           this.player = new Player();
         }

@@ -11,11 +11,11 @@ import { AppComponent } from './app.component';
 import { Utils } from 'src/utils';
 import { DatabaseService } from './database/database.service';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { PlayerEffects } from './effects/player.effects';
+import { PassportEffects } from './domains/passport/passport.effects';
+import { reducers, metaReducers } from './app.state';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +26,7 @@ import { PlayerEffects } from './effects/player.effects';
       strictStateImmutability: true,
       strictActionImmutability: true,
     }
-  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([PlayerEffects])],
+  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([PassportEffects])],
   providers: [
     Utils,
     DatabaseService,

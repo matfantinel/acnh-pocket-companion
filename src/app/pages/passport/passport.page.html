@@ -1,12 +1,27 @@
 <app-cool-header title="Passport" [color]="utils.getCssVarValue('--passport-bg-color')"></app-cool-header>
 
 <ion-content>
-  <div *ngIf="player">
+  <div *ngIf="model">
     <ion-item>
       <ion-label position="stacked">Name</ion-label>
-      <ion-input maxlength="15" [(ngModel)]="player.name"></ion-input>
+      <ion-input maxlength="15" [(ngModel)]="model.name"></ion-input>
     </ion-item>
 
-    <ion-button expand="block" (click)="savePlayer()">Save</ion-button>
+    <ion-item>
+      <ion-label position="stacked">Birthday</ion-label>
+      <ion-datetime displayFormat="DD/MM" pickerFormat="MMMM DD" placeholder="Select Date" [(ngModel)]="model.birthday"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Title</ion-label>
+      <ion-input maxlength="50" [(ngModel)]="model.title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Comment</ion-label>
+      <ion-input maxlength="50" [(ngModel)]="model.comment"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="savePassport()">Save</ion-button>
   </div>
 </ion-content>

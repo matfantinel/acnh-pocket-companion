@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AppState } from './reducers';
 import { Store } from '@ngrx/store';
-import { LoadPlayerFromDb } from './actions/player.actions';
+import { LoadPassportFromDb } from './domains/passport/passport.actions';
+import { AppState } from './app.state';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +28,7 @@ export class AppComponent {
       this.splashScreen.hide();
 
 
-      this.store.dispatch(new LoadPlayerFromDb());
+      this.store.dispatch(new LoadPassportFromDb());
     });
   }
 }

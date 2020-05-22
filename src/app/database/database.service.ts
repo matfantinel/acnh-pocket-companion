@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Player } from '../models/player';
+import { Passport } from '../domains/passport/passport.model';
 import Dexie from 'dexie';
 
 
@@ -9,19 +9,19 @@ export class DatabaseService extends Dexie {
     constructor() {
         super('acnh_db');
         this.version(1).stores({
-            players: '++id',
+            passport: '++id',
         })
     }
 
-    public getPlayer(): Promise<Player | undefined> {
-        return this.table('players').toCollection().first();
+    public getPassport(): Promise<Passport | undefined> {
+        return this.table('passport').toCollection().first();
     }
 
-    public savePlayer(player: Player): Promise<Player> {
-        return new Promise<Player>((resolve, reject) => {
-            this.table('players').put(player)
+    public savePassport(player: Passport): Promise<Passport> {
+        return new Promise<Passport>((resolve, reject) => {
+            this.table('passport').put(player)
                 .then(() => {
-                    this.getPlayer().then(res => {
+                    this.getPassport().then(res => {
                         resolve(res);
                     })
                 })

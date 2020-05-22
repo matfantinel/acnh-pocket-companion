@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { SavePassport } from 'src/app/domains/passport/passport.actions';
+import { Passport } from 'src/app/domains/passport/passport.model';
+import { selectPassport } from 'src/app/domains/passport/passport.reducer';
 import { Utils } from 'src/utils';
-import { Observable } from 'rxjs';
-import { Player } from 'src/app/models/player';
-import { select, Store } from '@ngrx/store';
-import { selectPlayer, AppState } from 'src/app/reducers';
-import { SavePlayer } from 'src/app/actions/player.actions';
 
 @Component({
   selector: 'app-passport',
@@ -13,27 +13,27 @@ import { SavePlayer } from 'src/app/actions/player.actions';
 })
 export class PassportPage implements OnInit {
 
-  player: Player;
+  model: Passport;
 
   constructor(public utils: Utils, private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.loadPlayer();
+    this.loadPassport();
   }
 
-  loadPlayer() {
-    this.store.select(selectPlayer).subscribe(
+  loadPassport() {
+    this.store.select(selectPassport).subscribe(
       result => {
         if (result) {
-          this.player = {...result};
+          this.model = {...result};
         } else {
-          this.player = new Player();
+          this.model = new Passport();
         }
       }
     )
   }
 
-  savePlayer() {
-    this.store.dispatch(new SavePlayer({playerData: this.player}));
+  savePassport() {
+    this.store.dispatch(new SavePassport({data: this.model}));
   }
 }

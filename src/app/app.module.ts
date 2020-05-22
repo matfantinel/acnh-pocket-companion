@@ -9,7 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Utils } from 'src/utils';
-import { Database } from './database/database';
+import { DatabaseService } from './database/database.service';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -29,7 +29,7 @@ import { PlayerEffects } from './effects/player.effects';
   }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([PlayerEffects])],
   providers: [
     Utils,
-    Database,
+    DatabaseService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

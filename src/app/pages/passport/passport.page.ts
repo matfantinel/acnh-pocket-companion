@@ -14,6 +14,7 @@ import { Utils } from 'src/utils';
 export class PassportPage implements OnInit {
 
   model: Passport;
+  dirty: boolean;
 
   constructor(public utils: Utils, private store: Store<AppState>) {}
 
@@ -33,7 +34,11 @@ export class PassportPage implements OnInit {
     )
   }
 
-  savePassport() {
+  savePassport = () => {
     this.store.dispatch(new SavePassport({data: this.model}));
+  }
+
+  setDirty() {
+    this.dirty = true;
   }
 }

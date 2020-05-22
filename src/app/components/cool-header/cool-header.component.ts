@@ -12,6 +12,9 @@ export class CoolHeaderComponent implements OnInit {
   @Input() title: string;
   @Input() color: string;
 
+  @Input() showSaveButton: boolean;
+  @Input() saveFunction: () => {} = null;
+
   @ViewChild('toolbar', { static: false }) toolbar: ElementRef;
 
   constructor() { }

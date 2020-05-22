@@ -4,5 +4,10 @@
       <ion-back-button text="" icon="chevron-back-outline" defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title mode="ios">{{ title }}</ion-title>
+    <ion-buttons slot="primary" *ngIf="showSaveButton">
+      <ion-button (click)="saveFunction()">
+        <ion-icon slot="icon-only" name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>

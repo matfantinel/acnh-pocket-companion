@@ -6,7 +6,11 @@
 ></app-cool-header>
 
 <ion-content>
-  <div class="player-info" *ngIf="model">
+  <div class="passport-info" *ngIf="model">
+    <ion-list-header>
+      <ion-label>Resident Representative Information</ion-label>
+    </ion-list-header>
+
     <ion-item>
       <ion-label position="fixed">Name</ion-label>
       <ion-input maxlength="15" [(ngModel)]="model.name" (keyup)="setDirty()"></ion-input>
@@ -30,6 +34,34 @@
         placeholder="Select Date"
         [(ngModel)]="model.birthday"
       ></ion-datetime>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>Island Information</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label position="fixed">Island Name</ion-label>
+      <ion-input maxlength="15" [(ngModel)]="model.islandName" (keyup)="setDirty()"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Fruit</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="model.fruit" (ionChange)="setDirty()">
+        <ion-select-option value="Oranges">🍊 Oranges</ion-select-option>
+        <ion-select-option value="Peaches">🍑 Peaches</ion-select-option>
+        <ion-select-option value="Apples">🍎 Apples</ion-select-option>
+        <ion-select-option value="Pears">🍐 Pears</ion-select-option>
+        <ion-select-option value="Cherries">🍒 Cherries</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Hemisphere</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="model.hemisphere" (ionChange)="setDirty()">
+        <ion-select-option value="Northern">Northern</ion-select-option>
+        <ion-select-option value="Southern">Southern</ion-select-option>
+      </ion-select>
     </ion-item>
   </div>
 </ion-content>

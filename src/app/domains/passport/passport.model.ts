@@ -6,5 +6,5 @@ export class Passport {
 
     islandName: string;
     fruit: 'Oranges' | 'Peaches' | 'Apples' | 'Pears' | 'Cherries';
-    hemisphere: 'Southern' | 'Northern';
+    hemisphere: 'Northern' | 'Southern';
 }

@@ -1,5 +1,5 @@
 {
-  "appId": "com.github.matfantinel.acnh-pocket-companion",
+  "appId": "io.ionic.starter",
   "appName": "ACNH Pocket Companion",
   "bundledWebRuntime": false,
   "npmClient": "npm",

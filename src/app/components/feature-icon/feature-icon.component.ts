@@ -10,7 +10,6 @@ export class FeatureIconComponent implements OnInit {
   @Input() label: string;
   @Input() color: string;
   @Input() icon: string;
-  @Input() route: string;
 
   public imageSrc: string;
 

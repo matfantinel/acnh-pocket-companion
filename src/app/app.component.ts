@@ -30,9 +30,11 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.splashScreen.hide();
 
-      StatusBar.setStyle({
-        style: StatusBarStyle.Light
-      });
+      if (this.platform.is('mobile')) {
+        StatusBar.setStyle({
+          style: StatusBarStyle.Light
+        });
+      }
 
 
       this.store.dispatch(new LoadIslandFromDb());

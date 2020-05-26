@@ -8,6 +8,7 @@ import {
   Plugins
 } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
 const { StatusBar } = Plugins;
 
 @Component({
@@ -22,7 +23,7 @@ export class HomePage implements OnInit {
   playerName$: Observable<string>;
   islandName$: Observable<string>;
 
-  constructor(public utils: Utils, private store: Store<AppState>, private platform: Platform) {
+  constructor(public utils: Utils, private store: Store<AppState>, private platform: Platform, private router: Router) {
     this.islandName$ = this.store.pipe(select(selectIslandName));
     this.playerName$ = this.store.pipe(select(selectResidentRepresentativeName));
   }
@@ -36,4 +37,34 @@ export class HomePage implements OnInit {
     }
   }
 
+  goToPage(event: any, color: string, route: string) {
+    let transitionEffectPixel = document.getElementById('transition-effect');
+
+    transitionEffectPixel.style.height = '1px';
+    transitionEffectPixel.style.width = '1px';
+    transitionEffectPixel.style.borderRadius = '50%';
+
+    transitionEffectPixel.style.top = `${event.clientY}px`;
+    transitionEffectPixel.style.left = `${event.clientX}px`;
+    transitionEffectPixel.style.display = 'block';
+    transitionEffectPixel.style.backgroundColor = color;
+
+    setTimeout(() => {
+      transitionEffectPixel.style.transition = 'all .5s ease-in-out';
+      transitionEffectPixel.style.top = '0px';
+      transitionEffectPixel.style.left = '0px';
+      transitionEffectPixel.style.height = '100vh';
+      transitionEffectPixel.style.width = '100vw';
+      transitionEffectPixel.style.borderRadius = '0px';
+
+      setTimeout(() => {
+        this.router.navigate([route]);
+
+        setTimeout(() => {
+          transitionEffectPixel.style.display = 'none';
+          transitionEffectPixel.style.transition = 'none';
+        }, 300)
+      }, 1500);
+    }, 10);
+  }
 }

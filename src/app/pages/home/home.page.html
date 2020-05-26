@@ -1,3 +1,4 @@
+<div id="transition-effect"></div>
 <ion-content>
   <div class="center-content">
     <h1>Pocket Companion</h1>
@@ -13,7 +14,7 @@
               [label]="islandName$ | async"
               icon="island"
               [color]="utils.getCssVarValue('--island-bg-color')"
-              route="/island"
+              (click)="goToPage($event, utils.getCssVarValue('--island-bg-color'), '/island')"
             ></app-feature-icon>
           </ion-col>
           <ion-col>
@@ -30,7 +31,7 @@
               label="To-Do"
               icon="todo"
               [color]="utils.getCssVarValue('--todo-bg-color')"
-              route="/todo"
+              (click)="goToPage($event, utils.getCssVarValue('--todo-bg-color'), '/todo')"
             ></app-feature-icon>
           </ion-col>
           <ion-col>
@@ -38,7 +39,7 @@
               label="Daily Chores"
               icon="chores"
               [color]="utils.getCssVarValue('--chores-bg-color')"
-              route="/chores"
+              (click)="goToPage($event, utils.getCssVarValue('--chores-bg-color'), '/chores')"
             ></app-feature-icon>
           </ion-col>
         </ion-row>

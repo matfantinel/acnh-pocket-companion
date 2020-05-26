@@ -21,3 +21,9 @@ h1 {
     opacity: 0.5;
   }
 }
+
+#transition-effect {
+  display: none;
+  position: absolute;
+  z-index: 999;
+}

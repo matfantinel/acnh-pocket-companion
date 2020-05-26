@@ -14,7 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { PassportEffects } from './domains/passport/passport.effects';
+import { IslandEffects } from './domains/island/island.effects';
 import { reducers, metaReducers } from './app.state';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { reducers, metaReducers } from './app.state';
       strictStateImmutability: true,
       strictActionImmutability: true,
     }
-  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([PassportEffects])],
+  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([IslandEffects])],
   providers: [
     Utils,
     DatabaseService,

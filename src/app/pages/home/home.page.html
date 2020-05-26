@@ -9,18 +9,37 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <app-feature-icon label="Passport" icon="passport" [color]="utils.getCssVarValue('--passport-bg-color')" route="/passport"></app-feature-icon>
+            <app-feature-icon
+              [label]="islandName$ | async"
+              icon="island"
+              [color]="utils.getCssVarValue('--island-bg-color')"
+              route="/island"
+            ></app-feature-icon>
           </ion-col>
-          <!-- <ion-col>
-            <app-feature-icon label="Island" icon="island" [color]="utils.getCssVarValue('--island-bg-color')" route="/island"></app-feature-icon>
-          </ion-col> -->
+          <ion-col>
+            <app-feature-icon
+              label="Some Feature"
+              icon="passport"
+              [color]="utils.getCssVarValue('--passport-bg-color')"
+            ></app-feature-icon>
+          </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <app-feature-icon label="To-Do" icon="todo" [color]="utils.getCssVarValue('--todo-bg-color')" route="/todo"></app-feature-icon>
+            <app-feature-icon
+              label="To-Do"
+              icon="todo"
+              [color]="utils.getCssVarValue('--todo-bg-color')"
+              route="/todo"
+            ></app-feature-icon>
           </ion-col>
           <ion-col>
-            <app-feature-icon label="Daily Chores" icon="chores" [color]="utils.getCssVarValue('--chores-bg-color')" route="/chores"></app-feature-icon>
+            <app-feature-icon
+              label="Daily Chores"
+              icon="chores"
+              [color]="utils.getCssVarValue('--chores-bg-color')"
+              route="/chores"
+            ></app-feature-icon>
           </ion-col>
         </ion-row>
       </ion-grid>

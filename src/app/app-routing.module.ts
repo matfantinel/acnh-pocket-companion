@@ -16,10 +16,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
   },
   {
-    path: 'passport',
-    loadChildren: () => import('./pages/passport/passport.module').then( m => m.PassportPageModule)
-  },
-  {
     path: 'island',
     loadChildren: () => import('./pages/island/island.module').then( m => m.IslandPageModule)
   },

@@ -1,13 +1,13 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
-import { passportReducer, PassportState } from './domains/passport/passport.reducer';
+import { islandReducer, IslandState } from './domains/island/island.reducer';
 
 export interface AppState {
-  passport: PassportState;
+  island: IslandState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  passport: passportReducer
+  island: islandReducer
 };
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];

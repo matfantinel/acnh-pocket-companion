@@ -10,7 +10,7 @@ import { Gesture, GestureConfig } from '@ionic/core';
 export class SlideDrawerComponent implements AfterViewInit {
   state: string = 'bottom';  
   @Input() title: string = '';
-  @Input() handleHeight: number = 138;
+  @Input() handleHeight: number = 90;
   @Input() offsetTop: number = 100;
 
   constructor(

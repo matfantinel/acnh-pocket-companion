@@ -25,5 +25,20 @@ h1 {
 #transition-effect {
   display: none;
   position: absolute;
+  z-index: 998;
+}
+#transition-icon {
+  display: none;
+  position: absolute;
   z-index: 999;
+}
+#transition-label {
+  display: none;
+  position: absolute;
+  align-self: center;
+  top: calc(50% + 50px);
+  z-index: 999;
+  font-weight: 600;
+  color: var(--ion-text-color);
+  opacity: 0;
 }

@@ -9,8 +9,7 @@ export class DatabaseService extends Dexie {
   private _dbName = 'acnh_db'
   private _defaultSchema = {
     island: '++id',
-    todos: '++id',
-    chores: '++id'
+    todos: '++id'
   };
 
   constructor() {
@@ -22,8 +21,7 @@ export class DatabaseService extends Dexie {
     if (await Dexie.exists(this._dbName)) {
       await this.open();
       if (!this.tables.some(q => q.name === 'island') ||
-        !this.tables.some(q => q.name === 'todos') ||
-        !this.tables.some(q => q.name === 'chores')) {
+        !this.tables.some(q => q.name === 'todos')) {
         await this.resetDbSchema();
       }
     } else {

@@ -32,13 +32,13 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    if (this.platform.is('mobile')) {
+    if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#ECE0BA' });
     }
   }
 
   goToPage(event: any, color: string, route: string, icon: string, label: string) {
-    let transitionEffectPixel = document.getElementById('transition-effect');    
+    let transitionEffectPixel = document.getElementById('transition-effect');
 
     transitionEffectPixel.style.height = '1px';
     transitionEffectPixel.style.width = '1px';
@@ -80,9 +80,11 @@ export class HomePage implements OnInit {
       transitionLabel.style.transition = 'all 1s ease-in-out';
       transitionLabel.style.opacity = '1';
 
-      setTimeout(() => {
-        StatusBar.setBackgroundColor({ color: color });
-      }, 500)
+      if (this.platform.is('capacitor')) {
+        setTimeout(() => {
+          StatusBar.setBackgroundColor({ color: color });
+        }, 500)
+      }
 
       setTimeout(() => {
         this.router.navigate([route]);

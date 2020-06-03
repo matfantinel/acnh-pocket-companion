@@ -20,7 +20,7 @@ export class ChoresPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    if (this.platform.is('mobile')) {
+    if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#FECFAC' });
     }
   }

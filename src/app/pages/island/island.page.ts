@@ -29,7 +29,7 @@ export class IslandPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    if (this.platform.is('mobile')) {
+    if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#B3E2B4' });
     }
   }

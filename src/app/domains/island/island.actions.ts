@@ -10,22 +10,18 @@ export enum IslandActionTypes {
 export class IslandAction implements Action {
   type: string;
   payload: {
-    data: Island
+    data: Island;
   };
 }
 
 export class LoadIslandFromDb implements Action {
   readonly type = IslandActionTypes.LoadIslandFromDb;
-
-  constructor() {
-
-  }
 }
 
 export class SetIsland implements Action {
   readonly type = IslandActionTypes.SetIsland;
 
-  constructor(readonly payload: {data: Island}) {
+  constructor(readonly payload: { data: Island; }) {
 
   }
 }
@@ -33,7 +29,7 @@ export class SetIsland implements Action {
 export class SaveIsland implements Action {
   readonly type = IslandActionTypes.SaveIsland;
 
-  constructor(readonly payload: {data: Island}) {
+  constructor(readonly payload: { data: Island; }) {
 
   }
 }

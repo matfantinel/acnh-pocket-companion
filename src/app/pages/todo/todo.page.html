@@ -1,3 +1,32 @@
-<app-cool-header title="To-Do List" [color]="utils.getCssVarValue('--todo-bg-color')"></app-cool-header>
+<app-cool-header title="To-Do List" [color]="utils.getCssVarValue('--ion-color-todo')"></app-cool-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-list>    
+    <ion-item>
+      <ion-label>Do stuff</ion-label>
+      <ion-checkbox slot="start" color="todo"></ion-checkbox>
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Completed</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Do stuff</ion-label>
+      <ion-checkbox slot="start" color="todo"></ion-checkbox>
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

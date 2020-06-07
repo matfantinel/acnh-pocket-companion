@@ -15,7 +15,7 @@
             <app-feature-icon
               [label]="islandName$ | async"
               icon="island"
-              [color]="utils.getCssVarValue('--island-bg-color')"
+              [color]="utils.getCssVarValue('--ion-color-island')"
               (click)="goToPage($event, '#B3E2B4', '/island', 'island', 'My Island' )"
             ></app-feature-icon>
           </ion-col>
@@ -23,7 +23,7 @@
             <app-feature-icon
               label="Some Feature"
               icon="passport"
-              [color]="utils.getCssVarValue('--passport-bg-color')"
+              [color]="utils.getCssVarValue('--ion-color-passport')"
             ></app-feature-icon>
           </ion-col>
         </ion-row>
@@ -32,7 +32,7 @@
             <app-feature-icon
               label="To-Do"
               icon="todo"
-              [color]="utils.getCssVarValue('--todo-bg-color')"
+              [color]="utils.getCssVarValue('--ion-color-todo')"
               (click)="goToPage($event, '#FFC9D3', '/todo', 'todo', 'To-Do')"
             ></app-feature-icon>
           </ion-col>
@@ -40,7 +40,7 @@
             <app-feature-icon
               label="Daily Chores"
               icon="chores"
-              [color]="utils.getCssVarValue('--chores-bg-color')"
+              [color]="utils.getCssVarValue('--ion-color-chores')"
               (click)="goToPage($event, '#FECFAC', '/chores', 'chores', 'Daily Chores')"
             ></app-feature-icon>
           </ion-col>

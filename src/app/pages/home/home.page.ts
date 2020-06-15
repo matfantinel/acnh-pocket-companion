@@ -38,7 +38,7 @@ export class HomePage implements OnInit {
   }
 
   goToPage(event: any, color: string, route: string, icon: string, label: string) {
-    let transitionEffectPixel = document.getElementById('transition-effect');
+    const transitionEffectPixel = document.getElementById('transition-effect');
 
     transitionEffectPixel.style.height = '1px';
     transitionEffectPixel.style.width = '1px';
@@ -49,7 +49,7 @@ export class HomePage implements OnInit {
     transitionEffectPixel.style.display = 'block';
     transitionEffectPixel.style.backgroundColor = color;
 
-    let transitionIcon = (document.getElementById('transition-icon') as HTMLImageElement);
+    const transitionIcon = (document.getElementById('transition-icon') as HTMLImageElement);
     transitionIcon.src = `assets/icons/${icon}.png`;
     transitionIcon.style.display = 'block';
     transitionIcon.style.height = '1px';
@@ -57,7 +57,7 @@ export class HomePage implements OnInit {
     transitionIcon.style.top = `${event.clientY}px`;
     transitionIcon.style.left = `${event.clientX}px`;
 
-    let transitionLabel = document.getElementById('transition-label');
+    const transitionLabel = document.getElementById('transition-label');
 
     transitionLabel.textContent = label;
     transitionLabel.style.display = 'block';

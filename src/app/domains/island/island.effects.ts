@@ -14,12 +14,12 @@ export class IslandEffects {
   loadIslandFromDb$ = createEffect(() => 
     this.actions$.pipe(
       ofType<LoadIslandFromDb>(IslandActionTypes.LoadIslandFromDb),
-      mergeMap((action) => from(this.db.getIsland())
-      .pipe(
-        map(island => 
-          new SetIsland({data: island})
-        )
-      ))
+      mergeMap(() => from(this.db.getIsland())
+        .pipe(
+          map(island => 
+            new SetIsland({data: island})
+          )
+        ))
     )
   );
 

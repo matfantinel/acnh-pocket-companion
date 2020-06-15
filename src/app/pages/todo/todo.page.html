@@ -2,10 +2,10 @@
 
 <ion-content>
   <ion-list>    
-    <ion-item>
-      <ion-label>Do stuff</ion-label>
-      <ion-checkbox slot="start" color="todo"></ion-checkbox>
-      <ion-button fill="clear" color="dark">
+    <ion-item *ngFor="let item of notDoneTodoItems$ | async">
+      <ion-label>{{ item.text }}</ion-label>
+      <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
+      <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
     </ion-item>
@@ -15,17 +15,17 @@
     <ion-list-header>
       <ion-label>Completed</ion-label>
     </ion-list-header>
-    <ion-item>
-      <ion-label>Do stuff</ion-label>
-      <ion-checkbox slot="start" color="todo"></ion-checkbox>
-      <ion-button fill="clear" color="dark">
+    <ion-item *ngFor="let item of doneTodoItems$ | async">
+      <ion-label>{{ item.text }}</ion-label>
+      <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
+      <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="primary">
+    <ion-fab-button color="primary" (click)="addTodoItem()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

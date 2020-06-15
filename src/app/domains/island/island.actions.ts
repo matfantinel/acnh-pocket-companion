@@ -2,9 +2,9 @@ import { Action } from '@ngrx/store';
 import { Island } from './island.model';
 
 export enum IslandActionTypes {
-  LoadIslandFromDb = '[App] Load Island from DB',
-  SetIsland = '[App] Set Island',
-  SaveIsland = '[App] Save Island'
+  LoadIslandFromDb = '[Island] Load Island from DB',
+  SetIsland = '[Island] Set Island',
+  SaveIsland = '[Island] Save Island'
 }
 
 export class IslandAction implements Action {
@@ -34,4 +34,4 @@ export class SaveIsland implements Action {
   }
 }
 
-export type ActionsUnion = LoadIslandFromDb | SetIsland;
+export type ActionsUnion = LoadIslandFromDb | SetIsland | SaveIsland;

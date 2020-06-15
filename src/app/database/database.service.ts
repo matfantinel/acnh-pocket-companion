@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Island } from '../domains/island/island.model';
 import Dexie, { PromiseExtended } from 'dexie';
+import { TodoItem } from '../domains/todo/todo.model';
 
 
 @Injectable()
@@ -52,6 +53,37 @@ export class DatabaseService extends Dexie {
           this.getIsland().then(res => {
             resolve(res);
           })
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
+  }
+
+  public getTodoItems(): Promise<TodoItem[] | undefined> {
+    return this.table('todos').toArray();
+  }
+
+  public upsertTodoItem(item: TodoItem): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.table('todos').put(item)
+        .then((id) => {
+          console.log(id);
+          resolve(id.toString());
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
+  }
+
+  public deleteTodoItem(item: TodoItem): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.table('todos').delete(item.id)
+        .then(() => {
+          resolve();
         })
         .catch(error => {
           console.error(error);

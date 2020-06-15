@@ -69,7 +69,6 @@ export class DatabaseService extends Dexie {
     return new Promise<string>((resolve, reject) => {
       this.table('todos').put(item)
         .then((id) => {
-          console.log(id);
           resolve(id.toString());
         })
         .catch(error => {

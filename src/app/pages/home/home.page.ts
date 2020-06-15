@@ -28,8 +28,7 @@ export class HomePage implements OnInit {
     this.playerName$ = this.store.pipe(select(selectResidentRepresentativeName));
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   ionViewDidEnter() {
     if (this.platform.is('capacitor')) {

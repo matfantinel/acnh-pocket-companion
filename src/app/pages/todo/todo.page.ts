@@ -19,8 +19,8 @@ const { StatusBar } = Plugins;
 })
 export class TodoPage implements OnInit {
 
-  doneTodoItems$: Observable<TodoItem[]>;
-  notDoneTodoItems$: Observable<TodoItem[]>;
+  doneTodoItems: TodoItem[];
+  notDoneTodoItems: TodoItem[];
 
   saveTimers: any[] = [];
 
@@ -29,14 +29,37 @@ export class TodoPage implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadTodoItems());
-    this.doneTodoItems$ = this.store.pipe(select(selectDoneTodoItems));
-    this.notDoneTodoItems$ = this.store.pipe(select(selectNotDoneTodoItems));
+    this.loadTodoItems();
   }
 
   ionViewDidEnter() {
     if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#FFC9D3' });
     }
+  }
+
+  loadTodoItems() {
+    const notDone$ = this.store.select(selectNotDoneTodoItems).subscribe(
+      result => {
+        if (result) {
+          this.notDoneTodoItems = result;
+          notDone$.unsubscribe();
+        } else {
+          this.notDoneTodoItems = [];
+        }
+      }
+    );
+
+    const done$ = this.store.select(selectDoneTodoItems).subscribe(
+      result => {
+        if (result) {
+          this.doneTodoItems = result;
+          done$.unsubscribe();
+        } else {
+          this.doneTodoItems = [];
+        }
+      }
+    );
   }
 
   toggleDone(item: TodoItem) {

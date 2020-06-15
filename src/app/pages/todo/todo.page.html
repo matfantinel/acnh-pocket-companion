@@ -2,8 +2,8 @@
 
 <ion-content>
   <ion-list>    
-    <ion-item *ngFor="let item of notDoneTodoItems$ | async">
-      <ion-label>{{ item.text }}</ion-label>
+    <ion-item *ngFor="let item of notDoneTodoItems">
+      <ion-input [(ngModel)]="item.text" (change)="saveTodoItem(item)"></ion-input>
       <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
       <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
@@ -15,7 +15,7 @@
     <ion-list-header>
       <ion-label>Completed</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let item of doneTodoItems$ | async">
+    <ion-item *ngFor="let item of doneTodoItems">
       <ion-label>{{ item.text }}</ion-label>
       <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
       <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">

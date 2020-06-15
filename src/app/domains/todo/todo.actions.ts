@@ -14,6 +14,7 @@ export class TodoAction implements Action {
   type: string;
   payload: {
     data: TodoItem[];
+    singleData: TodoItem;
   };
 }
 

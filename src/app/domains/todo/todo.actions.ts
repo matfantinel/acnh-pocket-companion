@@ -8,6 +8,7 @@ export enum TodoActionTypes {
   DeleteTodoItem = '[Todo] Delete Todo Item',
   MarkAsDone = '[Todo] Mark Todo Item as Done',
   MarkAsNotDone = '[Todo] Mark Todo Item as Not Done',
+  SetUpsertedTodoItem = '[Todo] Set Last Upserted Todo Item to memory',
 }
 
 export class TodoAction implements Action {
@@ -52,4 +53,10 @@ export class MarkAsNotDone implements Action {
   constructor(readonly payload: { data: TodoItem; }) {}
 }
 
-export type ActionsUnion = LoadTodoItems | UpsertTodoItem | DeleteTodoItem | MarkAsDone | MarkAsNotDone;
+export class SetUpsertedTodoItem implements Action {
+  readonly type = TodoActionTypes.SetUpsertedTodoItem;
+
+  constructor(readonly payload: { singleData: TodoItem; }) {}
+}
+
+export type ActionsUnion = LoadTodoItems | UpsertTodoItem | DeleteTodoItem | MarkAsDone | MarkAsNotDone | SetUpsertedTodoItem;

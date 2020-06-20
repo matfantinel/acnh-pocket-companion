@@ -8,7 +8,7 @@ import { AppState } from 'src/app/app.state';
 import { Store, select } from '@ngrx/store';
 import { LoadTodoItems, UpsertTodoItem, DeleteTodoItem } from 'src/app/domains/todo/todo.actions';
 import { TodoItem } from 'src/app/domains/todo/todo.model';
-import { selectDoneTodoItems, selectNotDoneTodoItems } from 'src/app/domains/todo/todo.reducer';
+import { selectDoneTodoItems, selectNotDoneTodoItems, selectLastUpsertedItem } from 'src/app/domains/todo/todo.reducer';
 import { Observable, Subscription } from 'rxjs';
 const { StatusBar } = Plugins;
 
@@ -24,13 +24,14 @@ export class TodoPage implements OnInit {
 
   done$: Subscription;
   notDone$: Subscription;
+  lastUpserted$: Subscription;
 
   constructor(public utils: Utils, private platform: Platform, private store: Store<AppState>) {
   }
 
   ngOnInit() {
     this.store.dispatch(new LoadTodoItems());
-    this.loadTodoItems();
+    this.loadTodoItems();    
   }
 
   ionViewDidEnter() {
@@ -65,6 +66,30 @@ export class TodoPage implements OnInit {
         }
       }
     );
+
+    // This observable checks for any upserts to items, allowing the page to refresh data without
+    // having to re-render all list items
+    this.lastUpserted$ = this.store.select(selectLastUpsertedItem).subscribe(
+      result => {
+        if (result) {
+          if (result.done) {
+            const existingIndex = this.doneTodoItems.indexOf(this.doneTodoItems.find(q => q.id === result.id || q.text === result.text));
+            if (existingIndex >= 0) {
+              this.doneTodoItems[existingIndex] = result;
+            } else {
+              this.doneTodoItems.push(result);
+            }
+          } else {
+            const existingIndex = this.notDoneTodoItems.indexOf(this.notDoneTodoItems.find(q => q.id === result.id || q.text === result.text));
+            if (existingIndex < 0) {
+              this.notDoneTodoItems.push(result);
+            } else if (!this.notDoneTodoItems[existingIndex].id) {
+              this.notDoneTodoItems[existingIndex].id = result.id;
+            }
+          }
+        }
+      }
+    );
   }
 
   toggleDone(item: TodoItem) {
@@ -75,32 +100,36 @@ export class TodoPage implements OnInit {
     }, 500);
   }
 
-  saveTodoItem(newItem: TodoItem, doneToggled?: boolean, reloadAfterSave?: boolean) {
+  saveTodoItem(newItem: TodoItem, doneToggled?: boolean) {
+    if (!newItem.text) {
+      return;
+    }
+    
     this.store.dispatch(new UpsertTodoItem({ data: { ...newItem } }));
 
     if (doneToggled) {
       if (newItem.done) {
-        this.doneTodoItems.push(newItem);
         this.notDoneTodoItems.splice(this.notDoneTodoItems.indexOf(newItem), 1);
       } else {
-        this.notDoneTodoItems.push(newItem);
         this.doneTodoItems.splice(this.doneTodoItems.indexOf(newItem), 1);
       }
-    }
-
-    if (reloadAfterSave) {
-      setTimeout(() => {
-        this.loadTodoItems();
-      }, 100);  
-    }
+    } 
   }
 
   deleteTodoItem(item: TodoItem) {
-    this.store.dispatch(new DeleteTodoItem({ data: item }));
-
-    setTimeout(() => {
-      this.loadTodoItems();
-    }, 100);
+    if (item.id) {
+      this.store.dispatch(new DeleteTodoItem({ data: item }));
+      
+      setTimeout(() => {
+        this.loadTodoItems();
+      }, 100);
+    } else {
+      if (item.done) {
+        this.doneTodoItems.splice(this.doneTodoItems.indexOf(item), 1);
+      } else {
+        this.notDoneTodoItems.splice(this.notDoneTodoItems.indexOf(item), 1);
+      }
+    }
   }
 
   addTodoItem() {

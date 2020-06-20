@@ -3,9 +3,9 @@
 <ion-content>
   <ion-list>    
     <ion-item *ngFor="let item of notDoneTodoItems;let i = index" [id]="'notDoneItem-' + i">
-      <ion-input [(ngModel)]="item.text" (change)="saveTodoItem(item, false, false)" (keyup.enter)="addTodoItem()"></ion-input>
+      <ion-input [(ngModel)]="item.text" (change)="saveTodoItem(item)" (keyup.enter)="addTodoItem()"></ion-input>
       <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
-      <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)" *ngIf="item.id">
+      <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
     </ion-item>

@@ -65,11 +65,14 @@ export class DatabaseService extends Dexie {
     return this.table('todos').toArray();
   }
 
-  public upsertTodoItem(item: TodoItem): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
+  public upsertTodoItem(item: TodoItem): Promise<TodoItem> {
+    return new Promise<TodoItem>((resolve, reject) => {
       this.table('todos').put(item)
-        .then((id) => {
-          resolve(id.toString());
+        .then(id => {
+          this.table('todos').get(id)
+            .then(result => {
+              resolve(result);
+            })
         })
         .catch(error => {
           console.error(error);

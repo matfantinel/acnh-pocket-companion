@@ -22,8 +22,6 @@ export class TodoPage implements OnInit {
   doneTodoItems: TodoItem[];
   notDoneTodoItems: TodoItem[];
 
-  saveTimers: any[] = [];
-
   done$: Subscription;
   notDone$: Subscription;
 
@@ -46,7 +44,9 @@ export class TodoPage implements OnInit {
       result => {
         if (result) {
           this.notDoneTodoItems = result;
-          this.notDone$.unsubscribe();
+          if (this.notDone$) {
+            this.notDone$.unsubscribe();
+          }
         } else {
           this.notDoneTodoItems = [];
         }
@@ -57,7 +57,9 @@ export class TodoPage implements OnInit {
       result => {
         if (result) {
           this.doneTodoItems = result;
-          this.done$.unsubscribe();
+          if (this.done$) {
+            this.done$.unsubscribe();
+          }
         } else {
           this.doneTodoItems = [];
         }
@@ -68,14 +70,9 @@ export class TodoPage implements OnInit {
   toggleDone(item: TodoItem) {
     item.done = !item.done;
 
-    const timer = setTimeout(() => {
-      if (this.saveTimers.filter(q => q.id === item.id).length === 1) {
-        this.saveTodoItem(item, true);
-      }
-      this.saveTimers.splice(this.saveTimers.indexOf(timer), 1);
+    setTimeout(() => {
+      this.saveTodoItem(item, true);
     }, 500);
-
-    this.saveTimers.push({ id: item.id, timer });
   }
 
   saveTodoItem(newItem: TodoItem, doneToggled?: boolean, reloadAfterSave?: boolean) {

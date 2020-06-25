@@ -87,6 +87,7 @@ export class TodoPage implements OnInit {
               this.notDoneTodoItems[existingIndex].id = result.id;
             }
           }
+          this.sortList();
         }
       }
     );
@@ -114,6 +115,8 @@ export class TodoPage implements OnInit {
         this.doneTodoItems.splice(this.doneTodoItems.indexOf(newItem), 1);
       }
     }
+
+    this.sortList();
   }
 
   deleteTodoItem(item: TodoItem) {
@@ -158,11 +161,16 @@ export class TodoPage implements OnInit {
       incr ? this.notDoneTodoItems[i].order = i-1 : this.notDoneTodoItems[i].order = i+1;
     }
 
-    this.notDoneTodoItems.sort((a, b) => a.order > b.order ? 1 : -1);
+    this.sortList();
 
+    // Save the changed items on DB
     this.store.dispatch(new BulkUpsertTodoItem({ data: Utils.deepSpreadArray(this.notDoneTodoItems) }));
 
     // Complete the event
     event.detail.complete();
+  }
+
+  sortList() {
+    this.notDoneTodoItems.sort((a, b) => a.order > b.order ? 1 : -1);
   }
 }

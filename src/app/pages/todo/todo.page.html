@@ -1,7 +1,6 @@
 <app-cool-header title="To-Do List" [color]="utils.getCssVarValue('--ion-color-todo')"></app-cool-header>
 
 <ion-content>
-  <!-- <ion-list> -->
   <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
     <ion-item *ngFor="let item of notDoneTodoItems;let i = index" [id]="'notDoneItem-' + i">
       <ion-reorder slot="start"></ion-reorder>
@@ -14,22 +13,30 @@
       <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
       <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
         <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>      
+      </ion-button>
     </ion-item>
   </ion-reorder-group>
-  <!-- </ion-list> -->
 
   <ion-list *ngIf="doneTodoItems && doneTodoItems.length > 0">
     <ion-list-header>
-      <ion-label>Completed</ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let item of doneTodoItems">
-      <ion-label>{{ item.text }}</ion-label>
-      <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
-      <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
+      <ion-label>Completed tasks</ion-label>
+      <ion-button fill="clear" color="dark" (click)="toggleCompletedDisplay()">
+        <ion-icon slot="icon-only" name="chevron-down" [ngClass]="{'rotated': showCompleted}"></ion-icon>
       </ion-button>
-    </ion-item>
+    </ion-list-header>
+    <!-- collapsedList is used to animate -->
+    <div id="collapsedList" [ngClass]="{'disappear': !showCompleted}">
+      <!-- itemsContainer is used to avoid rendering items when they're not displayed -->
+      <div *ngIf="renderCompleted">
+        <ion-item *ngFor="let item of doneTodoItems">
+          <ion-label>{{ item.text }}</ion-label>
+          <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
+          <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+    </div>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

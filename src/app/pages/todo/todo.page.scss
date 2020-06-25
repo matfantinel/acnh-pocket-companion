@@ -1,3 +1,19 @@
 ion-item {
   --highlight-color-valid: var(--ion-color-todo);
 }
+
+ion-icon {
+  transition: transform .5s ease-in-out;
+  &.rotated {
+    transform: rotate(-180deg);
+  }
+}
+
+#collapsedList {
+  transition: all .5s;
+
+  &.disappear {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+}

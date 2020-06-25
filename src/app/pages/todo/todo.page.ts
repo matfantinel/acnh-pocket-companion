@@ -26,6 +26,9 @@ export class TodoPage implements OnInit {
   notDone$: Subscription;
   lastUpserted$: Subscription;
 
+  showCompleted: boolean;
+  renderCompleted: boolean;
+
   constructor(public utils: Utils, private platform: Platform, private store: Store<AppState>) {
   }
 
@@ -172,5 +175,18 @@ export class TodoPage implements OnInit {
 
   sortList() {
     this.notDoneTodoItems.sort((a, b) => a.order > b.order ? 1 : -1);
+  }
+
+  toggleCompletedDisplay() {
+    if (!this.renderCompleted) {
+      this.renderCompleted = true;
+    } else {
+      setTimeout(() => {
+        this.renderCompleted = false;
+      }, 500);
+    }
+
+    this.showCompleted = !this.showCompleted;
+
   }
 }

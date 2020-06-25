@@ -31,6 +31,6 @@ export function todoReducer(state: TodoState = initialTodoState, action: TodoAct
 }
 
 export const selectAllTodoItems = (state: AppState) => Utils.deepSpreadArray(state.todos.data);
-export const selectNotDoneTodoItems = (state: AppState) => state.todos.data ? Utils.deepSpreadArray(state.todos.data).filter(q => !q.done) : null;
-export const selectDoneTodoItems = (state: AppState) => state.todos.data ? Utils.deepSpreadArray(state.todos.data).filter(q => q.done) : null;
+export const selectNotDoneTodoItems = (state: AppState) => state.todos.data ? Utils.deepSpreadArray(state.todos.data).filter(q => !q.done).sort((a, b) => a.order > b.order ? 1 : -1) : null;
+export const selectDoneTodoItems = (state: AppState) => state.todos.data ? Utils.deepSpreadArray(state.todos.data).filter(q => q.done).sort((a, b) => a.order > b.order ? 1 : -1) : null;
 export const selectLastUpsertedItem = (state: AppState) => state.todos.lastUpsertedItem ? { ...state.todos.lastUpsertedItem } : null;

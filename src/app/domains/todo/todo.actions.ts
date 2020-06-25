@@ -5,6 +5,7 @@ export enum TodoActionTypes {
   LoadTodoItems = '[Todo] Load Todo Items from DB',
   SetTodoItems = '[Todo] Set Todo Items to memory',
   UpsertTodoItem = '[Todo] Update/Insert Todo Item',
+  BulkUpsertTodoItem = '[Todo] Update/Insert Todo Items in Bulk',
   DeleteTodoItem = '[Todo] Delete Todo Item',
   MarkAsDone = '[Todo] Mark Todo Item as Done',
   MarkAsNotDone = '[Todo] Mark Todo Item as Not Done',
@@ -35,6 +36,12 @@ export class UpsertTodoItem implements Action {
   constructor(readonly payload: { data: TodoItem; }) {}
 }
 
+export class BulkUpsertTodoItem implements Action {
+  readonly type = TodoActionTypes.BulkUpsertTodoItem;
+
+  constructor(readonly payload: { data: TodoItem[]; }) {}
+}
+
 export class DeleteTodoItem implements Action {
   readonly type = TodoActionTypes.DeleteTodoItem;
 
@@ -59,4 +66,4 @@ export class SetUpsertedTodoItem implements Action {
   constructor(readonly payload: { singleData: TodoItem; }) {}
 }
 
-export type ActionsUnion = LoadTodoItems | UpsertTodoItem | DeleteTodoItem | MarkAsDone | MarkAsNotDone | SetUpsertedTodoItem;
+export type ActionsUnion = LoadTodoItems | UpsertTodoItem | BulkUpsertTodoItem | DeleteTodoItem | MarkAsDone | MarkAsNotDone | SetUpsertedTodoItem;

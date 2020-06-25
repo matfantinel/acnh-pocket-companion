@@ -3,4 +3,9 @@ export class TodoItem {
   text: string;
   done: boolean;
   subItems: TodoItem[];
+  order: number;
+
+  constructor (order: number) {
+    this.order = order;
+  }
 }

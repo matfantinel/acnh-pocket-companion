@@ -81,6 +81,19 @@ export class DatabaseService extends Dexie {
     })
   }
 
+  public bulkUpsertTodoItem(items: TodoItem[]): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.table('todos').bulkPut(items)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
+  }
+
   public deleteTodoItem(item: TodoItem): Promise<void> {
     return new Promise((resolve, reject) => {
       this.table('todos').delete(item.id)

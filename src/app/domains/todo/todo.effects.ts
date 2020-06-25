@@ -3,7 +3,7 @@ import { Actions, ofType, createEffect, act } from '@ngrx/effects';
 import { from } from 'rxjs';
 import { map, mergeMap, exhaustMap } from 'rxjs/operators';
 
-import { LoadTodoItems, TodoActionTypes, SetTodoItems, UpsertTodoItem, DeleteTodoItem, SetUpsertedTodoItem } from './todo.actions';
+import { LoadTodoItems, TodoActionTypes, SetTodoItems, UpsertTodoItem, DeleteTodoItem, SetUpsertedTodoItem, BulkUpsertTodoItem } from './todo.actions';
 import { DatabaseService } from '../../database/database.service';
 
 
@@ -29,6 +29,17 @@ export class TodoEffects {
       exhaustMap(action => 
         from(this.db.upsertTodoItem(action.payload.data)).pipe(
           map(result => new SetUpsertedTodoItem({singleData: result}))
+        )
+      )
+    )
+  );
+
+  bulkUpsertTodoItem$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<BulkUpsertTodoItem>(TodoActionTypes.BulkUpsertTodoItem),
+      exhaustMap(action => 
+        from(this.db.bulkUpsertTodoItem(action.payload.data)).pipe(
+          map(() => new LoadTodoItems())
         )
       )
     )

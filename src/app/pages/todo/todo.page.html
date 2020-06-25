@@ -1,17 +1,25 @@
 <app-cool-header title="To-Do List" [color]="utils.getCssVarValue('--ion-color-todo')"></app-cool-header>
 
 <ion-content>
-  <ion-list>    
+  <!-- <ion-list> -->
+  <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
     <ion-item *ngFor="let item of notDoneTodoItems;let i = index" [id]="'notDoneItem-' + i">
-      <ion-input autocapitalize="on" [(ngModel)]="item.text" (change)="saveTodoItem(item)" (keyup.enter)="addTodoItem()"></ion-input>
+      <ion-reorder slot="start"></ion-reorder>
+      <ion-input
+        autocapitalize="on"
+        [(ngModel)]="item.text"
+        (change)="saveTodoItem(item)"
+        (keyup.enter)="addTodoItem()"
+      ></ion-input>
       <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
       <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
-        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-      </ion-button>
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>      
     </ion-item>
-  </ion-list>
+  </ion-reorder-group>
+  <!-- </ion-list> -->
 
-  <ion-list>
+  <ion-list *ngIf="doneTodoItems && doneTodoItems.length > 0">
     <ion-list-header>
       <ion-label>Completed</ion-label>
     </ion-list-header>
@@ -19,7 +27,7 @@
       <ion-label>{{ item.text }}</ion-label>
       <ion-checkbox slot="start" color="todo" [checked]="item.done" (ionChange)="toggleDone(item)"></ion-checkbox>
       <ion-button fill="clear" color="dark" (click)="deleteTodoItem(item)">
-        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-list>

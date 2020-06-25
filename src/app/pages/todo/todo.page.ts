@@ -6,7 +6,7 @@ import {
 import { Platform } from '@ionic/angular';
 import { AppState } from 'src/app/app.state';
 import { Store, select } from '@ngrx/store';
-import { LoadTodoItems, UpsertTodoItem, DeleteTodoItem } from 'src/app/domains/todo/todo.actions';
+import { LoadTodoItems, UpsertTodoItem, DeleteTodoItem, BulkUpsertTodoItem } from 'src/app/domains/todo/todo.actions';
 import { TodoItem } from 'src/app/domains/todo/todo.model';
 import { selectDoneTodoItems, selectNotDoneTodoItems, selectLastUpsertedItem } from 'src/app/domains/todo/todo.reducer';
 import { Observable, Subscription } from 'rxjs';
@@ -31,7 +31,7 @@ export class TodoPage implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadTodoItems());
-    this.loadTodoItems();    
+    this.loadTodoItems();
   }
 
   ionViewDidEnter() {
@@ -104,7 +104,7 @@ export class TodoPage implements OnInit {
     if (!newItem.text) {
       return;
     }
-    
+
     this.store.dispatch(new UpsertTodoItem({ data: { ...newItem } }));
 
     if (doneToggled) {
@@ -113,13 +113,13 @@ export class TodoPage implements OnInit {
       } else {
         this.doneTodoItems.splice(this.doneTodoItems.indexOf(newItem), 1);
       }
-    } 
+    }
   }
 
   deleteTodoItem(item: TodoItem) {
     if (item.id) {
       this.store.dispatch(new DeleteTodoItem({ data: item }));
-      
+
       setTimeout(() => {
         this.loadTodoItems();
       }, 100);
@@ -133,7 +133,7 @@ export class TodoPage implements OnInit {
   }
 
   addTodoItem() {
-    this.notDoneTodoItems.push(new TodoItem());
+    this.notDoneTodoItems.push(new TodoItem(this.notDoneTodoItems.length));
 
     setTimeout(() => {
       // Focus on the new input field
@@ -141,5 +141,28 @@ export class TodoPage implements OnInit {
         .getElementsByTagName('ion-input')[0]
         .getElementsByTagName('input')[0].focus();
     }, 100);
+  }
+
+  doReorder(event: any) {
+    // Get the item in the origin index, and set its order to the destination index
+    this.notDoneTodoItems[event.detail.from].order = event.detail.to;
+
+    // Now we need to get all the indexes between origin and destination
+    // And increment or decrement their order
+
+    const incr = event.detail.from < event.detail.to;
+    for (
+      let i = incr ? (event.detail.from + 1) : (event.detail.from - 1);
+      incr ? (i <= event.detail.to) : (i >= event.detail.to);
+      incr ? i++ : i--) {
+      incr ? this.notDoneTodoItems[i].order = i-1 : this.notDoneTodoItems[i].order = i+1;
+    }
+
+    this.notDoneTodoItems.sort((a, b) => a.order > b.order ? 1 : -1);
+
+    this.store.dispatch(new BulkUpsertTodoItem({ data: Utils.deepSpreadArray(this.notDoneTodoItems) }));
+
+    // Complete the event
+    event.detail.complete();
   }
 }

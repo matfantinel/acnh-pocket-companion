@@ -1,5 +1,9 @@
 ion-content {
   --background: url('/assets/images/polka-pattern.png');
+
+  .center-content {
+    max-width: 500px;
+  }
 }
 
 h1 {

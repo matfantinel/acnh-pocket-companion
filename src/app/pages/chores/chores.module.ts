@@ -8,6 +8,7 @@ import { ChoresPageRoutingModule } from './chores-routing.module';
 
 import { ChoresPage } from './chores.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { ChoreCheckboxComponent } from 'src/app/components/chore-checkbox/chore-checkbox.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { ComponentsModule } from 'src/app/components/components.module';
     ChoresPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [ChoresPage]
+  declarations: [ChoresPage, ChoreCheckboxComponent]
 })
 export class ChoresPageModule {}

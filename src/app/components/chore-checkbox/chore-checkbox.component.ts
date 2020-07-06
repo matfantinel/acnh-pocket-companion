@@ -10,6 +10,8 @@ export class ChoreCheckboxComponent implements OnInit {
   @Input() label: string;
   @Input() icon: string;
 
+  @Input() state: boolean;
+
   public imageSrc: string;
 
   constructor() { }

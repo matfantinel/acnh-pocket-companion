@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Store } from '@ngrx/store';
 import { LoadIslandFromDb } from './domains/island/island.actions';
 import { AppState } from './app.state';
 import {
   Plugins,
   StatusBarStyle,
+  SplashScreen
 } from '@capacitor/core';
 import { DatabaseService } from './database/database.service';
 
@@ -21,7 +21,6 @@ const { StatusBar } = Plugins;
 export class AppComponent {
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
     private store: Store<AppState>,
     private dbService: DatabaseService
   ) {
@@ -36,9 +35,8 @@ export class AppComponent {
 
   waitForDbReady() {
     if (this.dbService.isOpen()) {
-      this.splashScreen.hide();
-
       if (this.platform.is('capacitor')) {
+        SplashScreen.hide();
         StatusBar.setStyle({
           style: StatusBarStyle.Light
         });

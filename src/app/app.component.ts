@@ -42,6 +42,7 @@ export class AppComponent {
         });
       }
       this.store.dispatch(new LoadIslandFromDb());
+      this.dbService.clearOldChores();
     } else {
       setTimeout(() => {
         this.waitForDbReady();

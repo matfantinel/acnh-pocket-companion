@@ -73,6 +73,7 @@ export class HomePage implements OnInit {
     transitionLabel.style.opacity = '0';
 
     //#endregion
+    
     //#region Part 1 - Expand the pixel and "move" the icon from the click point to the center of the screen
     setTimeout(() => {
       transitionEffectPixel.style.transition = `all ${animationLength}ms ease-in-out`;

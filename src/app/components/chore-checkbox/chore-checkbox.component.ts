@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-chore-checkbox',
@@ -11,6 +11,7 @@ export class ChoreCheckboxComponent implements OnInit {
   @Input() icon: string;
 
   @Input() state: boolean;
+  @Output() stateChange = new EventEmitter();
 
   public imageSrc: string;
 
@@ -18,6 +19,11 @@ export class ChoreCheckboxComponent implements OnInit {
 
   ngOnInit() {
     this.imageSrc =  `assets/icons/${this.icon}.png`;
+  }
+
+  toggleState() {
+    this.state = !this.state;
+    this.stateChange.emit(this.state);
   }
 
 }

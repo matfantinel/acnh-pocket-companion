@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Utils } from 'src/utils';
+import { Platform } from '@ionic/angular';
+import {
+  Plugins
+} from '@capacitor/core';
+const { StatusBar } = Plugins;
 
 @Component({
   selector: 'app-about',
@@ -8,9 +13,15 @@ import { Utils } from 'src/utils';
 })
 export class AboutPage implements OnInit {
 
-  constructor(public utils: Utils) { }
+  constructor(public utils: Utils, private platform: Platform) { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    if (this.platform.is('capacitor')) {
+      StatusBar.setBackgroundColor({ color: '#14c5b5' });
+    }
   }
 
 }

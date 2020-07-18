@@ -1,21 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>about</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-cool-header title="About this app" [color]="utils.getCssVarValue('--ion-color-primary')"></app-cool-header>
 
 <ion-content>
-  <div class="center-content">
-    <ul>
-      <li>
-        Icons made by
-        <a href="https://www.flaticon.com/authors/photo3idea-studio" title="photo3idea_studio">photo3idea_studio</a>
-        from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-      </li>
-      <li>
-        Icons made by <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a> from
-        <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-      </li>
-    </ul>
+  <div class="spread-content">
+    <ion-list>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          App Icon is made by the talented <a href="https://en.pedroverri.art/">Pedro Verri</a>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          In-App Icons made by
+          <a href="https://www.flaticon.com/authors/photo3idea-studio" title="photo3idea_studio">photo3idea_studio</a>
+          and <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a> from
+          <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          Chore icons are made by Nintendo™
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          This app is unofficial and not affiliated with Nintendo™ in any way.
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <div class="credits-centered">
+      <p>
+        This app is Free Software and distributed under the
+        <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-V3</a> license.
+      </p>
+      <h4>Developed by <a href="https://fantinel.dev">Matheus Fantinel</a></h4>
+    </div>
   </div>
 </ion-content>

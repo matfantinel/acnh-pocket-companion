@@ -1,3 +1,62 @@
 <app-cool-header title="Daily Chores" [color]="utils.getCssVarValue('--ion-color-chores')"></app-cool-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <div class="center-content">
+    <div class="chores-card">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <app-chore-checkbox
+              label="Villager DIY"
+              icon="diy"
+              [state]="villagerDiyChore.complete"
+              (stateChange)="upsertChore(villagerDiyChore)"
+            ></app-chore-checkbox>
+          </ion-col>
+          <ion-col>
+            <app-chore-checkbox
+              label="Message in a bottle"
+              icon="message-bottle"
+              [state]="messageInBottleChore.complete"
+              (stateChange)="upsertChore(messageInBottleChore)"
+            ></app-chore-checkbox>
+          </ion-col>
+          <ion-col>
+            <app-chore-checkbox
+              label="Hit Rocks"
+              icon="rocks"
+              [state]="hitRocksChore.complete"
+              (stateChange)="upsertChore(hitRocksChore)"
+            ></app-chore-checkbox>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <app-chore-checkbox
+              label="Money Tree"
+              icon="money-tree"
+              [state]="moneyTreeChore.complete"
+              (stateChange)="upsertChore(moneyTreeChore)"
+            ></app-chore-checkbox>
+          </ion-col>
+          <ion-col>
+            <app-chore-checkbox
+              label="Nook Miles+ Tasks"
+              icon="nook-miles"
+              [state]="nookMilesChore.complete"
+              (stateChange)="upsertChore(nookMilesChore)"
+            ></app-chore-checkbox>
+          </ion-col>
+          <ion-col>
+            <app-chore-checkbox
+              label="Fossils (3-5)"
+              icon="fossil"
+              [state]="fossilsChore.complete"
+              (stateChange)="upsertChore(fossilsChore)"
+            ></app-chore-checkbox>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Island } from '../domains/island/island.model';
 import Dexie, { PromiseExtended } from 'dexie';
 import { TodoItem } from '../domains/todo/todo.model';
+import { Chore } from '../domains/chores/chores.model';
 
 
 @Injectable()
@@ -10,7 +11,8 @@ export class DatabaseService extends Dexie {
   private _dbName = 'acnh_db'
   private _defaultSchema = {
     island: '++id',
-    todos: '++id'
+    todos: '++id',
+    chores: '++id'
   };
 
   constructor() {
@@ -22,7 +24,8 @@ export class DatabaseService extends Dexie {
     if (await Dexie.exists(this._dbName)) {
       await this.open();
       if (!this.tables.some(q => q.name === 'island') ||
-        !this.tables.some(q => q.name === 'todos')) {
+        !this.tables.some(q => q.name === 'todos') ||
+        !this.tables.some(q => q.name === 'chores')) {
         await this.resetDbSchema();
       }
     } else {
@@ -105,5 +108,27 @@ export class DatabaseService extends Dexie {
           reject(error);
         })
     })
+  }
+
+  public getChores(): Promise<Chore[] | undefined> {
+    return this.table('chores').toArray();
+  }
+
+  public upsertChore(item: Chore): Promise<Chore> {
+    return new Promise<Chore>((resolve, reject) => {
+      this.table('chores').put(item)
+        .then(id => {
+          resolve();
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
+  }
+
+  public clearOldChores(): void {
+    this.table('chores').filter(obj => (obj as Chore).completeData < new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()))
+      .delete();
   }
 }

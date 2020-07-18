@@ -17,6 +17,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { IslandEffects } from './domains/island/island.effects';
 import { reducers, metaReducers } from './app.state';
 import { TodoEffects } from './domains/todo/todo.effects';
+import { ChoresEffects } from './domains/chores/chores.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,7 @@ import { TodoEffects } from './domains/todo/todo.effects';
       strictStateImmutability: true,
       strictActionImmutability: true,
     }
-  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([IslandEffects, TodoEffects])],
+  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([IslandEffects, TodoEffects, ChoresEffects])],
   providers: [
     Utils,
     DatabaseService,

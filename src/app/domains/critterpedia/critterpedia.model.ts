@@ -24,6 +24,7 @@ export class CritterAvailability {
 export class Fossil {
   name: string;
   museumPhrase: string;
-  imageUri: string;
+  iconUri: string;
+  price: number;
   caught: boolean;
 }

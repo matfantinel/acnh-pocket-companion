@@ -1,7 +1,6 @@
 <app-cool-header title="Critterpedia" [color]="utils.getCssVarValue('--ion-color-critterpedia')"></app-cool-header>
 
 <ion-content>
-
   <ion-segment mode="ios" scrollable (ionChange)="segmentChanged($event)" [value]="activeSegment">
     <ion-segment-button value="bugs">
       <ion-label>Bugs</ion-label>
@@ -17,85 +16,79 @@
     </ion-segment-button>
   </ion-segment>
 
-
   <div class="segment" *ngIf="activeSegment === 'bugs'">
     <ion-list>
       <ion-item *ngFor="let bug of bugs" detail>
         <ion-avatar slot="start">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+          <img loading="lazy" [src]="bug.iconUri" />
         </ion-avatar>
         <ion-label>{{bug.name}}</ion-label>
-        <ion-chip class="caught-chip" slot="end">
-          Caught
+        <ion-chip
+          [ngClass]="{'caught-chip': bug.caught, 'not-caught-chip': !bug.caught}"
+          class="caught-chip"
+          slot="end"
+          (click)="toggleCaught('bugs', bug)"
+        >
+          {{ bug.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
       </ion-item>
     </ion-list>
-
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadBugs($event)">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
   </div>
 
   <div class="segment" *ngIf="activeSegment === 'fishes'">
     <ion-list>
       <ion-item *ngFor="let fish of fishes" detail>
         <ion-avatar slot="start">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+          <img loading="lazy" [src]="fish.iconUri" />
         </ion-avatar>
         <ion-label>{{fish.name}}</ion-label>
-        <ion-chip class="caught-chip" slot="end">
-          Caught
+        <ion-chip
+          [ngClass]="{'caught-chip': fish.caught, 'not-caught-chip': !fish.caught}"
+          class="caught-chip"
+          slot="end"
+          (click)="toggleCaught('fishes', fish)"
+        >
+          {{ fish.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
       </ion-item>
     </ion-list>
-
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadFishes($event)">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
   </div>
 
   <div class="segment" *ngIf="activeSegment === 'sea-creatures'">
     <ion-list>
       <ion-item *ngFor="let creature of seaCreatures" detail>
         <ion-avatar slot="start">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+          <img loading="lazy" [src]="creature.iconUri" />
         </ion-avatar>
         <ion-label>{{creature.name}}</ion-label>
-        <ion-chip class="not-caught-chip" slot="end">
-          Not caught
+        <ion-chip
+          [ngClass]="{'caught-chip': creature.caught, 'not-caught-chip': !creature.caught}"
+          class="caught-chip"
+          slot="end"
+          (click)="toggleCaught('seaCreatures', creature)"
+        >
+          {{ creature.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
       </ion-item>
     </ion-list>
-
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadSeaCreatures($event)">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
   </div>
 
   <div class="segment" *ngIf="activeSegment === 'fossils'">
     <ion-list>
       <ion-item *ngFor="let fossil of fossils" detail>
         <ion-avatar slot="start">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+          <img loading="lazy" [src]="fossil.iconUri" />
         </ion-avatar>
         <ion-label>{{fossil.name}}</ion-label>
-        <ion-chip class="caught-chip" slot="end">
-          Caught
+        <ion-chip
+          [ngClass]="{'caught-chip': fossil.caught, 'not-caught-chip': !fossil.caught}"
+          class="caught-chip"
+          slot="end"
+          (click)="toggleCaught('fossils', fossil)"
+        >
+          {{ fossil.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
       </ion-item>
     </ion-list>
-
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadFossils($event)">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
   </div>
-
 </ion-content>

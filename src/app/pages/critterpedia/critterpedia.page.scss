@@ -1,7 +1,14 @@
+ion-segment {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  --background: var(--ion-color-step-50);
+}
 .segment {
   animation-duration: 1s;
   animation-fill-mode: both;
   animation-name: fadeIn;
+  margin-top: 32px;
 }
 
 @keyframes fadeIn {
@@ -21,4 +28,10 @@
 .not-caught-chip {
   --background: var(--ion-color-step-50);
   --color: var(--ion-color-step-500);
+}
+
+ion-avatar {
+  img {
+    background: var(--ion-color-step-100);
+  }
 }

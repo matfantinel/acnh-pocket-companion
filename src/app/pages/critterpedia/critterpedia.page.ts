@@ -4,6 +4,9 @@ import { Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Utils } from 'src/utils';
+import { Bug, Fish, SeaCreature, Fossil } from 'src/app/domains/critterpedia/critterpedia.model';
+import { selectFishes, selectBugs, selectSeaCreatures, selectFossils } from 'src/app/domains/critterpedia/critterpedia.reducer';
+import { LoadFishes, LoadBugs, LoadSeaCreatures, LoadFossils, UpsertBug, UpsertFish, UpsertSeaCreature, UpsertFossil } from 'src/app/domains/critterpedia/critterpedia.actions';
 
 const { StatusBar } = Plugins;
 
@@ -16,19 +19,16 @@ export class CritterpediaPage implements OnInit {
 
   activeSegment = 'bugs';
 
-  bugs: any[] = [];
-  fishes: any[] = [];
-  seaCreatures: any[] = [];
-  fossils: any[] = [];
+  bugs: Bug[] = [];
+  fishes: Fish[] = [];
+  seaCreatures: SeaCreature[] = [];
+  fossils: Fossil[] = [];
 
   constructor(public utils: Utils, private platform: Platform, private store: Store<AppState>) {
   }
 
   ngOnInit() {
-    this.loadBugs();
-    this.loadFishes();
-    this.loadSeaCreatures();
-    this.loadFossils();
+    this.loadData();
   }
 
   ionViewDidEnter() {
@@ -37,87 +37,81 @@ export class CritterpediaPage implements OnInit {
     }
   }
 
+  loadData() {
+    this.store.dispatch(new LoadFishes());
+    this.store.dispatch(new LoadBugs());
+    this.store.dispatch(new LoadSeaCreatures());
+    this.store.dispatch(new LoadFossils());
+
+    const fishes$ = this.store.select(selectFishes).subscribe(
+      result => {
+        if (result) {
+          this.fishes = result;
+          if (fishes$) {
+            fishes$.unsubscribe();
+          }
+        } else {
+          this.fishes = [];
+        }
+      }
+    );
+    const bugs$ = this.store.select(selectBugs).subscribe(
+      result => {
+        if (result) {
+          this.bugs = result;
+          if (bugs$) {
+            bugs$.unsubscribe();
+          }
+        } else {
+          this.bugs = [];
+        }
+      }
+    );
+    const seaCreatures$ = this.store.select(selectSeaCreatures).subscribe(
+      result => {
+        if (result) {
+          this.seaCreatures = result;
+          if (seaCreatures$) {
+            seaCreatures$.unsubscribe();
+          }
+        } else {
+          this.seaCreatures = [];
+        }
+      }
+    );
+    const fossils$ = this.store.select(selectFossils).subscribe(
+      result => {
+        if (result) {
+          this.fossils = result;
+          if (fossils$) {
+            fossils$.unsubscribe();
+          }
+        } else {
+          this.fossils = [];
+        }
+      }
+    );
+  }
+
   segmentChanged(event: any) {
     this.activeSegment = event.detail.value;
   }
 
-  loadBugs(event?: any) {
-    setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
-        this.bugs.push({
-          name: `Bug ${i + 1}`
-        });
-      }
-
-      if (event && event.target) {
-        // When loading is finished:
-        event.target.complete();
-      }
-
-      if (this.bugs.length >= 120) {
-        // When reached the end of data:
-        event.target.disabled = true;
-      }
-    }, 500);
-  }
-
-  loadFishes(event?: any) {
-    setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
-        this.fishes.push({
-          name: `Fish ${i + 1}`
-        });
-      }
-
-      if (event && event.target) {
-        // When loading is finished:
-        event.target.complete();
-      }
-
-      if (this.fishes.length >= 120) {
-        // When reached the end of data:
-        event.target.disabled = true;
-      }
-    }, 500);
-  }
-
-  loadSeaCreatures(event?: any) {
-    setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
-        this.seaCreatures.push({
-          name: `Sea Creature ${i + 1}`
-        });
-      }
-
-      if (event && event.target) {
-        // When loading is finished:
-        event.target.complete();
-      }
-
-      if (this.seaCreatures.length >= 120) {
-        // When reached the end of data:
-        event.target.disabled = true;
-      }
-    }, 500);
-  }
-
-  loadFossils(event?: any) {
-    setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
-        this.fossils.push({
-          name: `Fossil ${i + 1}`
-        });
-      }
-
-      if (event && event.target) {
-        // When loading is finished:
-        event.target.complete();
-      }
-
-      if (this.fossils.length >= 120) {
-        // When reached the end of data:
-        event.target.disabled = true;
-      }
-    }, 500);
+  toggleCaught(type: string, item: any) {
+    item.caught = !item.caught;
+    switch (type) {
+      case 'fishes':
+        this.store.dispatch(new UpsertFish({ data: { ...item } }));
+        break;
+      case 'bugs':
+        this.store.dispatch(new UpsertBug({ data: { ...item } }));
+        break;
+      case 'seaCreatures':
+        this.store.dispatch(new UpsertSeaCreature({ data: { ...item } }));
+        break;
+      case 'fossils':
+        this.store.dispatch(new UpsertFossil({ data: { ...item } }));
+        break;
+    }
   }
 }

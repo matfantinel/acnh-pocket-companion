@@ -158,6 +158,22 @@ export class DatabaseService extends Dexie {
     })
   }
 
+  public bulkAddFishes(items: Fish[]): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.table('fishes').clear().then(() => {
+        this.table('fishes').bulkAdd(items)
+          .then(() => {
+            console.log('bulk added fishes');
+            resolve();
+          })
+          .catch(error => {
+            console.error(error);
+            reject(error);
+          })
+      })
+    })
+  }
+
   public getBugs(): Promise<Bug[] | undefined> {
     return this.table('bugs').toArray();
   }
@@ -172,6 +188,22 @@ export class DatabaseService extends Dexie {
           console.error(error);
           reject(error);
         })
+    })
+  }
+
+  public bulkAddBugs(items: Bug[]): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.table('bugs').clear().then(() => {
+        this.table('bugs').bulkAdd(items)
+          .then(() => {
+            console.log('bulk added bugs');
+            resolve();
+          })
+          .catch(error => {
+            console.error(error);
+            reject(error);
+          })
+      })
     })
   }
 
@@ -192,6 +224,22 @@ export class DatabaseService extends Dexie {
     })
   }
 
+  public bulkAddSeaCreatures(items: SeaCreature[]): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.table('seaCreatures').clear().then(() => {
+        this.table('seaCreatures').bulkAdd(items)
+          .then(() => {
+            console.log('bulk added seaCreatures');
+            resolve();
+          })
+          .catch(error => {
+            console.error(error);
+            reject(error);
+          })
+      })
+    })
+  }
+
   public getFossils(): Promise<Fossil[] | undefined> {
     return this.table('fossils').toArray();
   }
@@ -207,5 +255,52 @@ export class DatabaseService extends Dexie {
           reject(error);
         })
     })
+  }
+
+  public bulkAddFossils(items: Fossil[]): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.table('fossils').clear().then(() => {
+        this.table('fossils').bulkAdd(items)
+          .then(() => {
+            console.log('bulk added fossils');
+            resolve();
+          })
+          .catch(error => {
+            console.error(error);
+            reject(error);
+          })
+      })
+    })
+  }
+
+  public startParsingJsonData = () => {
+    if (window.localStorage.getItem('critterpediaImportFinished')) {
+      return;
+    }
+
+    const worker = new Worker('../app.worker', { type: 'module' });
+    worker.onmessage = (response: any) => {
+      if (response.data) {
+        switch (response.data.type) {
+          case 'fishes':
+            this.bulkAddFishes(response.data.data);
+            break;
+          case 'bugs':
+            this.bulkAddBugs(response.data.data);
+            break;
+          case 'seaCreatures':
+            this.bulkAddSeaCreatures(response.data.data);
+            break;
+          case 'fossils':
+            this.bulkAddFossils(response.data.data);
+            break;
+          case 'finish':
+            console.log('import finished')
+            window.localStorage.setItem('critterpediaImportFinished', 'true');
+            break;
+        }
+      }
+    };
+    worker.postMessage('start');
   }
 }

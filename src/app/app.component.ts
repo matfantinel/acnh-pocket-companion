@@ -43,6 +43,8 @@ export class AppComponent {
       }
       this.store.dispatch(new LoadIslandFromDb());
       this.dbService.clearOldChores();
+
+      this.dbService.startParsingJsonData();
     } else {
       setTimeout(() => {
         this.waitForDbReady();

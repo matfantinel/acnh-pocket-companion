@@ -2,4 +2,100 @@
 
 <ion-content>
 
+  <ion-segment mode="ios" scrollable (ionChange)="segmentChanged($event)" [value]="activeSegment">
+    <ion-segment-button value="bugs">
+      <ion-label>Bugs</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="fishes">
+      <ion-label>Fish</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sea-creatures">
+      <ion-label>Sea Creatures</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="fossils">
+      <ion-label>Fossils</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div class="segment" *ngIf="activeSegment === 'bugs'">
+    <ion-list>
+      <ion-item *ngFor="let bug of bugs" detail>
+        <ion-avatar slot="start">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+        </ion-avatar>
+        <ion-label>{{bug.name}}</ion-label>
+        <ion-chip class="caught-chip" slot="end">
+          Caught
+        </ion-chip>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadBugs($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+
+  <div class="segment" *ngIf="activeSegment === 'fishes'">
+    <ion-list>
+      <ion-item *ngFor="let fish of fishes" detail>
+        <ion-avatar slot="start">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+        </ion-avatar>
+        <ion-label>{{fish.name}}</ion-label>
+        <ion-chip class="caught-chip" slot="end">
+          Caught
+        </ion-chip>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadFishes($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+
+  <div class="segment" *ngIf="activeSegment === 'sea-creatures'">
+    <ion-list>
+      <ion-item *ngFor="let creature of seaCreatures" detail>
+        <ion-avatar slot="start">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+        </ion-avatar>
+        <ion-label>{{creature.name}}</ion-label>
+        <ion-chip class="not-caught-chip" slot="end">
+          Not caught
+        </ion-chip>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadSeaCreatures($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+
+  <div class="segment" *ngIf="activeSegment === 'fossils'">
+    <ion-list>
+      <ion-item *ngFor="let fossil of fossils" detail>
+        <ion-avatar slot="start">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+        </ion-avatar>
+        <ion-label>{{fossil.name}}</ion-label>
+        <ion-chip class="caught-chip" slot="end">
+          Caught
+        </ion-chip>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadFossils($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+
 </ion-content>

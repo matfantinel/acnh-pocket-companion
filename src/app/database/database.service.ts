@@ -3,6 +3,7 @@ import { Island } from '../domains/island/island.model';
 import Dexie, { PromiseExtended } from 'dexie';
 import { TodoItem } from '../domains/todo/todo.model';
 import { Chore } from '../domains/chores/chores.model';
+import { Fish, Bug, SeaCreature, Fossil } from '../domains/critterpedia/critterpedia.model';
 
 
 @Injectable()
@@ -12,7 +13,11 @@ export class DatabaseService extends Dexie {
   private _defaultSchema = {
     island: '++id',
     todos: '++id',
-    chores: '++id'
+    chores: '++id',
+    fishes: '++id',
+    bugs: '++id',
+    seaCreatures: '++id',
+    fossils: '++id',
   };
 
   constructor() {
@@ -25,7 +30,11 @@ export class DatabaseService extends Dexie {
       await this.open();
       if (!this.tables.some(q => q.name === 'island') ||
         !this.tables.some(q => q.name === 'todos') ||
-        !this.tables.some(q => q.name === 'chores')) {
+        !this.tables.some(q => q.name === 'chores') ||
+        !this.tables.some(q => q.name === 'fishes') ||
+        !this.tables.some(q => q.name === 'bugs') ||
+        !this.tables.some(q => q.name === 'seaCreatures') ||
+        !this.tables.some(q => q.name === 'fossils')) {
         await this.resetDbSchema();
       }
     } else {
@@ -117,7 +126,7 @@ export class DatabaseService extends Dexie {
   public upsertChore(item: Chore): Promise<Chore> {
     return new Promise<Chore>((resolve, reject) => {
       this.table('chores').put(item)
-        .then(id => {
+        .then(() => {
           resolve();
         })
         .catch(error => {
@@ -130,5 +139,73 @@ export class DatabaseService extends Dexie {
   public clearOldChores(): void {
     this.table('chores').filter(obj => (obj as Chore).completeData < new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()))
       .delete();
+  }
+
+  public getFishes(): Promise<Fish[] | undefined> {
+    return this.table('fishes').toArray();
+  }
+
+  public upsertFish(item: Fish): Promise<Fish> {
+    return new Promise<Fish>((resolve, reject) => {
+      this.table('fishes').put(item)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
+  }
+
+  public getBugs(): Promise<Bug[] | undefined> {
+    return this.table('bugs').toArray();
+  }
+
+  public upsertBug(item: Bug): Promise<Bug> {
+    return new Promise<Bug>((resolve, reject) => {
+      this.table('bugs').put(item)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
+  }
+
+  public getSeaCreatures(): Promise<SeaCreature[] | undefined> {
+    return this.table('seaCreatures').toArray();
+  }
+
+  public upsertSeaCreature(item: SeaCreature): Promise<SeaCreature> {
+    return new Promise<SeaCreature>((resolve, reject) => {
+      this.table('seaCreatures').put(item)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
+  }
+
+  public getFossils(): Promise<Fossil[] | undefined> {
+    return this.table('fossils').toArray();
+  }
+
+  public upsertFossil(item: Fossil): Promise<Fossil> {
+    return new Promise<Fossil>((resolve, reject) => {
+      this.table('fossils').put(item)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
   }
 }

@@ -17,10 +17,10 @@
   </ion-segment>
 
   <div class="segment" *ngIf="activeSegment === 'bugs'">
-    <ion-list>
-      <ion-item *ngFor="let bug of bugs" detail>
+    <ion-virtual-scroll [items]="bugs" approxItemHeight="56px">
+      <ion-item *virtualItem="let bug" detail>
         <ion-avatar slot="start">
-          <img loading="lazy" [src]="bug.iconUri" />
+          <ion-img [src]="bug.iconUri"></ion-img>
         </ion-avatar>
         <ion-label>{{bug.name}}</ion-label>
         <ion-chip
@@ -32,14 +32,14 @@
           {{ bug.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
       </ion-item>
-    </ion-list>
+    </ion-virtual-scroll>
   </div>
 
   <div class="segment" *ngIf="activeSegment === 'fishes'">
-    <ion-list>
-      <ion-item *ngFor="let fish of fishes" detail>
+    <ion-virtual-scroll [items]="fishes" approxItemHeight="56px">
+      <ion-item *virtualItem="let fish" detail>
         <ion-avatar slot="start">
-          <img loading="lazy" [src]="fish.iconUri" />
+          <ion-img [src]="fish.iconUri"></ion-img>
         </ion-avatar>
         <ion-label>{{fish.name}}</ion-label>
         <ion-chip
@@ -51,14 +51,14 @@
           {{ fish.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
       </ion-item>
-    </ion-list>
+    </ion-virtual-scroll>
   </div>
 
   <div class="segment" *ngIf="activeSegment === 'sea-creatures'">
-    <ion-list>
-      <ion-item *ngFor="let creature of seaCreatures" detail>
+    <ion-virtual-scroll [items]="seaCreatures" approxItemHeight="56px">
+      <ion-item *virtualItem="let creature" detail>
         <ion-avatar slot="start">
-          <img loading="lazy" [src]="creature.iconUri" />
+          <ion-img [src]="creature.iconUri"></ion-img>
         </ion-avatar>
         <ion-label>{{creature.name}}</ion-label>
         <ion-chip
@@ -70,14 +70,14 @@
           {{ creature.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
       </ion-item>
-    </ion-list>
+    </ion-virtual-scroll>
   </div>
 
   <div class="segment" *ngIf="activeSegment === 'fossils'">
-    <ion-list>
-      <ion-item *ngFor="let fossil of fossils" detail>
+    <ion-virtual-scroll [items]="fossils" approxItemHeight="56px">
+      <ion-item *virtualItem="let fossil" detail>
         <ion-avatar slot="start">
-          <img loading="lazy" [src]="fossil.iconUri" />
+          <ion-img [src]="fossil.iconUri"></ion-img>
         </ion-avatar>
         <ion-label>{{fossil.name}}</ion-label>
         <ion-chip
@@ -89,6 +89,6 @@
           {{ fossil.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
       </ion-item>
-    </ion-list>
+    </ion-virtual-scroll>
   </div>
 </ion-content>

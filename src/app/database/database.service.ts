@@ -273,8 +273,8 @@ export class DatabaseService extends Dexie {
     })
   }
 
-  public startParsingJsonData = () => {
-    if (window.localStorage.getItem('critterpediaImportFinished')) {
+  public startParsingJsonData = async () => {
+    if (await this.table('fossils').count() > 0) {
       return;
     }
 
@@ -293,10 +293,6 @@ export class DatabaseService extends Dexie {
             break;
           case 'fossils':
             this.bulkAddFossils(response.data.data);
-            break;
-          case 'finish':
-            console.log('import finished')
-            window.localStorage.setItem('critterpediaImportFinished', 'true');
             break;
         }
       }

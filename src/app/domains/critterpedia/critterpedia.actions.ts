@@ -17,6 +17,8 @@ export enum CritterpediaActionTypes {
   LoadFossils = '[Critterpedia] Load Fossils from DB',
   SetFossils = '[Critterpedia] Set Fossils to memory',
   UpsertFossil = '[Critterpedia] Upsert Fossil',
+
+  SetSelectedItem = '[Critterpedia] Set selected item to display details'
 }
 
 export class CritterpediaAction implements Action {
@@ -90,6 +92,12 @@ export class UpsertFossil implements Action {
   constructor(readonly payload: { data: Fossil; }) { }
 }
 
+export class SetSelectedItem implements Action {
+  readonly type = CritterpediaActionTypes.SetSelectedItem;
+
+  constructor(readonly payload: { data: any; }) { }
+}
+
 export type ActionsUnion = LoadFishes | SetFishes | UpsertFish | LoadBugs | SetBugs |
 UpsertBug | LoadSeaCreatures | SetSeaCreatures | UpsertSeaCreature |
-LoadFossils | SetFossils | UpsertFossil;
+LoadFossils | SetFossils | UpsertFossil | SetSelectedItem;

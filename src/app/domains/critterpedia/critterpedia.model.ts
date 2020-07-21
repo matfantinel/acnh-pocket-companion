@@ -5,6 +5,7 @@ export abstract class CritterBase {
   museumPhrase: string;
   iconUri: string;
   caught: boolean;
+  type: string;
 }
 export class Fish extends CritterBase {}
 export class Bug extends CritterBase {}
@@ -27,4 +28,5 @@ export class Fossil {
   iconUri: string;
   price: number;
   caught: boolean;
+  type: string;
 }

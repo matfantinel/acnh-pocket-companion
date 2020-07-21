@@ -23,7 +23,7 @@ import { CritterpediaEffects } from './domains/critterpedia/critterpedia.effects
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, StoreModule.forRoot(reducers, {
+  imports: [BrowserModule, IonicModule.forRoot({mode: 'md'}), AppRoutingModule, StoreModule.forRoot(reducers, {
     metaReducers,
     runtimeChecks: {
       strictStateImmutability: true,

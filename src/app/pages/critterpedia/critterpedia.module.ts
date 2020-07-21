@@ -8,6 +8,7 @@ import { CritterpediaPageRoutingModule } from './critterpedia-routing.module';
 
 import { CritterpediaPage } from './critterpedia.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { CritterDetailsPage } from './critter-details/critter-details.page';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CritterpediaPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [CritterpediaPage]
+  declarations: [CritterpediaPage, CritterDetailsPage]
 })
 export class CritterpediaPageModule {}

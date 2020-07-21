@@ -1,0 +1,167 @@
+.critter-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .item-icon {
+    height: 110px;
+    width: 110px;
+
+    ion-img {
+      background: var(--ion-color-step-100);
+    }
+  }
+
+  .chips-container {
+    .caught-chip {
+      --background: rgba(var(--ion-color-success-rgb), 0.3);
+      --color: var(--ion-color-success-contrast);
+    }
+    .not-caught-chip {
+      --background: var(--ion-color-step-50);
+      --color: var(--ion-color-step-500);
+    }
+    .price-chip {
+      --background: rgba(var(--ion-color-warning-rgb), 0.2);
+      --color: var(--ion-color-warning-contrast);
+    }
+  }
+
+  .blathers-info {
+    text-align: justify;
+    padding: 10px 0;
+    background: var(--ion-color-step-100);
+    margin: 10px;
+    border-radius: 25px;
+    position: relative;
+    max-width: 320px;
+
+    ion-avatar {
+      transition: all 0.7s ease-in-out;
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      ion-img {
+        width: 55px;
+        height: 55px;
+        background: var(--ion-color-critterpedia);
+        transition: all 1s ease-in-out;
+      }
+    }
+
+    .full-text {
+      font-size: 0.9rem;
+      margin: 0;
+      transition: all 1s ease-in-out;
+      max-height: 0;
+      overflow: hidden;
+    }
+
+    .preview-text {
+      margin: 8px 0 8px 65px;
+      opacity: 1;
+      text-align: left;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 0.9rem;
+
+      ion-icon {
+        margin-left: 10px;
+      }
+    }
+
+    &.open {
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .full-text {
+        max-height: 400px;
+      }
+
+      .preview-text {
+        opacity: 0;
+        margin: 0;
+      }
+
+      ion-avatar {
+        top: -17px;
+        left: 12px;
+        transform: rotate(-20deg);
+
+        ion-img {
+          width: 35px;
+          height: 35px;
+          background: var(--ion-color-island);
+        }
+      }
+    }
+  }
+
+  .availability {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px 20px 10px;
+
+    small {
+      text-align: center;
+      margin: 5px;
+    }
+
+    h4 {
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    .available-container {
+      display: flex;
+      flex-wrap: wrap;
+      background: var(--ion-color-step-100);
+      border-radius: 25px;
+
+      .available-item {
+        flex: 1 1 15%;
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 10px 0;
+
+        &.highlight {
+          background: var(--ion-color-success);
+        }
+
+        &.month {
+          flex: 1 1 15%;
+          &:first-child {
+            border-top-left-radius: 25px;
+          }
+          &:nth-child(6) {
+            border-top-right-radius: 25px;
+          }
+          &:nth-child(7) {
+            border-bottom-left-radius: 25px;
+          }
+          &:last-child {
+            border-bottom-right-radius: 25px;
+          }
+        }
+
+        &.hour {
+          flex: 1 1 7.5%;
+          &:first-child {
+            border-top-left-radius: 25px;
+          }
+          &:nth-child(13) {
+            border-top-right-radius: 25px;
+          }
+          &:nth-child(14) {
+            border-bottom-left-radius: 25px;
+          }
+          &:last-child {
+            border-bottom-right-radius: 25px;
+          }
+        }
+      }
+    }
+  }
+}

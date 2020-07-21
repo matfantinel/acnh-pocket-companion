@@ -8,8 +8,6 @@ addEventListener('message', async ({ data }) => {
       importCritterBase('bugs');
       importCritterBase('seaCreatures');
       importFossils();
-
-      postMessage({ type: 'finish' });
     } catch (error) {
       console.error(error);
     }
@@ -28,6 +26,7 @@ async function importFossils() {
     const result = [];
     for (const jsonObj of jsonArray) {
       result.push({
+        type: 'fossils',
         name: capitalize(jsonObj.name['name-USen']),
         museumPhrase: jsonObj['museum-phrase'],
         iconUri: jsonObj['image_uri'],
@@ -47,7 +46,7 @@ async function importCritterBase(filename: string) {
 
     const result = [];
     for (const jsonObj of jsonArray) {
-      result.push(parseCritterBase(jsonObj));
+      result.push(parseCritterBase(filename, jsonObj));
     }
     postMessage({ type: filename, data: result });
   } catch (error) {
@@ -55,8 +54,9 @@ async function importCritterBase(filename: string) {
   }
 }
 
-function parseCritterBase(jsonObj: any) {
+function parseCritterBase(type: string, jsonObj: any) {
   return {
+    type: type,
     name: capitalize(jsonObj.name['name-USen']),
     price: jsonObj.price,
     museumPhrase: jsonObj['museum-phrase'],

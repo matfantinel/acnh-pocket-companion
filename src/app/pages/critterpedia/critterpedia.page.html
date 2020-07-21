@@ -18,7 +18,7 @@
 
   <div class="segment" *ngIf="activeSegment === 'bugs'">
     <ion-virtual-scroll [items]="bugs" approxItemHeight="56px">
-      <ion-item *virtualItem="let bug" detail>
+      <ion-item *virtualItem="let bug" detail (click)="openDetails(bug)">
         <ion-avatar slot="start">
           <ion-img [src]="bug.iconUri"></ion-img>
         </ion-avatar>
@@ -27,7 +27,7 @@
           [ngClass]="{'caught-chip': bug.caught, 'not-caught-chip': !bug.caught}"
           class="caught-chip"
           slot="end"
-          (click)="toggleCaught('bugs', bug)"
+          (click)="toggleCaught($event, bug)"
         >
           {{ bug.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
@@ -37,7 +37,7 @@
 
   <div class="segment" *ngIf="activeSegment === 'fishes'">
     <ion-virtual-scroll [items]="fishes" approxItemHeight="56px">
-      <ion-item *virtualItem="let fish" detail>
+      <ion-item *virtualItem="let fish" detail (click)="openDetails(fish)">
         <ion-avatar slot="start">
           <ion-img [src]="fish.iconUri"></ion-img>
         </ion-avatar>
@@ -46,7 +46,7 @@
           [ngClass]="{'caught-chip': fish.caught, 'not-caught-chip': !fish.caught}"
           class="caught-chip"
           slot="end"
-          (click)="toggleCaught('fishes', fish)"
+          (click)="toggleCaught($event, fish)"
         >
           {{ fish.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
@@ -56,7 +56,7 @@
 
   <div class="segment" *ngIf="activeSegment === 'sea-creatures'">
     <ion-virtual-scroll [items]="seaCreatures" approxItemHeight="56px">
-      <ion-item *virtualItem="let creature" detail>
+      <ion-item *virtualItem="let creature" detail (click)="openDetails(creature)">
         <ion-avatar slot="start">
           <ion-img [src]="creature.iconUri"></ion-img>
         </ion-avatar>
@@ -65,7 +65,7 @@
           [ngClass]="{'caught-chip': creature.caught, 'not-caught-chip': !creature.caught}"
           class="caught-chip"
           slot="end"
-          (click)="toggleCaught('seaCreatures', creature)"
+          (click)="toggleCaught($event, creature)"
         >
           {{ creature.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>
@@ -75,7 +75,7 @@
 
   <div class="segment" *ngIf="activeSegment === 'fossils'">
     <ion-virtual-scroll [items]="fossils" approxItemHeight="56px">
-      <ion-item *virtualItem="let fossil" detail>
+      <ion-item *virtualItem="let fossil" detail (click)="openDetails(fossil)">
         <ion-avatar slot="start">
           <ion-img [src]="fossil.iconUri"></ion-img>
         </ion-avatar>
@@ -84,7 +84,7 @@
           [ngClass]="{'caught-chip': fossil.caught, 'not-caught-chip': !fossil.caught}"
           class="caught-chip"
           slot="end"
-          (click)="toggleCaught('fossils', fossil)"
+          (click)="toggleCaught($event, fossil)"
         >
           {{ fossil.caught ? 'Caught' : 'Not caught' }}
         </ion-chip>

@@ -6,7 +6,8 @@ import { AppState } from 'src/app/app.state';
 import { Utils } from 'src/utils';
 import { Bug, Fish, SeaCreature, Fossil } from 'src/app/domains/critterpedia/critterpedia.model';
 import { selectFishes, selectBugs, selectSeaCreatures, selectFossils } from 'src/app/domains/critterpedia/critterpedia.reducer';
-import { LoadFishes, LoadBugs, LoadSeaCreatures, LoadFossils, UpsertBug, UpsertFish, UpsertSeaCreature, UpsertFossil } from 'src/app/domains/critterpedia/critterpedia.actions';
+import { LoadFishes, LoadBugs, LoadSeaCreatures, LoadFossils, UpsertBug, UpsertFish, UpsertSeaCreature, UpsertFossil, SetSelectedItem } from 'src/app/domains/critterpedia/critterpedia.actions';
+import { Router } from '@angular/router';
 
 const { StatusBar } = Plugins;
 
@@ -24,14 +25,13 @@ export class CritterpediaPage implements OnInit {
   seaCreatures: SeaCreature[] = [];
   fossils: Fossil[] = [];
 
-  constructor(public utils: Utils, private platform: Platform, private store: Store<AppState>) {
+  constructor(public utils: Utils, private platform: Platform, private store: Store<AppState>, private router: Router) {
   }
 
-  ngOnInit() {
-    this.loadData();
-  }
+  ngOnInit() {}
 
   ionViewDidEnter() {
+    this.loadData();
     if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#B4D8E3' });
     }
@@ -48,7 +48,9 @@ export class CritterpediaPage implements OnInit {
         if (result) {
           this.fishes = result;
           if (fishes$) {
-            fishes$.unsubscribe();
+            setTimeout(() => {
+              fishes$.unsubscribe();
+            }, 100);
           }
         } else {
           this.fishes = [];
@@ -60,7 +62,9 @@ export class CritterpediaPage implements OnInit {
         if (result) {
           this.bugs = result;
           if (bugs$) {
-            bugs$.unsubscribe();
+            setTimeout(() => {
+              bugs$.unsubscribe();
+            }, 100);
           }
         } else {
           this.bugs = [];
@@ -72,7 +76,9 @@ export class CritterpediaPage implements OnInit {
         if (result) {
           this.seaCreatures = result;
           if (seaCreatures$) {
-            seaCreatures$.unsubscribe();
+            setTimeout(() => {
+              seaCreatures$.unsubscribe();
+            }, 100);
           }
         } else {
           this.seaCreatures = [];
@@ -84,7 +90,9 @@ export class CritterpediaPage implements OnInit {
         if (result) {
           this.fossils = result;
           if (fossils$) {
-            fossils$.unsubscribe();
+            setTimeout(() => {
+              fossils$.unsubscribe();
+            }, 100);
           }
         } else {
           this.fossils = [];
@@ -97,9 +105,12 @@ export class CritterpediaPage implements OnInit {
     this.activeSegment = event.detail.value;
   }
 
-  toggleCaught(type: string, item: any) {
+  toggleCaught(event: any, item: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    
     item.caught = !item.caught;
-    switch (type) {
+    switch (item.type) {
       case 'fishes':
         this.store.dispatch(new UpsertFish({ data: { ...item } }));
         break;
@@ -113,5 +124,10 @@ export class CritterpediaPage implements OnInit {
         this.store.dispatch(new UpsertFossil({ data: { ...item } }));
         break;
     }
+  }
+
+  openDetails(item: any) {
+    this.store.dispatch(new SetSelectedItem({ data: { ...item } }));
+    this.router.navigate(['critterpedia/details']);
   }
 }

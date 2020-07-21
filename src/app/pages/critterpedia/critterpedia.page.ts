@@ -28,7 +28,7 @@ export class CritterpediaPage implements OnInit {
   constructor(public utils: Utils, private platform: Platform, private store: Store<AppState>, private router: Router) {
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewDidEnter() {
     this.loadData();
@@ -47,11 +47,11 @@ export class CritterpediaPage implements OnInit {
       result => {
         if (result) {
           this.fishes = result;
-          if (fishes$) {
-            setTimeout(() => {
+          setTimeout(() => {
+            if (fishes$) {
               fishes$.unsubscribe();
-            }, 100);
-          }
+            }
+          }, 100);
         } else {
           this.fishes = [];
         }
@@ -61,11 +61,11 @@ export class CritterpediaPage implements OnInit {
       result => {
         if (result) {
           this.bugs = result;
-          if (bugs$) {
-            setTimeout(() => {
+          setTimeout(() => {
+            if (bugs$) {
               bugs$.unsubscribe();
-            }, 100);
-          }
+            }
+          }, 100);
         } else {
           this.bugs = [];
         }
@@ -75,11 +75,11 @@ export class CritterpediaPage implements OnInit {
       result => {
         if (result) {
           this.seaCreatures = result;
-          if (seaCreatures$) {
-            setTimeout(() => {
+          setTimeout(() => {
+            if (seaCreatures$) {
               seaCreatures$.unsubscribe();
-            }, 100);
-          }
+            }
+          }, 100);
         } else {
           this.seaCreatures = [];
         }
@@ -89,11 +89,11 @@ export class CritterpediaPage implements OnInit {
       result => {
         if (result) {
           this.fossils = result;
-          if (fossils$) {
-            setTimeout(() => {
+          setTimeout(() => {
+            if (fossils$) {
               fossils$.unsubscribe();
-            }, 100);
-          }
+            }
+          }, 100);
         } else {
           this.fossils = [];
         }
@@ -108,7 +108,7 @@ export class CritterpediaPage implements OnInit {
   toggleCaught(event: any, item: any) {
     event.preventDefault();
     event.stopPropagation();
-    
+
     item.caught = !item.caught;
     switch (item.type) {
       case 'fishes':

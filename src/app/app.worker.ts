@@ -14,8 +14,8 @@ addEventListener('message', async ({ data }) => {
   }
 });
 
-function capitalize(str: string) { 
-  return str.toLowerCase().replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase()); 
+function capitalize(str: string) {
+  return str.toLowerCase().replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
 }
 
 async function importFossils() {
@@ -25,11 +25,13 @@ async function importFossils() {
 
     const result = [];
     for (const jsonObj of jsonArray) {
+      const iconBase64 = await getImageBase64FromUrl(jsonObj['image_uri']);
       result.push({
         type: 'fossils',
         name: capitalize(jsonObj.name['name-USen']),
         museumPhrase: jsonObj['museum-phrase'],
         iconUri: jsonObj['image_uri'],
+        iconBase64: iconBase64,
         price: jsonObj.price
       });
     }
@@ -46,7 +48,7 @@ async function importCritterBase(filename: string) {
 
     const result = [];
     for (const jsonObj of jsonArray) {
-      result.push(parseCritterBase(filename, jsonObj));
+      result.push(await parseCritterBase(filename, jsonObj));
     }
     postMessage({ type: filename, data: result });
   } catch (error) {
@@ -54,13 +56,15 @@ async function importCritterBase(filename: string) {
   }
 }
 
-function parseCritterBase(type: string, jsonObj: any) {
+async function parseCritterBase(type: string, jsonObj: any) {
+  const iconBase64 = await getImageBase64FromUrl(jsonObj['icon_uri']);
   return {
     type: type,
     name: capitalize(jsonObj.name['name-USen']),
     price: jsonObj.price,
     museumPhrase: jsonObj['museum-phrase'],
     iconUri: jsonObj['icon_uri'],
+    iconBase64: iconBase64,
     availability: parseAvailability(jsonObj['availability'])
   }
 }
@@ -75,5 +79,22 @@ function parseAvailability(jsonObj: any) {
     monthsNorthernHemisphere: jsonObj['month-array-northern'],
     monthsSouthernHemisphere: jsonObj['month-array-southern'],
     hoursOfDay: jsonObj['time-array']
-  }  
+  }
+}
+
+async function getImageBase64FromUrl(url: string) {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return await convertBlobToBase64(blob);
+}
+
+function convertBlobToBase64(blob) {
+  return new Promise(function(resolve, reject) {
+    const reader = new FileReader;
+    reader.onerror = reject;
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+    reader.readAsDataURL(blob);
+  });
 }

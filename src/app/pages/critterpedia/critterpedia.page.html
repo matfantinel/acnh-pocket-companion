@@ -20,7 +20,7 @@
     <ion-virtual-scroll [items]="bugs" approxItemHeight="56px">
       <ion-item *virtualItem="let bug" detail (click)="openDetails(bug)">
         <ion-avatar slot="start">
-          <ion-img [src]="bug.iconUri"></ion-img>
+          <ion-img [src]="bug.iconBase64"></ion-img>
         </ion-avatar>
         <ion-label>{{bug.name}}</ion-label>
         <ion-chip
@@ -39,7 +39,7 @@
     <ion-virtual-scroll [items]="fishes" approxItemHeight="56px">
       <ion-item *virtualItem="let fish" detail (click)="openDetails(fish)">
         <ion-avatar slot="start">
-          <ion-img [src]="fish.iconUri"></ion-img>
+          <ion-img [src]="fish.iconBase64"></ion-img>
         </ion-avatar>
         <ion-label>{{fish.name}}</ion-label>
         <ion-chip
@@ -58,7 +58,7 @@
     <ion-virtual-scroll [items]="seaCreatures" approxItemHeight="56px">
       <ion-item *virtualItem="let creature" detail (click)="openDetails(creature)">
         <ion-avatar slot="start">
-          <ion-img [src]="creature.iconUri"></ion-img>
+          <ion-img [src]="creature.iconBase64"></ion-img>
         </ion-avatar>
         <ion-label>{{creature.name}}</ion-label>
         <ion-chip
@@ -77,7 +77,7 @@
     <ion-virtual-scroll [items]="fossils" approxItemHeight="56px">
       <ion-item *virtualItem="let fossil" detail (click)="openDetails(fossil)">
         <ion-avatar slot="start">
-          <ion-img [src]="fossil.iconUri"></ion-img>
+          <ion-img [src]="fossil.iconBase64"></ion-img>
         </ion-avatar>
         <ion-label>{{fossil.name}}</ion-label>
         <ion-chip

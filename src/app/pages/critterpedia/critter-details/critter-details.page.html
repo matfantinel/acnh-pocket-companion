@@ -6,7 +6,7 @@
 <ion-content>
   <div class="critter-details" *ngIf="item">
     <ion-avatar class="item-icon">
-      <ion-img [src]="item.iconUri"></ion-img>
+      <ion-img [src]="item.iconBase64"></ion-img>
     </ion-avatar>
     <h1>{{ item.name }}</h1>
     <div class="chips-container">

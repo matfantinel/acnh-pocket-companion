@@ -4,6 +4,7 @@ export abstract class CritterBase {
   price: number;
   museumPhrase: string;
   iconUri: string;
+  iconBase64: string;
   caught: boolean;
   type: string;
 }
@@ -26,6 +27,7 @@ export class Fossil {
   name: string;
   museumPhrase: string;
   iconUri: string;
+  iconBase64: string;
   price: number;
   caught: boolean;
   type: string;

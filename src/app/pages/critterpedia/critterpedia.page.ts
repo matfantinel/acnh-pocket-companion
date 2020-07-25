@@ -20,6 +20,10 @@ export class CritterpediaPage implements OnInit {
 
   activeSegment = 'bugs';
 
+  searchFilter: string;
+  isSearching: boolean;
+  searchResults: any[] = [];
+
   bugs: Bug[] = [];
   fishes: Fish[] = [];
   seaCreatures: SeaCreature[] = [];
@@ -129,5 +133,20 @@ export class CritterpediaPage implements OnInit {
   openDetails(item: any) {
     this.store.dispatch(new SetSelectedItem({ data: { ...item } }));
     this.router.navigate(['critterpedia/details']);
+  }
+
+  applySearchFilter() {
+    const filter = this.searchFilter.trim();
+    if (!filter) {
+      this.isSearching = false;
+    } else {
+      this.isSearching = true;
+      this.searchResults = [];
+
+      this.searchResults = this.searchResults.concat(this.bugs.filter(q => q.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0));
+      this.searchResults = this.searchResults.concat(this.fishes.filter(q => q.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0));
+      this.searchResults = this.searchResults.concat(this.seaCreatures.filter(q => q.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0));
+      this.searchResults = this.searchResults.concat(this.fossils.filter(q => q.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0));
+    }
   }
 }

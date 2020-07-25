@@ -4,11 +4,15 @@ ion-segment {
   z-index: 1;
   --background: var(--ion-color-step-50);
 }
+
+ion-searchbar {
+  margin-top: 32px;
+}
+
 .segment {
   animation-duration: 1s;
   animation-fill-mode: both;
   animation-name: fadeIn;
-  margin-top: 32px;
 }
 
 @keyframes fadeIn {

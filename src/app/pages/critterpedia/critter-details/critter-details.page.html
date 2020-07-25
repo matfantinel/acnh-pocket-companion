@@ -1,0 +1,77 @@
+<app-cool-header
+  [title]="item ? item.name : 'No critter selected'"
+  [color]="utils.getCssVarValue('--ion-color-critterpedia')"
+></app-cool-header>
+
+<ion-content>
+  <div class="critter-details" *ngIf="item">
+    <ion-avatar class="item-icon">
+      <ion-img [src]="item.iconBase64"></ion-img>
+    </ion-avatar>
+    <h1>{{ item.name }}</h1>
+    <div class="chips-container">
+      <ion-chip
+        [ngClass]="{'caught-chip': item.caught, 'not-caught-chip': !item.caught}"
+        class="caught-chip"
+        (click)="toggleCaught(item)"
+      >
+        {{ item.caught ? 'Caught' : 'Not caught' }}
+      </ion-chip>
+      <ion-chip class="price-chip">
+        {{ item.price }}
+      </ion-chip>
+    </div>
+    <div class="blathers-info" [ngClass]="{'open': blathersInfoOpen}">
+      <ion-avatar (click)="blathersInfoOpen = !blathersInfoOpen"><ion-img src="assets/icons/blathers.png"></ion-img></ion-avatar>
+      <p class="preview-text" (click)="blathersInfoOpen = !blathersInfoOpen">
+        What does Blathers say?<ion-icon name="chevron-down"></ion-icon>
+      </p>
+      <p class="full-text">{{ item.museumPhrase }}</p>
+    </div>
+    <div class="availability" *ngIf="item.type != 'fossils'">
+      <h4>Availability</h4>
+      <small>Months of the Year</small>
+      <div class="available-container months">
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(1)}">JAN</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(2)}">FEB</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(3)}">MAR</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(4)}">APR</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(5)}">MAY</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(6)}">JUN</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(7)}">JUL</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(8)}">AUG</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(9)}">SEP</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(10)}">OCT</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(11)}">NOV</div>
+        <div class="available-item month" [ngClass]="{'highlight': isAvailableOnMonth(12)}">DEC</div>
+      </div>
+      <small>Hours of the Day</small>
+      <div class="available-container hours">
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(0)}">0</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(1)}">1</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(2)}">2</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(3)}">3</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(4)}">4</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(5)}">5</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(6)}">6</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(7)}">7</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(8)}">8</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(9)}">9</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(10)}">10</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(11)}">11</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(12)}">12</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(13)}">13</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(14)}">14</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(15)}">15</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(16)}">16</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(17)}">17</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(18)}">18</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(19)}">19</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(20)}">20</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(21)}">21</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(22)}">22</div>
+        <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(23)}">23</div>
+      </div>
+    </div>
+  </div>
+</ion-content>

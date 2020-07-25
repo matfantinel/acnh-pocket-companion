@@ -60,8 +60,8 @@
 
   --ion-color-success: #b4e3b5;
   --ion-color-success-rgb: 180,227,181;
-  --ion-color-success-contrast: var(--ion-text-color);
-  --ion-color-success-contrast-rgb: var(--ion-text-color-rgb);
+  --ion-color-success-contrast: #637b63;
+  --ion-color-success-contrast-rgb: 99, 123, 99;
   --ion-color-success-shade: #9ec89f;
   --ion-color-success-tint: #bce6bc;
 
@@ -107,12 +107,12 @@
   --ion-color-island-shade: #9ec79e;
   --ion-color-island-tint: #bbe5bc;
 
-  --ion-color-passport: #B4D8E3;
-  --ion-color-passport-rgb: 180,216,227;
-  --ion-color-passport-contrast: var(--ion-text-color);
-  --ion-color-passport-contrast-rgb: var(--ion-text-color-rgb);
-  --ion-color-passport-shade: #9ebec8;
-  --ion-color-passport-tint: #bcdce6;
+  --ion-color-critterpedia: #B4D8E3;
+  --ion-color-critterpedia-rgb: 180,216,227;
+  --ion-color-critterpedia-contrast: var(--ion-text-color);
+  --ion-color-critterpedia-contrast-rgb: var(--ion-text-color-rgb);
+  --ion-color-critterpedia-shade: #9ebec8;
+  --ion-color-critterpedia-tint: #bcdce6;
 
   --ion-color-todo: #FFC9D3;
   --ion-color-todo-rgb: 255,201,211;
@@ -138,13 +138,13 @@
   --ion-color-tint: var(--ion-color-island-tint);
 }
 
-.ion-color-passport {
-  --ion-color-base: var(--ion-color-passport);
-  --ion-color-base-rgb: var(--ion-color-passport-rgb);
-  --ion-color-contrast: var(--ion-color-passport-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-passport-contrast-rgb);
-  --ion-color-shade: var(--ion-color-passport-shade);
-  --ion-color-tint: var(--ion-color-passport-tint);
+.ion-color-critterpedia {
+  --ion-color-base: var(--ion-color-critterpedia);
+  --ion-color-base-rgb: var(--ion-color-critterpedia-rgb);
+  --ion-color-contrast: var(--ion-color-critterpedia-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-critterpedia-contrast-rgb);
+  --ion-color-shade: var(--ion-color-critterpedia-shade);
+  --ion-color-tint: var(--ion-color-critterpedia-tint);
 }
 
 .ion-color-todo {

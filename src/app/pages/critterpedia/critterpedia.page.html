@@ -1,0 +1,117 @@
+<app-cool-header title="Critterpedia" [color]="utils.getCssVarValue('--ion-color-critterpedia')"></app-cool-header>
+
+<ion-content>
+  <ion-segment mode="ios" scrollable (ionChange)="segmentChanged($event)" [value]="activeSegment">
+    <ion-segment-button value="bugs">
+      <ion-label>Bugs</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="fishes">
+      <ion-label>Fish</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sea-creatures">
+      <ion-label>Sea Creatures</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="fossils">
+      <ion-label>Fossils</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-searchbar animated mode="ios" [(ngModel)]="searchFilter" (ionChange)="applySearchFilter()"></ion-searchbar>
+
+  <div class="segments" *ngIf="!isSearching">
+    <div class="segment" *ngIf="activeSegment === 'bugs'">
+      <ion-virtual-scroll [items]="bugs" approxItemHeight="56px">
+        <ion-item *virtualItem="let bug" detail (click)="openDetails(bug)">
+          <ion-avatar slot="start">
+            <ion-img [src]="bug.iconBase64"></ion-img>
+          </ion-avatar>
+          <ion-label>{{bug.name}}</ion-label>
+          <ion-chip
+            [ngClass]="{'caught-chip': bug.caught, 'not-caught-chip': !bug.caught}"
+            class="caught-chip"
+            slot="end"
+            (click)="toggleCaught($event, bug)"
+          >
+            {{ bug.caught ? 'Caught' : 'Not caught' }}
+          </ion-chip>
+        </ion-item>
+      </ion-virtual-scroll>
+    </div>
+
+    <div class="segment" *ngIf="activeSegment === 'fishes'">
+      <ion-virtual-scroll [items]="fishes" approxItemHeight="56px">
+        <ion-item *virtualItem="let fish" detail (click)="openDetails(fish)">
+          <ion-avatar slot="start">
+            <ion-img [src]="fish.iconBase64"></ion-img>
+          </ion-avatar>
+          <ion-label>{{fish.name}}</ion-label>
+          <ion-chip
+            [ngClass]="{'caught-chip': fish.caught, 'not-caught-chip': !fish.caught}"
+            class="caught-chip"
+            slot="end"
+            (click)="toggleCaught($event, fish)"
+          >
+            {{ fish.caught ? 'Caught' : 'Not caught' }}
+          </ion-chip>
+        </ion-item>
+      </ion-virtual-scroll>
+    </div>
+
+    <div class="segment" *ngIf="activeSegment === 'sea-creatures'">
+      <ion-virtual-scroll [items]="seaCreatures" approxItemHeight="56px">
+        <ion-item *virtualItem="let creature" detail (click)="openDetails(creature)">
+          <ion-avatar slot="start">
+            <ion-img [src]="creature.iconBase64"></ion-img>
+          </ion-avatar>
+          <ion-label>{{creature.name}}</ion-label>
+          <ion-chip
+            [ngClass]="{'caught-chip': creature.caught, 'not-caught-chip': !creature.caught}"
+            class="caught-chip"
+            slot="end"
+            (click)="toggleCaught($event, creature)"
+          >
+            {{ creature.caught ? 'Caught' : 'Not caught' }}
+          </ion-chip>
+        </ion-item>
+      </ion-virtual-scroll>
+    </div>
+
+    <div class="segment" *ngIf="activeSegment === 'fossils'">
+      <ion-virtual-scroll [items]="fossils" approxItemHeight="56px">
+        <ion-item *virtualItem="let fossil" detail (click)="openDetails(fossil)">
+          <ion-avatar slot="start">
+            <ion-img [src]="fossil.iconBase64"></ion-img>
+          </ion-avatar>
+          <ion-label>{{fossil.name}}</ion-label>
+          <ion-chip
+            [ngClass]="{'caught-chip': fossil.caught, 'not-caught-chip': !fossil.caught}"
+            class="caught-chip"
+            slot="end"
+            (click)="toggleCaught($event, fossil)"
+          >
+            {{ fossil.caught ? 'Caught' : 'Not caught' }}
+          </ion-chip>
+        </ion-item>
+      </ion-virtual-scroll>
+    </div>
+  </div>
+
+  <div class="search-results" *ngIf="isSearching">
+    <ion-virtual-scroll [items]="searchResults" approxItemHeight="56px">
+      <ion-item *virtualItem="let item" detail (click)="openDetails(item)">
+        <ion-avatar slot="start">
+          <ion-img [src]="item.iconBase64"></ion-img>
+        </ion-avatar>
+        <ion-label>{{item.name}}</ion-label>
+        <ion-chip
+          [ngClass]="{'caught-chip': item.caught, 'not-caught-chip': !item.caught}"
+          class="caught-chip"
+          slot="end"
+          (click)="toggleCaught($event, item)"
+        >
+          {{ item.caught ? 'Caught' : 'Not caught' }}
+        </ion-chip>
+      </ion-item>
+    </ion-virtual-scroll>
+  </div>
+</ion-content>

@@ -1,0 +1,41 @@
+ion-segment {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  --background: var(--ion-color-step-50);
+}
+
+ion-searchbar {
+  margin-top: 32px;
+}
+
+.segment {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.caught-chip {
+  --background: rgba(var(--ion-color-success-rgb), 0.3);
+  --color: var(--ion-color-success-contrast);
+}
+.not-caught-chip {
+  --background: var(--ion-color-step-50);
+  --color: var(--ion-color-step-500);
+}
+
+ion-avatar {
+  ion-img {
+    background: var(--ion-color-step-100);
+  }
+}

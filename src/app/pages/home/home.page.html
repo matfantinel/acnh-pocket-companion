@@ -21,9 +21,10 @@
           </ion-col>
           <ion-col>
             <app-feature-icon
-              label="Some Feature"
-              icon="passport"
-              [color]="utils.getCssVarValue('--ion-color-passport')"
+              label="Critterpedia"
+              icon="critterpedia"
+              [color]="utils.getCssVarValue('--ion-color-critterpedia')"
+              (click)="goToPage($event, '#B4D8E3', '/critterpedia', 'critterpedia', 'Critterpedia' )"
             ></app-feature-icon>
           </ion-col>
         </ion-row>

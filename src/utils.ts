@@ -22,4 +22,7 @@ export class Utils {
       date1.getDate() === date2.getDate();
   }
 
+  static capitalize = (str) =>
+    str.toLowerCase().replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+
 }

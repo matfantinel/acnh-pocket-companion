@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'chores',
     loadChildren: () => import('./pages/chores/chores.module').then( m => m.ChoresPageModule)
-  }
+  },
+  {
+    path: 'critterpedia',
+    loadChildren: () => import('./pages/critterpedia/critterpedia.module').then( m => m.CritterpediaPageModule)
+  },
 ];
 @NgModule({
   imports: [

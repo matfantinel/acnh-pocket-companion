@@ -18,17 +18,18 @@ import { IslandEffects } from './domains/island/island.effects';
 import { reducers, metaReducers } from './app.state';
 import { TodoEffects } from './domains/todo/todo.effects';
 import { ChoresEffects } from './domains/chores/chores.effects';
+import { CritterpediaEffects } from './domains/critterpedia/critterpedia.effects';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, StoreModule.forRoot(reducers, {
+  imports: [BrowserModule, IonicModule.forRoot({mode: 'md'}), AppRoutingModule, StoreModule.forRoot(reducers, {
     metaReducers,
     runtimeChecks: {
       strictStateImmutability: true,
       strictActionImmutability: true,
     }
-  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([IslandEffects, TodoEffects, ChoresEffects])],
+  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([IslandEffects, TodoEffects, ChoresEffects, CritterpediaEffects])],
   providers: [
     Utils,
     DatabaseService,

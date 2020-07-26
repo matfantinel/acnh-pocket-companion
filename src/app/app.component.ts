@@ -10,6 +10,7 @@ import {
   SplashScreen
 } from '@capacitor/core';
 import { DatabaseService } from './database/database.service';
+import { Router } from '@angular/router';
 
 const { StatusBar } = Plugins;
 
@@ -22,7 +23,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private store: Store<AppState>,
-    private dbService: DatabaseService
+    private dbService: DatabaseService,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -35,6 +37,12 @@ export class AppComponent {
 
   waitForDbReady() {
     if (this.dbService.isOpen()) {
+
+      if (!localStorage.getItem('initialSetupFinished')) {
+        console.log('should go to welcome');
+        this.router.navigate(['welcome']);
+      }
+
       if (this.platform.is('capacitor')) {
         SplashScreen.hide();
         StatusBar.setStyle({

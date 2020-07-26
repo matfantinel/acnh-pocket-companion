@@ -84,6 +84,7 @@ export class WelcomePage implements OnInit {
   }
 
   goHome() {
+    localStorage.setItem('initialSetupFinished', 'true');
     this.router.navigate(['home']);
   }
 

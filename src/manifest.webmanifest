@@ -1,7 +1,7 @@
 {
   "name": "ACNH Pocket Companion",
   "short_name": "Pocket Companion",
-  "theme_color": "#14c5b5",
+  "theme_color": "#f5f2e3",
   "background_color": "#f5f2e3",
   "display": "standalone",
   "scope": "/",

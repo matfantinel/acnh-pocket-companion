@@ -1,0 +1,63 @@
+<ion-content>
+  <ion-slides #slider [options]="slideOpts" (ionSlideNextEnd)="slidNext()" (ionSlidePrevEnd)="slidPrev()">
+    <ion-slide class="slide-1">
+      <ion-img src="assets/icons/phone.png"></ion-img>
+      <h1>Welcome to your Pocket Companion!</h1>
+      <p>
+        This is a companion app for Animal Crossing™: New Horizons™ that aims to help you have a better island life.
+      </p>
+      <p>
+        It is not affiliated or supported by Nintendo™ in any way, it's just a fan project.
+      </p>
+      <ion-button class="btn-next" (click)="next(2)">Next</ion-button>
+    </ion-slide>
+    <ion-slide class="slide-2">
+      <ion-img src="assets/icons/passport.png"></ion-img>
+      <h1>Let's Get Started</h1>
+      <p>
+        First things first: What is your name?
+      </p>
+      <ion-item>
+        <ion-input #playerName autocapitalize="on" maxlength="15" [(ngModel)]="island.residentRepresentative.name"></ion-input>
+      </ion-item>
+      <ion-button class="btn-next" (click)="saveAndNext(3)" [disabled]="!island.residentRepresentative.name">Next</ion-button>
+    </ion-slide>
+    <ion-slide class="slide-3">
+      <ion-img src="assets/icons/island.png"></ion-img>
+      <h1>Now, tell a bit about your island</h1>
+      <ion-item>
+        <ion-label position="fixed">Island Name</ion-label>
+        <ion-input autocapitalize="on" maxlength="15" [(ngModel)]="island.name"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="fixed">Fruit</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="island.fruit">
+          <ion-select-option value="Oranges">🍊 Oranges</ion-select-option>
+          <ion-select-option value="Peaches">🍑 Peaches</ion-select-option>
+          <ion-select-option value="Apples">🍎 Apples</ion-select-option>
+          <ion-select-option value="Pears">🍐 Pears</ion-select-option>
+          <ion-select-option value="Cherries">🍒 Cherries</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="fixed">Hemisphere</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="island.hemisphere">
+          <ion-select-option value="Northern">Northern</ion-select-option>
+          <ion-select-option value="Southern">Southern</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button class="btn-next" (click)="saveAndNext(4)" [disabled]="!island.name || !island.hemisphere || !island.fruit">Next</ion-button>
+    </ion-slide>
+    <ion-slide class="slide-4">
+      <ion-img src="assets/icons/todo.png"></ion-img>
+      <h1>All set!</h1>
+      <p>
+        We have all we need to start using the app. Let's go!
+      </p>
+      <ion-button class="btn-next" (click)="goHome()">Start</ion-button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

@@ -4,6 +4,7 @@ import Dexie, { PromiseExtended } from 'dexie';
 import { TodoItem } from '../domains/todo/todo.model';
 import { Chore } from '../domains/chores/chores.model';
 import { Fish, Bug, SeaCreature, Fossil } from '../domains/critterpedia/critterpedia.model';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -20,7 +21,7 @@ export class DatabaseService extends Dexie {
     fossils: '++id',
   };
 
-  constructor() {
+  constructor(private router: Router) {
     super('acnh_db');
     this.initialize();
   }
@@ -39,6 +40,7 @@ export class DatabaseService extends Dexie {
       }
     } else {
       this.version(1).stores(this._defaultSchema);
+      this.router.navigate(['welcome']);
     }
   }
 

@@ -44,6 +44,7 @@ export class AppComponent {
       this.store.dispatch(new LoadIslandFromDb());
       this.dbService.clearOldChores();
 
+      // Use a Web Worker to parse JSON data in the background, while leaving the main thread free for UI to do its thing
       this.dbService.startParsingJsonData();
     } else {
       setTimeout(() => {

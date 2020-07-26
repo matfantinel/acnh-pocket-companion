@@ -32,17 +32,15 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.waitForDbReady();
+
+      if (!localStorage.getItem('initialSetupFinished')) {
+        this.router.navigate(['welcome']);
+      }
     });
   }
 
   waitForDbReady() {
-    if (this.dbService.isOpen()) {
-
-      if (!localStorage.getItem('initialSetupFinished')) {
-        console.log('should go to welcome');
-        this.router.navigate(['welcome']);
-      }
-
+    if (this.dbService.isOpen()) {      
       if (this.platform.is('capacitor')) {
         SplashScreen.hide();
         StatusBar.setStyle({

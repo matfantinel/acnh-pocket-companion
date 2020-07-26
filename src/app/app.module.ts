@@ -19,6 +19,7 @@ import { reducers, metaReducers } from './app.state';
 import { TodoEffects } from './domains/todo/todo.effects';
 import { ChoresEffects } from './domains/chores/chores.effects';
 import { CritterpediaEffects } from './domains/critterpedia/critterpedia.effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,7 @@ import { CritterpediaEffects } from './domains/critterpedia/critterpedia.effects
       strictStateImmutability: true,
       strictActionImmutability: true,
     }
-  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([IslandEffects, TodoEffects, ChoresEffects, CritterpediaEffects])],
+  }), !environment.production ? StoreDevtoolsModule.instrument() : [], EffectsModule.forRoot([IslandEffects, TodoEffects, ChoresEffects, CritterpediaEffects]), ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     Utils,
     DatabaseService,

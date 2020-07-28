@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Villager } from 'src/app/domains/critterpedia/critterpedia.model';
-import { LoadVillagers, UpsertVillager } from 'src/app/domains/critterpedia/critterpedia.actions';
+import { LoadVillagers, UpsertVillager, SetSelectedItem } from 'src/app/domains/critterpedia/critterpedia.actions';
 import { selectVillagers, selectCaughtVillagers } from 'src/app/domains/critterpedia/critterpedia.reducer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-villagers',
@@ -18,7 +19,7 @@ export class VillagersComponent implements OnInit {
   searchFilter: string;
   searchResults: Villager[] = [];
   
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
     this.loadData();
@@ -66,8 +67,8 @@ export class VillagersComponent implements OnInit {
     }
   }
 
-  cancelSearch() {
-    this.isSearching = false;
-    this.searchFilter = null;
+  openDetails(item: any) {
+    this.store.dispatch(new SetSelectedItem({ data: { ...item } }));
+    this.router.navigate(['critterpedia/details']);
   }
 }

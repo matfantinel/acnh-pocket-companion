@@ -164,4 +164,28 @@
       }
     }
   }
+
+  .villager-info {
+    width: 100%;
+    max-width: 332px;
+    padding: 20px;
+    background: var(--ion-color-step-50);
+      border-radius: 15px;
+
+    .data {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 5px 0;
+      
+      .label {
+        padding: 10px;
+      }
+      .value {
+        background: var(--ion-color-step-200);
+        border-radius: 15px;
+        padding: 10px;
+      }
+    }
+  }
 }

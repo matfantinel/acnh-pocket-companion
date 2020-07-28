@@ -1,11 +1,11 @@
 .villagers-container {
   display: flex;
-  flex-direction: column;
-  padding: 0 20px;
+  flex-direction: column;  
 
   .villagers-list-container {
     display: flex;
     flex-wrap: wrap;
+    padding: 0 20px;
 
     .villager {
       flex: 1 1 25%;
@@ -49,4 +49,13 @@
   to {
     opacity: 1;
   }
+}
+
+.caught-chip {
+  --background: rgba(var(--ion-color-success-rgb), 0.3);
+  --color: var(--ion-color-success-contrast);
+}
+.not-caught-chip {
+  --background: var(--ion-color-step-50);
+  --color: var(--ion-color-step-500);
 }

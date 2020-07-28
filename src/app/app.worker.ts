@@ -59,7 +59,7 @@ async function importVillagers() {
         gender: jsonObj.gender,
         catchPhrase: jsonObj['catch-phrase'],
         iconUri: jsonObj['icon_uri'],
-        iconBase64: iconBase64
+        iconBase64: iconBase64,
       });
     }
     result = result.sort((a, b) => a.name.localeCompare(b.name));

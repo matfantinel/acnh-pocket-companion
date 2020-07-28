@@ -43,4 +43,5 @@ export class Villager {
   iconUri: string;
   iconBase64: string;
   caught: boolean;
+  type: string;
 }

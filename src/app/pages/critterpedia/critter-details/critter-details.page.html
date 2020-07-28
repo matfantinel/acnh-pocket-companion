@@ -9,7 +9,7 @@
       <ion-img [src]="item.iconBase64"></ion-img>
     </ion-avatar>
     <h1>{{ item.name }}</h1>
-    <div class="chips-container">
+    <div class="chips-container" *ngIf="item.type != 'villagers'">
       <ion-chip
         [ngClass]="{'caught-chip': item.caught, 'not-caught-chip': !item.caught}"
         class="caught-chip"
@@ -21,14 +21,14 @@
         {{ item.price }}
       </ion-chip>
     </div>
-    <div class="blathers-info" [ngClass]="{'open': blathersInfoOpen}">
+    <div class="blathers-info" [ngClass]="{'open': blathersInfoOpen}" *ngIf="item.type != 'villagers'">
       <ion-avatar (click)="blathersInfoOpen = !blathersInfoOpen"><ion-img src="assets/icons/blathers.png"></ion-img></ion-avatar>
       <p class="preview-text" (click)="blathersInfoOpen = !blathersInfoOpen">
         What does Blathers say?<ion-icon name="chevron-down"></ion-icon>
       </p>
       <p class="full-text">{{ item.museumPhrase }}</p>
     </div>
-    <div class="availability" *ngIf="item.type != 'fossils'">
+    <div class="availability" *ngIf="item.type != 'fossils' && item.type != 'villagers'">
       <h4>Availability</h4>
       <small>Months of the Year</small>
       <div class="available-container months">
@@ -71,6 +71,48 @@
         <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(21)}">21</div>
         <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(22)}">22</div>
         <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(23)}">23</div>
+      </div>
+    </div>
+    <div class="villager-info" *ngIf="item.type === 'villagers'">
+      <div class="data">
+        <span class="label">
+          Personality
+        </span>
+        <span class="value">
+          {{ item.personality }}
+        </span>
+      </div>
+      <div class="data">
+        <span class="label">
+          Birthday
+        </span>
+        <span class="value">
+          {{ item.birthday }}
+        </span>
+      </div>
+      <div class="data">
+        <span class="label">
+          Catch-Phrase
+        </span>
+        <span class="value">
+          "{{ item.catchPhrase }}"
+        </span>
+      </div>
+      <div class="data">
+        <span class="label">
+          Species
+        </span>
+        <span class="value">
+          {{ item.species }}
+        </span>
+      </div>
+      <div class="data">
+        <span class="label">
+          Gender
+        </span>
+        <span class="value">
+          {{ item.gender }}
+        </span>
       </div>
     </div>
   </div>

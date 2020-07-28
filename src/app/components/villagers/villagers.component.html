@@ -13,18 +13,22 @@
       </div>
     </div>
     <div class="search-results fade-in" *ngIf="isSearching">
-      <ion-button size="small" color="medium" shape="round" expand="block" (click)="cancelSearch()">Cancel search</ion-button>
-      <div class="villagers-list-container">
-        <div class="empty-state" *ngIf="searchResults.length === 0">
-          No Villagers found with that name.
-        </div>
-        <div class="villager" [ngClass]="{'caught': villager.caught}" *ngFor="let villager of searchResults" (click)="toggleCaught($event, villager)">
-          <ion-avatar>
-            <ion-img [src]="villager.iconBase64"></ion-img>
+      <ion-virtual-scroll [items]="searchResults" approxItemHeight="56px">
+        <ion-item *virtualItem="let item" detail (click)="openDetails(item)">
+          <ion-avatar slot="start">
+            <ion-img [src]="item.iconBase64"></ion-img>
           </ion-avatar>
-          <ion-label>{{ villager.name }}</ion-label>
-        </div>
-      </div>
+          <ion-label>{{item.name}}</ion-label>
+          <ion-chip
+            [ngClass]="{'caught-chip': item.caught, 'not-caught-chip': !item.caught}"
+            class="caught-chip"
+            slot="end"
+            (click)="toggleCaught($event, item)"
+          >
+            {{ item.caught ? 'Lives here' : 'Doesn\'t live here' }}
+          </ion-chip>
+        </ion-item>
+      </ion-virtual-scroll>
     </div>
   </div>
 </ion-content>

@@ -1,6 +1,6 @@
 import { AppState } from 'src/app/app.state';
 import { Utils } from 'src/utils';
-import { Fish, Bug, SeaCreature, Fossil } from './critterpedia.model';
+import { Fish, Bug, SeaCreature, Fossil, Villager } from './critterpedia.model';
 import { CritterpediaAction, CritterpediaActionTypes } from './critterpedia.actions';
 
 export interface CritterpediaState {
@@ -8,6 +8,7 @@ export interface CritterpediaState {
   bugs: Bug[];
   seaCreatures: SeaCreature[];
   fossils: Fossil[];
+  villagers: Villager[];
   selectedItem: any;
 }
 
@@ -16,6 +17,7 @@ const initialCritterpediaState: CritterpediaState = {
   bugs: null,
   seaCreatures: null,
   fossils: null,
+  villagers: null,
   selectedItem: null
 };
 
@@ -27,6 +29,7 @@ export function critterpediaReducer(state: CritterpediaState = initialCritterped
         bugs: state.bugs,
         seaCreatures: state.seaCreatures,
         fossils: state.fossils,
+        villagers: state.villagers,
         selectedItem: state.selectedItem
       };
     case CritterpediaActionTypes.SetBugs:
@@ -35,6 +38,7 @@ export function critterpediaReducer(state: CritterpediaState = initialCritterped
         bugs: action.payload.data,
         seaCreatures: state.seaCreatures,
         fossils: state.fossils,
+        villagers: state.villagers,
         selectedItem: state.selectedItem
       };
     case CritterpediaActionTypes.SetSeaCreatures:
@@ -43,6 +47,7 @@ export function critterpediaReducer(state: CritterpediaState = initialCritterped
         bugs: state.bugs,
         seaCreatures: action.payload.data,
         fossils: state.fossils,
+        villagers: state.villagers,
         selectedItem: state.selectedItem
       };
     case CritterpediaActionTypes.SetFossils:
@@ -51,6 +56,16 @@ export function critterpediaReducer(state: CritterpediaState = initialCritterped
         bugs: state.bugs,
         seaCreatures: state.seaCreatures,
         fossils: action.payload.data,
+        villagers: state.villagers,
+        selectedItem: state.selectedItem
+      };
+    case CritterpediaActionTypes.SetVillagers:
+      return {
+        fishes: state.fishes,
+        bugs: state.bugs,
+        seaCreatures: state.seaCreatures,
+        fossils: state.fossils,
+        villagers: action.payload.data,
         selectedItem: state.selectedItem
       };
     case CritterpediaActionTypes.SetSelectedItem:
@@ -59,6 +74,7 @@ export function critterpediaReducer(state: CritterpediaState = initialCritterped
         bugs: state.bugs,
         seaCreatures: state.seaCreatures,
         fossils: state.fossils,
+        villagers: state.villagers,
         selectedItem: action.payload.data
       };
     default:
@@ -70,4 +86,6 @@ export const selectFishes = (state: AppState) => state.critterpedia.fishes == nu
 export const selectBugs = (state: AppState) => state.critterpedia.bugs == null ? null : Utils.deepSpreadArray(state.critterpedia.bugs);
 export const selectSeaCreatures = (state: AppState) => state.critterpedia.seaCreatures == null ? null : Utils.deepSpreadArray(state.critterpedia.seaCreatures);
 export const selectFossils = (state: AppState) => state.critterpedia.fossils == null ? null : Utils.deepSpreadArray(state.critterpedia.fossils);
+export const selectVillagers = (state: AppState) => state.critterpedia.villagers == null ? null : Utils.deepSpreadArray(state.critterpedia.villagers);
+export const selectCaughtVillagers = (state: AppState) => state.critterpedia.villagers == null ? null : Utils.deepSpreadArray(state.critterpedia.villagers.filter(q => q.caught));
 export const selectSelectedItem = (state: AppState) => state.critterpedia.selectedItem == null ? null : { ...state.critterpedia.selectedItem };

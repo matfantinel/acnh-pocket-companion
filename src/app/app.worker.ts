@@ -8,6 +8,7 @@ addEventListener('message', async ({ data }) => {
       importCritterBase('bugs');
       importCritterBase('seaCreatures');
       importFossils();
+      importVillagers();
     } catch (error) {
       console.error(error);
     }
@@ -36,6 +37,33 @@ async function importFossils() {
       });
     }
     postMessage({ type: 'fossils', data: result });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function importVillagers() {
+  try {
+    const response = await fetch(`../assets/data/villagers.json`);
+    const jsonArray = await response.json();
+
+    let result = [];
+    for (const jsonObj of jsonArray) {
+      const iconBase64 = await getImageBase64FromUrl(jsonObj['icon_uri']);
+      result.push({
+        type: 'villagers',
+        name: capitalize(jsonObj.name['name-USen']),
+        personality: jsonObj.personality,
+        birthday: jsonObj['birthday-string'],        
+        species: jsonObj.species,
+        gender: jsonObj.gender,
+        catchPhrase: jsonObj['catch-phrase'],
+        iconUri: jsonObj['icon_uri'],
+        iconBase64: iconBase64
+      });
+    }
+    result = result.sort((a, b) => a.name.localeCompare(b.name));
+    postMessage({ type: 'villagers', data: result });
   } catch (error) {
     console.error(error);
   }

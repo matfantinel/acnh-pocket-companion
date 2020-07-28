@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Fish, Bug, SeaCreature, Fossil } from './critterpedia.model';
+import { Fish, Bug, SeaCreature, Fossil, Villager } from './critterpedia.model';
 
 export enum CritterpediaActionTypes {
   LoadFishes = '[Critterpedia] Load Fishes from DB',
@@ -17,6 +17,10 @@ export enum CritterpediaActionTypes {
   LoadFossils = '[Critterpedia] Load Fossils from DB',
   SetFossils = '[Critterpedia] Set Fossils to memory',
   UpsertFossil = '[Critterpedia] Upsert Fossil',
+
+  LoadVillagers = '[Critterpedia] Load Villagers from DB',
+  SetVillagers = '[Critterpedia] Set Villagers to memory',
+  UpsertVillager = '[Critterpedia] Upsert Villager',
 
   SetSelectedItem = '[Critterpedia] Set selected item to display details'
 }
@@ -92,6 +96,22 @@ export class UpsertFossil implements Action {
   constructor(readonly payload: { data: Fossil; }) { }
 }
 
+export class LoadVillagers implements Action {
+  readonly type = CritterpediaActionTypes.LoadVillagers;
+}
+
+export class SetVillagers implements Action {
+  readonly type = CritterpediaActionTypes.SetVillagers;
+
+  constructor(readonly payload: { data: Villager[]; }) { }
+}
+
+export class UpsertVillager implements Action {
+  readonly type = CritterpediaActionTypes.UpsertVillager;
+
+  constructor(readonly payload: { data: Villager; }) { }
+}
+
 export class SetSelectedItem implements Action {
   readonly type = CritterpediaActionTypes.SetSelectedItem;
 
@@ -100,4 +120,4 @@ export class SetSelectedItem implements Action {
 
 export type ActionsUnion = LoadFishes | SetFishes | UpsertFish | LoadBugs | SetBugs |
 UpsertBug | LoadSeaCreatures | SetSeaCreatures | UpsertSeaCreature |
-LoadFossils | SetFossils | UpsertFossil | SetSelectedItem;
+LoadFossils | SetFossils | UpsertFossil | LoadVillagers | SetVillagers | UpsertVillager | SetSelectedItem;

@@ -32,3 +32,15 @@ export class Fossil {
   caught: boolean;
   type: string;
 }
+
+export class Villager {
+  name: string;
+  personality: string;
+  birthday: string;
+  species: string;
+  gender: string;
+  catchPhrase: string;
+  iconUri: string;
+  iconBase64: string;
+  caught: boolean;
+}

@@ -1,6 +1,9 @@
 <app-cool-header title="To-Do List" [color]="utils.getCssVarValue('--ion-color-todo')"></app-cool-header>
 
 <ion-content>
+  <div class="empty-state" *ngIf="notDoneTodoItems.length === 0 && doneTodoItems.length === 0">
+    There are no to-do items registered right now. Try adding one by tapping the "+" button in the bottom right corner of the screen.
+  </div>
   <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
     <ion-item *ngFor="let item of notDoneTodoItems;let i = index" [id]="'notDoneItem-' + i">
       <ion-reorder slot="start"></ion-reorder>

@@ -3,7 +3,7 @@ import { Island } from '../domains/island/island.model';
 import Dexie, { PromiseExtended } from 'dexie';
 import { TodoItem } from '../domains/todo/todo.model';
 import { Chore } from '../domains/chores/chores.model';
-import { Fish, Bug, SeaCreature, Fossil } from '../domains/critterpedia/critterpedia.model';
+import { Fish, Bug, SeaCreature, Fossil, Villager } from '../domains/critterpedia/critterpedia.model';
 
 
 @Injectable()
@@ -18,6 +18,7 @@ export class DatabaseService extends Dexie {
     bugs: '++id',
     seaCreatures: '++id',
     fossils: '++id',
+    villagers: '++id',
   };
 
   constructor() {
@@ -35,7 +36,8 @@ export class DatabaseService extends Dexie {
         !this.tables.some(q => q.name === 'fishes') ||
         !this.tables.some(q => q.name === 'bugs') ||
         !this.tables.some(q => q.name === 'seaCreatures') ||
-        !this.tables.some(q => q.name === 'fossils')) {
+        !this.tables.some(q => q.name === 'fossils') ||
+        !this.tables.some(q => q.name === 'villagers')) {
         await this.resetDbSchema();
       }
     } else {
@@ -274,8 +276,41 @@ export class DatabaseService extends Dexie {
     })
   }
 
+  public getVillagers(): Promise<Villager[] | undefined> {
+    return this.table('villagers').toArray();
+  }
+
+  public upsertVillager(item: Villager): Promise<Villager> {
+    return new Promise<Villager>((resolve, reject) => {
+      this.table('villagers').put(item)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => {
+          console.error(error);
+          reject(error);
+        })
+    })
+  }
+
+  public bulkAddVillagers(items: Villager[]): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.table('villagers').clear().then(() => {
+        this.table('villagers').bulkAdd(items)
+          .then(() => {
+            console.log('bulk added villagers');
+            resolve();
+          })
+          .catch(error => {
+            console.error(error);
+            reject(error);
+          })
+      })
+    })
+  }
+
   public startParsingJsonData = async () => {
-    if (await this.table('fossils').count() > 0) {
+    if (await this.table('villagers').count() > 0) {
       return;
     }
 
@@ -294,6 +329,9 @@ export class DatabaseService extends Dexie {
             break;
           case 'fossils':
             this.bulkAddFossils(response.data.data);
+            break;
+          case 'villagers':
+            this.bulkAddVillagers(response.data.data);
             break;
         }
       }

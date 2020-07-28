@@ -4,7 +4,7 @@ import { from } from 'rxjs';
 import { map, mergeMap, exhaustMap } from 'rxjs/operators';
 
 import { DatabaseService } from '../../database/database.service';
-import { LoadFishes, CritterpediaActionTypes, SetFishes, UpsertFish, LoadBugs, SetBugs, UpsertBug, LoadFossils, SetFossils, UpsertFossil, LoadSeaCreatures, SetSeaCreatures, UpsertSeaCreature } from './critterpedia.actions';
+import { LoadFishes, CritterpediaActionTypes, SetFishes, UpsertFish, LoadBugs, SetBugs, UpsertBug, LoadFossils, SetFossils, UpsertFossil, LoadSeaCreatures, SetSeaCreatures, UpsertSeaCreature, LoadVillagers, SetVillagers, UpsertVillager } from './critterpedia.actions';
 
 
 
@@ -98,6 +98,29 @@ export class CritterpediaEffects {
       exhaustMap(action =>
         from(this.db.upsertFossil(action.payload.data)).pipe(
           map(() => new LoadFossils())
+        )
+      )
+    )
+  );
+
+  loadVillagers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<LoadVillagers>(CritterpediaActionTypes.LoadVillagers),
+      mergeMap(() => from(this.db.getVillagers())
+        .pipe(
+          map(result =>
+            new SetVillagers({ data: result })
+          )
+        ))
+    )
+  );
+
+  upsertVillager$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<UpsertVillager>(CritterpediaActionTypes.UpsertVillager),
+      exhaustMap(action =>
+        from(this.db.upsertVillager(action.payload.data)).pipe(
+          map(() => new LoadVillagers())
         )
       )
     )

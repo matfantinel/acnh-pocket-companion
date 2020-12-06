@@ -55,6 +55,8 @@ export class ChoresPage implements OnInit {
   ionViewDidEnter() {
     if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#FECFAC' });
+    } else {
+      Utils.setThemeColor('#FECFAC');
     }
   }
 

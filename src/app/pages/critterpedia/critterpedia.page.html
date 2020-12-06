@@ -20,6 +20,10 @@
 
   <div class="segments" *ngIf="!isSearching">
     <div class="segment" *ngIf="activeSegment === 'bugs'">
+      <div class="empty-state" *ngIf="!finishedImportingBugs">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+        The Bugs are still being imported by Pocket Companion! Come back again in a couple minutes.
+      </div>
       <ion-virtual-scroll [items]="bugs" approxItemHeight="56px">
         <ion-item *virtualItem="let bug" detail (click)="openDetails(bug)">
           <ion-avatar slot="start">
@@ -39,6 +43,10 @@
     </div>
 
     <div class="segment" *ngIf="activeSegment === 'fishes'">
+      <div class="empty-state" *ngIf="!finishedImportingFishes">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+        The Fishes are still being imported by Pocket Companion! Come back again in a couple minutes.
+      </div>
       <ion-virtual-scroll [items]="fishes" approxItemHeight="56px">
         <ion-item *virtualItem="let fish" detail (click)="openDetails(fish)">
           <ion-avatar slot="start">
@@ -58,6 +66,10 @@
     </div>
 
     <div class="segment" *ngIf="activeSegment === 'sea-creatures'">
+      <div class="empty-state" *ngIf="!finishedImportingSeaCreatures">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+        The Sea Creatures are still being imported by Pocket Companion! Come back again in a couple minutes.
+      </div>
       <ion-virtual-scroll [items]="seaCreatures" approxItemHeight="56px">
         <ion-item *virtualItem="let creature" detail (click)="openDetails(creature)">
           <ion-avatar slot="start">
@@ -77,6 +89,10 @@
     </div>
 
     <div class="segment" *ngIf="activeSegment === 'fossils'">
+      <div class="empty-state" *ngIf="!finishedImportingFossils">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+        The Fossils are still being imported by Pocket Companion! Come back again in a couple minutes.
+      </div>
       <ion-virtual-scroll [items]="fossils" approxItemHeight="56px">
         <ion-item *virtualItem="let fossil" detail (click)="openDetails(fossil)">
           <ion-avatar slot="start">

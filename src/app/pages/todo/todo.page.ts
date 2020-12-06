@@ -40,6 +40,8 @@ export class TodoPage implements OnInit {
   ionViewDidEnter() {
     if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#FFC9D3' });
+    } else {
+      Utils.setThemeColor('#FFC9D3');
     }
   }
 

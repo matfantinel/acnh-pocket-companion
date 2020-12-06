@@ -7,8 +7,9 @@ import { selectIslandName, selectResidentRepresentativeName } from 'src/app/doma
 import {
   Plugins
 } from '@capacitor/core';
-import { Platform } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { DatabaseService } from 'src/app/database/database.service';
 const { StatusBar } = Plugins;
 
 @Component({
@@ -23,7 +24,7 @@ export class HomePage implements OnInit {
   playerName$: Observable<string>;
   islandName$: Observable<string>;
 
-  constructor(public utils: Utils, private store: Store<AppState>, private platform: Platform, private router: Router) {
+  constructor(public utils: Utils, private store: Store<AppState>, private platform: Platform, private router: Router, private dbService: DatabaseService, public loadingController: LoadingController) {
     this.islandName$ = this.store.pipe(select(selectIslandName));
     this.playerName$ = this.store.pipe(select(selectResidentRepresentativeName));
   }
@@ -33,6 +34,24 @@ export class HomePage implements OnInit {
   ionViewDidEnter() {
     if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#ECE0BA' });
+    } else {
+      Utils.setThemeColor('#ECE0BA');
+    }
+  }
+
+  async clearData() {
+    if (confirm('Are you sure you want to clear data? You will lose everything!')) {
+      this.dbService.clearData();
+
+      const loading = await this.loadingController.create({
+        message: 'Clearing data...',
+        duration: 2000
+      });
+      loading.present();
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   }
 
@@ -73,7 +92,7 @@ export class HomePage implements OnInit {
     transitionLabel.style.opacity = '0';
 
     //#endregion
-    
+
     //#region Part 1 - Expand the pixel and "move" the icon from the click point to the center of the screen
     setTimeout(() => {
       transitionEffectPixel.style.transition = `all ${animationLength}ms ease-in-out`;
@@ -98,6 +117,10 @@ export class HomePage implements OnInit {
     if (this.platform.is('capacitor')) {
       setTimeout(() => {
         StatusBar.setBackgroundColor({ color: color });
+      }, statusbarBackgroundChangeTimeout)
+    } else {
+      setTimeout(() => {
+        Utils.setThemeColor(color);
       }, statusbarBackgroundChangeTimeout)
     }
     //#endregion

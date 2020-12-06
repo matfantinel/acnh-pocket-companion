@@ -29,23 +29,68 @@ export class CritterpediaPage implements OnInit {
   seaCreatures: SeaCreature[] = [];
   fossils: Fossil[] = [];
 
+  finishedImportingBugs: boolean;
+  finishedImportingFishes: boolean;
+  finishedImportingSeaCreatures: boolean;
+  finishedImportingFossils: boolean;
+
   constructor(public utils: Utils, private platform: Platform, private store: Store<AppState>, private router: Router) {
   }
 
   ngOnInit() { }
 
   ionViewDidEnter() {
-    this.loadData();
     if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#B4D8E3' });
+    } else {
+      Utils.setThemeColor('#B4D8E3');
     }
+
+    this.handleBugs();
+    this.handleFishes();
+    this.handleSeaCreatures();
+    this.handleFossils();
   }
 
-  loadData() {
-    this.store.dispatch(new LoadFishes());
+  handleBugs() {
+    let bugsCheckInterval = setInterval(() => {
+      this.finishedImportingBugs = Utils.areBugsImportedYet();    
+      if (this.finishedImportingBugs) {
+        clearInterval(bugsCheckInterval);
+        this.loadBugs();
+      }
+    }, 2000);
+  }
+  loadBugs() {
     this.store.dispatch(new LoadBugs());
-    this.store.dispatch(new LoadSeaCreatures());
-    this.store.dispatch(new LoadFossils());
+
+    const bugs$ = this.store.select(selectBugs).subscribe(
+      result => {
+        if (result) {
+          this.bugs = result;
+          setTimeout(() => {
+            if (bugs$) {
+              bugs$.unsubscribe();
+            }
+          }, 100);
+        } else {
+          this.bugs = [];
+        }
+      }
+    );
+  }
+
+  handleFishes() {
+    let fishesCheckInterval = setInterval(() => {
+      this.finishedImportingFishes = Utils.areFishesImportedYet();    
+      if (this.finishedImportingFishes) {
+        clearInterval(fishesCheckInterval);
+        this.loadFishes();
+      }
+    }, 2000);
+  }
+  loadFishes() {
+    this.store.dispatch(new LoadFishes());
 
     const fishes$ = this.store.select(selectFishes).subscribe(
       result => {
@@ -61,20 +106,20 @@ export class CritterpediaPage implements OnInit {
         }
       }
     );
-    const bugs$ = this.store.select(selectBugs).subscribe(
-      result => {
-        if (result) {
-          this.bugs = result;
-          setTimeout(() => {
-            if (bugs$) {
-              bugs$.unsubscribe();
-            }
-          }, 100);
-        } else {
-          this.bugs = [];
-        }
+  }
+
+  handleSeaCreatures() {
+    let seaCreaturesCheckInterval = setInterval(() => {
+      this.finishedImportingSeaCreatures = Utils.areSeaCreaturesImportedYet();    
+      if (this.finishedImportingSeaCreatures) {
+        clearInterval(seaCreaturesCheckInterval);
+        this.loadSeaCreatures();
       }
-    );
+    }, 2000);
+  }
+  loadSeaCreatures() {
+    this.store.dispatch(new LoadSeaCreatures());
+
     const seaCreatures$ = this.store.select(selectSeaCreatures).subscribe(
       result => {
         if (result) {
@@ -89,6 +134,20 @@ export class CritterpediaPage implements OnInit {
         }
       }
     );
+  }
+
+  handleFossils() {
+    let fossilsCheckInterval = setInterval(() => {
+      this.finishedImportingFossils = Utils.areFossilsImportedYet();    
+      if (this.finishedImportingFossils) {
+        clearInterval(fossilsCheckInterval);
+        this.loadFossils();
+      }
+    }, 2000);
+  }
+  loadFossils() {
+    this.store.dispatch(new LoadFossils());
+
     const fossils$ = this.store.select(selectFossils).subscribe(
       result => {
         if (result) {

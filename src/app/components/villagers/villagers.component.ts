@@ -5,6 +5,7 @@ import { Villager } from 'src/app/domains/critterpedia/critterpedia.model';
 import { LoadVillagers, UpsertVillager, SetSelectedItem } from 'src/app/domains/critterpedia/critterpedia.actions';
 import { selectVillagers, selectCaughtVillagers } from 'src/app/domains/critterpedia/critterpedia.reducer';
 import { Router } from '@angular/router';
+import { Utils } from 'src/utils';
 
 @Component({
   selector: 'app-villagers',
@@ -18,11 +19,19 @@ export class VillagersComponent implements OnInit {
   isSearching: boolean;
   searchFilter: string;
   searchResults: Villager[] = [];
+
+  finishedImporting: boolean;
   
   constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
-    this.loadData();
+    let importCheckInterval = setInterval(() => {
+      this.finishedImporting = Utils.areVillagersImportedYet();    
+      if (this.finishedImporting) {
+        this.loadData();
+        clearInterval(importCheckInterval);
+      }
+    }, 2000);
   }
 
   loadData() {

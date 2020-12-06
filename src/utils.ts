@@ -25,4 +25,23 @@ export class Utils {
   static capitalize = (str) =>
     str.toLowerCase().replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
 
+  static setThemeColor(color: string) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content',  color);
+  }
+
+  static areFishesImportedYet() : boolean {
+    return localStorage.getItem('imported-fishes') === 'true';
+  }
+  static areBugsImportedYet() : boolean {
+    return localStorage.getItem('imported-bugs') === 'true';
+  }
+  static areSeaCreaturesImportedYet() : boolean {
+    return localStorage.getItem('imported-seaCreatures') === 'true';
+  }
+  static areFossilsImportedYet() : boolean {
+    return localStorage.getItem('imported-fossils') === 'true';
+  }
+  static areVillagersImportedYet() : boolean {
+    return localStorage.getItem('imported-villagers') === 'true';
+  }
 }

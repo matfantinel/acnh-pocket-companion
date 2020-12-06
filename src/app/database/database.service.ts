@@ -57,6 +57,19 @@ export class DatabaseService extends Dexie {
     });
   }
 
+  public clearData(): void {
+    this.tables.forEach(x => {
+      x.clear();
+    });
+
+    localStorage.removeItem('initialSetupFinished');
+    localStorage.removeItem('imported-seaCreatures');
+    localStorage.removeItem('imported-fossils');
+    localStorage.removeItem('imported-fishes');
+    localStorage.removeItem('imported-villagers');
+    localStorage.removeItem('imported-bugs');
+  }
+
   public getIsland(): Promise<Island | undefined> {
     return this.table('island').toCollection().first();
   }
@@ -320,18 +333,23 @@ export class DatabaseService extends Dexie {
         switch (response.data.type) {
           case 'fishes':
             this.bulkAddFishes(response.data.data);
+            localStorage.setItem('imported-fishes', 'true');
             break;
           case 'bugs':
             this.bulkAddBugs(response.data.data);
+            localStorage.setItem('imported-bugs', 'true');
             break;
           case 'seaCreatures':
             this.bulkAddSeaCreatures(response.data.data);
+            localStorage.setItem('imported-seaCreatures', 'true');
             break;
           case 'fossils':
             this.bulkAddFossils(response.data.data);
+            localStorage.setItem('imported-fossils', 'true');
             break;
           case 'villagers':
             this.bulkAddVillagers(response.data.data);
+            localStorage.setItem('imported-villagers', 'true');
             break;
         }
       }

@@ -21,6 +21,8 @@ export class AboutPage implements OnInit {
   ionViewDidEnter() {
     if (this.platform.is('capacitor')) {
       StatusBar.setBackgroundColor({ color: '#14c5b5' });
+    } else {
+      Utils.setThemeColor('#14c5b5');
     }
   }
 

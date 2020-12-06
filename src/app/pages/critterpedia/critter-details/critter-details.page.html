@@ -9,7 +9,7 @@
       <ion-img [src]="item.iconBase64"></ion-img>
     </ion-avatar>
     <h1>{{ item.name }}</h1>
-    <div class="chips-container" *ngIf="item.type != 'villagers'">
+    <div class="chips-container">
       <ion-chip
         [ngClass]="{'caught-chip': item.caught, 'not-caught-chip': !item.caught}"
         class="caught-chip"
@@ -17,7 +17,7 @@
       >
         {{ item.caught ? 'Caught' : 'Not caught' }}
       </ion-chip>
-      <ion-chip class="price-chip">
+      <ion-chip class="price-chip" *ngIf="item.type != 'villagers'">
         {{ item.price }}
       </ion-chip>
     </div>

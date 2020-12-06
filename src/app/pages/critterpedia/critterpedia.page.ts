@@ -29,10 +29,10 @@ export class CritterpediaPage implements OnInit {
   seaCreatures: SeaCreature[] = [];
   fossils: Fossil[] = [];
 
-  finishedImportingBugs: boolean;
-  finishedImportingFishes: boolean;
-  finishedImportingSeaCreatures: boolean;
-  finishedImportingFossils: boolean;
+  finishedImportingBugs: boolean = true;
+  finishedImportingFishes: boolean = true;
+  finishedImportingSeaCreatures: boolean = true;
+  finishedImportingFossils: boolean = true;
 
   constructor(public utils: Utils, private platform: Platform, private store: Store<AppState>, private router: Router) {
   }
@@ -46,6 +46,7 @@ export class CritterpediaPage implements OnInit {
       Utils.setThemeColor('#B4D8E3');
     }
 
+
     this.handleBugs();
     this.handleFishes();
     this.handleSeaCreatures();
@@ -53,13 +54,17 @@ export class CritterpediaPage implements OnInit {
   }
 
   handleBugs() {
-    let bugsCheckInterval = setInterval(() => {
+    let checkInterval;
+    let checkFn = (firstRun: boolean = false) => {
       this.finishedImportingBugs = Utils.areBugsImportedYet();    
       if (this.finishedImportingBugs) {
-        clearInterval(bugsCheckInterval);
         this.loadBugs();
+        clearInterval(checkInterval);
+      } else if (firstRun) {
+        checkInterval = setInterval(checkFn, 2000);
       }
-    }, 2000);
+    };
+    checkFn(true);
   }
   loadBugs() {
     this.store.dispatch(new LoadBugs());
@@ -81,13 +86,17 @@ export class CritterpediaPage implements OnInit {
   }
 
   handleFishes() {
-    let fishesCheckInterval = setInterval(() => {
+    let checkInterval;
+    let checkFn = (firstRun: boolean = false) => {
       this.finishedImportingFishes = Utils.areFishesImportedYet();    
       if (this.finishedImportingFishes) {
-        clearInterval(fishesCheckInterval);
         this.loadFishes();
+        clearInterval(checkInterval);
+      } else if (firstRun) {
+        checkInterval = setInterval(checkFn, 2000);
       }
-    }, 2000);
+    };
+    checkFn(true);
   }
   loadFishes() {
     this.store.dispatch(new LoadFishes());
@@ -109,13 +118,17 @@ export class CritterpediaPage implements OnInit {
   }
 
   handleSeaCreatures() {
-    let seaCreaturesCheckInterval = setInterval(() => {
+    let checkInterval;
+    let checkFn = (firstRun: boolean = false) => {
       this.finishedImportingSeaCreatures = Utils.areSeaCreaturesImportedYet();    
       if (this.finishedImportingSeaCreatures) {
-        clearInterval(seaCreaturesCheckInterval);
         this.loadSeaCreatures();
+        clearInterval(checkInterval);
+      } else if (firstRun) {
+        checkInterval = setInterval(checkFn, 2000);
       }
-    }, 2000);
+    };
+    checkFn(true);
   }
   loadSeaCreatures() {
     this.store.dispatch(new LoadSeaCreatures());
@@ -137,13 +150,17 @@ export class CritterpediaPage implements OnInit {
   }
 
   handleFossils() {
-    let fossilsCheckInterval = setInterval(() => {
+    let checkInterval;
+    let checkFn = (firstRun: boolean = false) => {
       this.finishedImportingFossils = Utils.areFossilsImportedYet();    
       if (this.finishedImportingFossils) {
-        clearInterval(fossilsCheckInterval);
         this.loadFossils();
+        clearInterval(checkInterval);
+      } else if (firstRun) {
+        checkInterval = setInterval(checkFn, 2000);
       }
-    }, 2000);
+    };
+    checkFn(true);
   }
   loadFossils() {
     this.store.dispatch(new LoadFossils());

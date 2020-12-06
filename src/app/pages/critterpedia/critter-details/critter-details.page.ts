@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Utils } from 'src/utils';
 import { selectSelectedItem } from 'src/app/domains/critterpedia/critterpedia.reducer';
-import { UpsertFish, UpsertBug, UpsertSeaCreature, UpsertFossil } from 'src/app/domains/critterpedia/critterpedia.actions';
+import { UpsertFish, UpsertBug, UpsertSeaCreature, UpsertFossil, UpsertVillager } from 'src/app/domains/critterpedia/critterpedia.actions';
 import { Island } from 'src/app/domains/island/island.model';
 import { selectIsland } from 'src/app/domains/island/island.reducer';
 
@@ -68,6 +68,9 @@ export class CritterDetailsPage implements OnInit {
         break;
       case 'fossils':
         this.store.dispatch(new UpsertFossil({ data: { ...item } }));
+        break;
+      case 'villagers':
+        this.store.dispatch(new UpsertVillager({ data: { ...item } }));
         break;
     }
   }

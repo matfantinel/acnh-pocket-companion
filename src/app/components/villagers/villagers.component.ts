@@ -25,13 +25,17 @@ export class VillagersComponent implements OnInit {
   constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
-    let importCheckInterval = setInterval(() => {
+    let checkInterval;
+    let checkFn = (firstRun: boolean = false) => {
       this.finishedImporting = Utils.areVillagersImportedYet();    
       if (this.finishedImporting) {
         this.loadData();
-        clearInterval(importCheckInterval);
+        clearInterval(checkInterval);
+      } else if (firstRun) {
+        checkInterval = setInterval(checkFn, 2000);
       }
-    }, 2000);
+    };
+    checkFn(true);
   }
 
   loadData() {

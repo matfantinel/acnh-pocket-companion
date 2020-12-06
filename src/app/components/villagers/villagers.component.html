@@ -4,12 +4,12 @@
     <div class="villagers-list-container fade-in" *ngIf="!isSearching">
       <div class="empty-state" *ngIf="!finishedImporting">
         <ion-progress-bar type="indeterminate"></ion-progress-bar>
-        The Villagers are still being imported by Pocket Companion! Come back again in a couple minutes.
+        The Villagers are still being imported by Pocket Companion! Just wait a bit longer.
       </div>
       <div class="empty-state" *ngIf="finishedImporting && caughtVillagers.length === 0">
         There are no Villagers registered in your island right now. Try searching for them with the search bar above!
       </div>
-      <div class="villager caught" *ngFor="let villager of caughtVillagers" (click)="toggleCaught($event, villager)">
+      <div class="villager caught" *ngFor="let villager of caughtVillagers" (click)="openDetails(villager)">
         <ion-avatar>
           <ion-img [src]="villager.iconBase64"></ion-img>
         </ion-avatar>

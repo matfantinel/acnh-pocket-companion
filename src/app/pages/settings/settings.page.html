@@ -1,0 +1,11 @@
+<app-cool-header title="Settings" [color]="utils.getCssVarValue('--ion-color-settings')"></app-cool-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button (click)="clearData()">
+      <ion-label class="ion-text-wrap">
+        Clear app data
+      </ion-label>
+    </ion-item>
+  </ion-list>  
+</ion-content>

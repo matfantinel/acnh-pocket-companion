@@ -37,23 +37,7 @@ export class HomePage implements OnInit {
     } else {
       Utils.setThemeColor('#ECE0BA');
     }
-  }
-
-  async clearData() {
-    if (confirm('Are you sure you want to clear data? You will lose everything!')) {
-      this.dbService.clearData();
-
-      const loading = await this.loadingController.create({
-        message: 'Clearing data...',
-        duration: 2000
-      });
-      loading.present();
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    }
-  }
+  }  
 
   goToPage(event: any, color: string, route: string, icon: string, label: string) {
 
@@ -79,7 +63,7 @@ export class HomePage implements OnInit {
 
     // transitionIcon and transitionLabel are the feature icon/label that will appear above transitionEffectPixel
     const transitionIcon = (document.getElementById('transition-icon') as HTMLImageElement);
-    transitionIcon.src = `assets/icons/${icon}.png`;
+    transitionIcon.src = `assets/icons/${icon}.svg`;
     transitionIcon.style.display = 'block';
     transitionIcon.style.height = '1px';
     transitionIcon.style.width = '1px';

@@ -16,7 +16,7 @@ export class FeatureIconComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.imageSrc =  `assets/icons/${this.icon}.png`;
+    this.imageSrc =  `assets/icons/${this.icon}.svg`;
   }
 
 }

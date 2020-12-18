@@ -46,9 +46,26 @@
             ></app-feature-icon>
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col>
+            <app-feature-icon
+              label="Available Now"
+              icon="available"
+              [color]="utils.getCssVarValue('--ion-color-available')"
+              (click)="goToPage($event, '#8BAfE5', '/available', 'available', 'Available Now')"
+            ></app-feature-icon>
+          </ion-col>
+          <ion-col>
+            <app-feature-icon
+              label="Settings"
+              icon="settings"
+              [color]="utils.getCssVarValue('--ion-color-settings')"
+              (click)="goToPage($event, '#A2BDCD', '/settings', 'settings', 'Settings')"
+            ></app-feature-icon>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </div>
     <a class="about-link" [routerLink]="['/about']">About this app</a>
-    <a class="clear-data" (click)="clearData()">Clear Data</a>
   </div>
 </ion-content>

@@ -7,6 +7,7 @@ export abstract class CritterBase {
   iconBase64: string;
   caught: boolean;
   type: string;
+  shadow: string;
 }
 export class Fish extends CritterBase {}
 export class Bug extends CritterBase {}

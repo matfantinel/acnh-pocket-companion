@@ -93,7 +93,8 @@ async function parseCritterBase(type: string, jsonObj: any) {
     museumPhrase: jsonObj['museum-phrase'],
     iconUri: jsonObj['icon_uri'],
     iconBase64: iconBase64,
-    availability: parseAvailability(jsonObj['availability'])
+    availability: parseAvailability(jsonObj['availability']),
+    shadow: jsonObj['shadow']
   }
 }
 

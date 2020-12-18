@@ -15,19 +15,91 @@
         class="caught-chip"
         (click)="toggleCaught(item)"
       >
-        {{ item.caught ? 'Caught' : 'Not caught' }}
+        {{ item.caught ? (item.type == 'villagers' ? 'Lives here' : 'Caught') : (item.type == 'villagers' ? 'Doesn\'t live here' : 'Not caught') }}
       </ion-chip>
       <ion-chip class="price-chip" *ngIf="item.type != 'villagers'">
         {{ item.price }}
       </ion-chip>
     </div>
+
+    <div class="critter-info" *ngIf="item.type === 'villagers'">
+      <div class="data">
+        <span class="label">
+          Personality
+        </span>
+        <span class="value">
+          {{ item.personality }}
+        </span>
+      </div>
+      <div class="data">
+        <span class="label">
+          Birthday
+        </span>
+        <span class="value">
+          {{ item.birthday }}
+        </span>
+      </div>
+      <div class="data">
+        <span class="label">
+          Catch-Phrase
+        </span>
+        <span class="value">
+          "{{ item.catchPhrase }}"
+        </span>
+      </div>
+      <div class="data">
+        <span class="label">
+          Species
+        </span>
+        <span class="value">
+          {{ item.species }}
+        </span>
+      </div>
+      <div class="data">
+        <span class="label">
+          Gender
+        </span>
+        <span class="value">
+          {{ item.gender }}
+        </span>
+      </div>
+    </div>
+
+    <div class="critter-info" *ngIf="item.availability && item.type !== 'villagers' && item.type !== 'fossils'">
+      <div class="data" *ngIf="item.availability.rarity">
+        <span class="label">
+          Rarity
+        </span>
+        <span class="value">
+          {{ item.availability.rarity }}
+        </span>
+      </div>
+      <div class="data" *ngIf="item.availability.location">
+        <span class="label">
+          Location
+        </span>
+        <span class="value">
+          {{ item.availability.location }}
+        </span>
+      </div>
+      <div class="data" *ngIf="item.shadow">
+        <span class="label">
+          Shadow Size
+        </span>
+        <span class="value">
+          {{ item.shadow }}
+        </span>
+      </div>
+    </div>
+
     <div class="blathers-info" [ngClass]="{'open': blathersInfoOpen}" *ngIf="item.type != 'villagers'">
       <ion-avatar (click)="blathersInfoOpen = !blathersInfoOpen"><ion-img src="assets/icons/blathers.png"></ion-img></ion-avatar>
       <p class="preview-text" (click)="blathersInfoOpen = !blathersInfoOpen">
         What does Blathers say?<ion-icon name="chevron-down"></ion-icon>
       </p>
       <p class="full-text">{{ item.museumPhrase }}</p>
-    </div>
+    </div>    
+
     <div class="availability" *ngIf="item.type != 'fossils' && item.type != 'villagers'">
       <h4>Availability</h4>
       <small>Months of the Year</small>
@@ -71,48 +143,6 @@
         <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(21)}">21</div>
         <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(22)}">22</div>
         <div class="available-item hour" [ngClass]="{'highlight': isAvailableOnTime(23)}">23</div>
-      </div>
-    </div>
-    <div class="villager-info" *ngIf="item.type === 'villagers'">
-      <div class="data">
-        <span class="label">
-          Personality
-        </span>
-        <span class="value">
-          {{ item.personality }}
-        </span>
-      </div>
-      <div class="data">
-        <span class="label">
-          Birthday
-        </span>
-        <span class="value">
-          {{ item.birthday }}
-        </span>
-      </div>
-      <div class="data">
-        <span class="label">
-          Catch-Phrase
-        </span>
-        <span class="value">
-          "{{ item.catchPhrase }}"
-        </span>
-      </div>
-      <div class="data">
-        <span class="label">
-          Species
-        </span>
-        <span class="value">
-          {{ item.species }}
-        </span>
-      </div>
-      <div class="data">
-        <span class="label">
-          Gender
-        </span>
-        <span class="value">
-          {{ item.gender }}
-        </span>
       </div>
     </div>
   </div>

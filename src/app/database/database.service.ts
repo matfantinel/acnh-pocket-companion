@@ -336,11 +336,8 @@ export class DatabaseService extends Dexie {
             localStorage.setItem('imported-fishes', 'true');
             break;
           case 'bugs':
-            setTimeout(() => {
-
-              this.bulkAddBugs(response.data.data);
-              localStorage.setItem('imported-bugs', 'true');
-            },10000)
+            this.bulkAddBugs(response.data.data);
+            localStorage.setItem('imported-bugs', 'true');
             break;
           case 'seaCreatures':
             this.bulkAddSeaCreatures(response.data.data);

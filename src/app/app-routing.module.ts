@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'critterpedia',
     loadChildren: () => import('./pages/critterpedia/critterpedia.module').then( m => m.CritterpediaPageModule)
   },
+  {
+    path: 'available',
+    loadChildren: () => import('./pages/available/available.module').then( m => m.AvailablePageModule)
+  },
 ];
 @NgModule({
   imports: [

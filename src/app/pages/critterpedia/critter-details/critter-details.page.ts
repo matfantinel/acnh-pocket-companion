@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
+import { Plugins } from '@capacitor/core';
 import { Utils } from 'src/utils';
 import { selectSelectedItem } from 'src/app/domains/critterpedia/critterpedia.reducer';
 import { UpsertFish, UpsertBug, UpsertSeaCreature, UpsertFossil, UpsertVillager } from 'src/app/domains/critterpedia/critterpedia.actions';
 import { Island } from 'src/app/domains/island/island.model';
 import { selectIsland } from 'src/app/domains/island/island.reducer';
+import { Platform } from '@ionic/angular';
+
+const { StatusBar } = Plugins;
 
 @Component({
   selector: 'app-critter-details',
@@ -19,7 +23,15 @@ export class CritterDetailsPage implements OnInit {
 
   blathersInfoOpen: boolean
 
-  constructor(public utils: Utils, private store: Store<AppState>) {
+  constructor(public utils: Utils, private store: Store<AppState>, private platform: Platform) {
+  }
+
+  ionViewDidEnter() {
+    if (this.platform.is('capacitor')) {
+      StatusBar.setBackgroundColor({ color: '#B4D8E3' });
+    } else {
+      Utils.setThemeColor('#B4D8E3');
+    }
   }
 
   ngOnInit() {

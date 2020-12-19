@@ -62,14 +62,6 @@ export class VillagersComponent implements OnInit {
     );
   }
 
-  toggleCaught(event: any, item: any) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    item.caught = !item.caught;
-    this.store.dispatch(new UpsertVillager({ data: { ...item } }));
-  }
-
   applySearchFilter() {
     const filter = this.searchFilter.trim();
     if (!filter) {
@@ -78,10 +70,5 @@ export class VillagersComponent implements OnInit {
       this.isSearching = true;
       this.searchResults = this.villagers.filter(q => q.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0);
     }
-  }
-
-  openDetails(item: any) {
-    this.store.dispatch(new SetSelectedItem({ data: { ...item } }));
-    this.router.navigate(['critterpedia/details']);
   }
 }

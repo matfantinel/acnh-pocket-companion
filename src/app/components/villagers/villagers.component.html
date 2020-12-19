@@ -17,22 +17,7 @@
       </div>
     </div>
     <div class="search-results fade-in" *ngIf="isSearching">
-      <ion-virtual-scroll [items]="searchResults" approxItemHeight="56px">
-        <ion-item *virtualItem="let item" detail (click)="openDetails(item)">
-          <ion-avatar slot="start">
-            <ion-img [src]="item.iconBase64"></ion-img>
-          </ion-avatar>
-          <ion-label>{{item.name}}</ion-label>
-          <ion-chip
-            [ngClass]="{'caught-chip': item.caught, 'not-caught-chip': !item.caught}"
-            class="caught-chip"
-            slot="end"
-            (click)="toggleCaught($event, item)"
-          >
-            {{ item.caught ? 'Lives here' : 'Doesn\'t live here' }}
-          </ion-chip>
-        </ion-item>
-      </ion-virtual-scroll>
+      <app-critters-list [items]="searchResults"></app-critters-list>      
     </div>
   </div>
 </ion-content>

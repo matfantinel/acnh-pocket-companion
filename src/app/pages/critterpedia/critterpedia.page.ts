@@ -206,11 +206,6 @@ export class CritterpediaPage implements OnInit {
     }
   }
 
-  openDetails(item: any) {
-    this.store.dispatch(new SetSelectedItem({ data: { ...item } }));
-    this.router.navigate(['critterpedia/details']);
-  }
-
   applySearchFilter() {
     const filter = this.searchFilter.trim();
     if (!filter) {

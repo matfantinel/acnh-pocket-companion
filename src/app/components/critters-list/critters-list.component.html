@@ -1,0 +1,16 @@
+<ion-virtual-scroll [items]="items" approxItemHeight="56px">
+  <ion-item *virtualItem="let item" detail (click)="openDetails(item)">
+    <ion-avatar slot="start">
+      <ion-img [src]="item.iconBase64"></ion-img>
+    </ion-avatar>
+    <ion-label>{{ item.name }}</ion-label>
+    <ion-chip
+      [ngClass]="{ 'caught-chip': item.caught, 'not-caught-chip': !item.caught }"
+      class="caught-chip"
+      slot="end"
+      (click)="toggleCaught($event, item)"
+    >
+    {{ item.caught ? (item.type == 'villagers' ? 'Lives here' : 'Caught') : (item.type == 'villagers' ? 'Doesn\'t live here' : 'Not caught') }}
+    </ion-chip>
+  </ion-item>
+</ion-virtual-scroll>

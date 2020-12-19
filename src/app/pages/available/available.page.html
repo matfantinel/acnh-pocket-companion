@@ -1,16 +1,49 @@
 <app-cool-header title="Available Now" [color]="utils.getCssVarValue('--ion-color-available')"></app-cool-header>
 
 <ion-content>
+  <ion-segment
+    mode="ios"
+    scrollable
+    (ionChange)="segmentChanged($event)"
+    [value]="activeSegment"
+    [disabled]="isSearching"
+  >
+    <ion-segment-button value="bugs">
+      <ion-label>Bugs</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="fishes">
+      <ion-label>Fish</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sea-creatures">
+      <ion-label>Sea Creatures</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="fossils">
+      <ion-label>Fossils</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-list>
-    <ion-item>
-      <ion-label class="ion-text-wrap">
-        Have a quick glance at everything you can catch at the current time.
-      </ion-label>
+    <ion-item lines="none">
+      <ion-label class="ion-text-wrap">Not Caught only</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="onlyNotCaught" (ionChange)="filterData()"></ion-toggle>
     </ion-item>
-    <ion-item>
-      <ion-label class="ion-text-wrap">
-        Coming soon!
-      </ion-label>
-    </ion-item>
-  </ion-list>  
+  </ion-list>
+
+  <div class="segments">
+    <div class="segment" *ngIf="activeSegment === 'bugs'">
+      <div *ngIf="availableNow" class="critters-grid">
+        <div
+          class="critter"
+          *ngFor="let item of availableNow.bugs"
+          (click)="openDetails(item)"
+          [ngClass]="{'caught': item.caught}"
+        >
+          <ion-avatar>
+            <ion-img [src]="item.iconBase64"></ion-img>
+          </ion-avatar>
+          <ion-label>{{ item.name }}</ion-label>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

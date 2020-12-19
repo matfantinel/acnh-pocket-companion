@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Plugins } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
+import { LoadBugs, LoadFishes, LoadFossils, LoadSeaCreatures } from 'src/app/domains/critterpedia/critterpedia.actions';
+import { Bug, Fish, Fossil, SeaCreature } from 'src/app/domains/critterpedia/critterpedia.model';
+import {
+  selectBugs,
+  selectFishes,
+  selectFossils,
+  selectSeaCreatures,
+} from 'src/app/domains/critterpedia/critterpedia.reducer';
 import { Utils } from 'src/utils';
-import { Bug, Fish, SeaCreature, Fossil } from 'src/app/domains/critterpedia/critterpedia.model';
-import { selectFishes, selectBugs, selectSeaCreatures, selectFossils } from 'src/app/domains/critterpedia/critterpedia.reducer';
-import { LoadFishes, LoadBugs, LoadSeaCreatures, LoadFossils, UpsertBug, UpsertFish, UpsertSeaCreature, UpsertFossil, SetSelectedItem } from 'src/app/domains/critterpedia/critterpedia.actions';
-import { Router } from '@angular/router';
 
 const { StatusBar } = Plugins;
 
@@ -183,27 +188,6 @@ export class CritterpediaPage implements OnInit {
 
   segmentChanged(event: any) {
     this.activeSegment = event.detail.value;
-  }
-
-  toggleCaught(event: any, item: any) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    item.caught = !item.caught;
-    switch (item.type) {
-      case 'fishes':
-        this.store.dispatch(new UpsertFish({ data: { ...item } }));
-        break;
-      case 'bugs':
-        this.store.dispatch(new UpsertBug({ data: { ...item } }));
-        break;
-      case 'seaCreatures':
-        this.store.dispatch(new UpsertSeaCreature({ data: { ...item } }));
-        break;
-      case 'fossils':
-        this.store.dispatch(new UpsertFossil({ data: { ...item } }));
-        break;
-    }
   }
 
   applySearchFilter() {

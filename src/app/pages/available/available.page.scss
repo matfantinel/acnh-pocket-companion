@@ -36,3 +36,37 @@
     }
   }
 }
+
+.filters-container {
+  display: flex;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  
+  position: relative;
+  height: 42px;
+  transition: height .3s ease-in-out;
+  overflow: hidden;
+
+  .expand-button {
+    position: absolute;
+    right: 0px;
+    z-index: 21;
+    height: 32px;
+    margin-right: 0;
+    margin-left: 0;
+    background: var(--ion-color-light);
+  }
+
+  ion-chip {
+    flex: 0 0 auto;
+    &.active {
+      background: rgb(var(--ion-color-island-rgb));
+    }
+  }
+
+  &.open {
+    overflow: auto;
+    height: 30vh;
+    box-shadow: inset 0px -5px 22px -22px rgba(0,0,0,1);
+  }
+}

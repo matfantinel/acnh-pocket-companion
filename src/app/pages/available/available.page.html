@@ -22,15 +22,17 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-list>
-    <ion-item lines="none">
-      <ion-label class="ion-text-wrap">Not Caught only</ion-label>
-      <ion-toggle slot="end" [(ngModel)]="onlyNotCaught" (ionChange)="filterData()"></ion-toggle>
-    </ion-item>
-  </ion-list>
-
   <div class="segments">
     <div class="segment" *ngIf="activeSegment === 'bugs'">
+      <div class="filters-container" [ngClass]="{'open': filtersOpen}">
+        <ion-button mode="ios" class="expand-button" color="light" (click)="filtersOpen = !filtersOpen">Filters</ion-button>
+        <ion-chip [ngClass]="{'active': onlyNotCaught}" (click)="onlyNotCaught = !onlyNotCaught;filterData()">
+          Not Caught
+        </ion-chip>
+        <ion-chip *ngFor="let filter of bugLocations" [ngClass]="{'active': bugFilter == filter}" (click)="setBugFilter(filter)">
+          {{ filter }}
+        </ion-chip>
+      </div>
       <div *ngIf="availableNow" class="critters-grid">
         <div
           class="critter"

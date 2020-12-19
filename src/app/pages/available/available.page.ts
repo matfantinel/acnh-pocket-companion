@@ -18,18 +18,26 @@ const { StatusBar } = Plugins;
 })
 export class AvailablePage implements OnInit {
 
-  onlyNotCaught: boolean;
+  onlyNotCaught: boolean = true;
 
   bugs: Bug[] = [];
   fishes: Fish[] = [];
   seaCreatures: SeaCreature[] = [];
 
-  availableNow: { bugs: Bug[], fishes: Fish[], seaCreatures: SeaCreature[] };
+  availableNow: { 
+    bugs: Bug[], 
+    fishes: Fish[], 
+    seaCreatures: SeaCreature[] 
+  };
 
   //TODO: deal with finishedImporting (make an empty state)
   finishedImporting: boolean;
   
   activeSegment = 'bugs';
+
+  filtersOpen: boolean;
+  bugFilter: string;
+  bugLocations: string[] = null;
 
   hemisphere: string;
 
@@ -73,6 +81,16 @@ export class AvailablePage implements OnInit {
     this.activeSegment = event.detail.value;
   }
 
+  setBugFilter(filter: string) {
+    if (this.bugFilter == filter) {
+      this.bugFilter = null;
+    } else {
+      this.bugFilter = filter;
+    }
+
+    this.filterData()
+  }
+
   async loadData() {
     if (this.bugs.length <= 0 && this.fishes.length <= 0 && this.seaCreatures.length <= 0) {
       await Promise.all([this.loadBugs(),
@@ -92,6 +110,8 @@ export class AvailablePage implements OnInit {
   }
 
   getAvailableOnly(items: CritterBase[]) {
+    const type = items[0].type;
+
     if (this.onlyNotCaught) {
       items = items.filter(x => !x.caught);
     }
@@ -105,6 +125,14 @@ export class AvailablePage implements OnInit {
 
     const currentHour = new Date().getHours();
     items = items.filter(x => x.availability.hoursOfDay.indexOf(currentHour) >= 0);
+
+    if (type == 'bugs') {
+      this.bugLocations = [...new Set(items.map(item => item.availability.location))].filter(x => x);
+
+      if (this.bugFilter) {
+        items = items.filter(x => x.availability.location == this.bugFilter);
+      }
+    }
 
     return items;
   }

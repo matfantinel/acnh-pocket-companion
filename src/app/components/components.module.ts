@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { SlideDrawerComponent } from './slide-drawer/slide-drawer.component';
 import { VillagersComponent } from './villagers/villagers.component';
 import { FormsModule } from '@angular/forms';
+import { CrittersListComponent } from './critters-list/critters-list.component';
 
 @NgModule({
-  declarations: [CoolHeaderComponent, SlideDrawerComponent, VillagersComponent],
+  declarations: [CoolHeaderComponent, SlideDrawerComponent, VillagersComponent, CrittersListComponent],
   imports: [CommonModule, FormsModule, IonicModule.forRoot()],
-  exports: [CoolHeaderComponent, SlideDrawerComponent, VillagersComponent]
+  exports: [CoolHeaderComponent, SlideDrawerComponent, VillagersComponent, CrittersListComponent]
 })
 export class ComponentsModule {}

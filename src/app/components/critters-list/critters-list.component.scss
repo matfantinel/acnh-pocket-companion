@@ -1,0 +1,14 @@
+.caught-chip {
+  --background: rgba(var(--ion-color-success-rgb), 0.3);
+  --color: var(--ion-color-success-contrast);
+}
+.not-caught-chip {
+  --background: var(--ion-color-step-50);
+  --color: var(--ion-color-step-500);
+}
+
+ion-avatar {
+  ion-img {
+    background: var(--ion-color-step-100);
+  }
+}

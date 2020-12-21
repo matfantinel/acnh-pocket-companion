@@ -19,25 +19,28 @@ const { StatusBar } = Plugins;
 })
 export class AvailablePage implements OnInit {
 
-  onlyNotCaught: boolean = true;
+  onlyNotCaught: boolean = false;
 
   bugs: Bug[] = [];
   fishes: Fish[] = [];
   seaCreatures: SeaCreature[] = [];
 
-  availableNow: { 
-    bugs: Bug[], 
-    fishes: Fish[], 
-    seaCreatures: SeaCreature[] 
+  availableNow: {
+    bugs: Bug[],
+    fishes: Fish[],
+    seaCreatures: SeaCreature[]
   };
 
   //TODO: deal with finishedImporting (make an empty state)
   finishedImporting: boolean;
-  
+
   activeSegment = 'bugs';
+  filtersOpen: boolean;
 
   bugFilters: string[] = [];
   bugLocations: string[] = null;
+  fishFilters: string[] = [];
+  fishLocations: string[] = null;
 
   hemisphere: string;
 
@@ -49,9 +52,14 @@ export class AvailablePage implements OnInit {
     } else {
       Utils.setThemeColor('#e1f47b');
     }
+
+    console.log('fired');
+    this.handleLoad();
   }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  handleLoad() {
     this.store.select(selectIslandHemisphere).subscribe(result => {
       this.hemisphere = result;
     })
@@ -92,12 +100,23 @@ export class AvailablePage implements OnInit {
     this.filterData()
   }
 
+  setFishFilter(filter: string) {
+    let index = this.fishFilters.indexOf(filter);
+    if (index >= 0) {
+      this.fishFilters.splice(index, 1);
+    } else {
+      this.fishFilters.push(filter);
+    }
+
+    this.filterData()
+  }
+
   async loadData() {
-    if (this.bugs.length <= 0 && this.fishes.length <= 0 && this.seaCreatures.length <= 0) {
+    // if (this.bugs.length <= 0 && this.fishes.length <= 0 && this.seaCreatures.length <= 0) {
       await Promise.all([this.loadBugs(),
       this.loadFishes(),
       this.loadSeaCreatures()]);
-    }
+    // }
 
     this.filterData();
   }
@@ -117,7 +136,7 @@ export class AvailablePage implements OnInit {
       items = items.filter(x => !x.caught);
     }
 
-    const currentMonth = new Date().getMonth() + 1;    
+    const currentMonth = new Date().getMonth() + 1;
     if (this.hemisphere === 'Northern') {
       items = items.filter(x => x.availability.monthsNorthernHemisphere.indexOf(currentMonth) >= 0);
     } else {
@@ -135,6 +154,16 @@ export class AvailablePage implements OnInit {
 
         if (this.bugFilters.length > 0) {
           items = items.filter(x => this.bugFilters.some(f => f == x.availability.location));
+        }
+      }
+    } else if (type == 'fishes') {
+      this.fishLocations = [...new Set(items.map(item => item.availability.location))].filter(x => x);
+
+      if (this.fishFilters && this.fishFilters.length > 0) {
+        this.fishFilters = this.fishFilters.filter(x => this.fishLocations.indexOf(x) >= 0);
+
+        if (this.fishFilters.length > 0) {
+          items = items.filter(x => this.fishFilters.some(f => f == x.availability.location));
         }
       }
     }

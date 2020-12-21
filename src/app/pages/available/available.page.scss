@@ -1,7 +1,8 @@
 .critters-grid {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 20px;
+  padding: 0 5px;
+  justify-content: space-between;
 
   .critter {
     flex: 0 0 80px;
@@ -38,29 +39,49 @@
 }
 
 .filters-container {
-  margin-top: 5px;
+  margin-top: 10px;
   padding: 5px 0;
   border-radius: 10px;
   background-color: var(--ion-color-step-100);
 
   .filters-title {
-    display: block;
-    margin: 0 5px;
     font-weight: 700;
     font-size: 12px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .filters-chips-container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    height: 90px;
-    overflow-x: auto;
+    transition: height .3s ease-in-out, opacity .3s ease-out .3s;
+    opacity: 0;
+    height: 0;
+    overflow-x: hidden;
     
     ion-chip {
       flex: 0 0 auto;
       &.active {
         background: rgb(var(--ion-color-island-rgb));
+      }
+    }
+  }
+  
+
+  &.open {
+    .filters-chips-container {
+      height: 90px;
+      overflow-x: auto;
+      opacity: 1;
+    }
+
+    &.small {
+      .filters-chips-container {
+        height: auto;
+        flex-direction: row;
       }
     }
   }

@@ -1,4 +1,4 @@
-<app-cool-header title="Available Now" [color]="utils.getCssVarValue('--ion-color-available')"></app-cool-header>
+<app-cool-header title="Catch Now" [color]="utils.getCssVarValue('--ion-color-available')"></app-cool-header>
 
 <ion-content>
   <ion-segment
@@ -17,15 +17,15 @@
     <ion-segment-button value="sea-creatures">
       <ion-label>Sea Creatures</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="fossils">
-      <ion-label>Fossils</ion-label>
-    </ion-segment-button>
   </ion-segment>
 
   <div class="segments">
     <div class="segment" *ngIf="activeSegment === 'bugs'">
-      <div class="filters-container">
-        <span class="filters-title">Filters</span>
+      <div class="filters-container" [ngClass]="{'open': filtersOpen}">
+        <div class="filters-title" (click)="filtersOpen = !filtersOpen">
+          Filters
+          <ion-icon name="chevron-down"></ion-icon>
+        </div>
         <div class="filters-chips-container">
           <ion-chip [ngClass]="{'active': onlyNotCaught}" (click)="onlyNotCaught = !onlyNotCaught;filterData()">
             Not Caught
@@ -43,6 +43,67 @@
         <div
           class="critter"
           *ngFor="let item of availableNow.bugs"
+          (click)="openDetails(item)"
+          [ngClass]="{'caught': item.caught}"
+        >
+          <ion-avatar>
+            <ion-img [src]="item.iconBase64"></ion-img>
+          </ion-avatar>
+          <ion-label>{{ item.name }}</ion-label>
+        </div>
+      </div>
+    </div>
+
+    <div class="segment" *ngIf="activeSegment === 'fishes'">
+      <div class="filters-container" [ngClass]="{'open': filtersOpen}">
+        <div class="filters-title" (click)="filtersOpen = !filtersOpen">
+          Filters
+          <ion-icon name="chevron-down"></ion-icon>
+        </div>
+        <div class="filters-chips-container">
+          <ion-chip [ngClass]="{'active': onlyNotCaught}" (click)="onlyNotCaught = !onlyNotCaught;filterData()">
+            Not Caught
+          </ion-chip>
+          <ion-chip
+            *ngFor="let filter of fishLocations"
+            [ngClass]="{'active': fishFilters.indexOf(filter) >= 0}"
+            (click)="setFishFilter(filter)"
+          >
+            {{ filter }}
+          </ion-chip>
+        </div>
+      </div>
+      <div *ngIf="availableNow" class="critters-grid">
+        <div
+          class="critter"
+          *ngFor="let item of availableNow.fishes"
+          (click)="openDetails(item)"
+          [ngClass]="{'caught': item.caught}"
+        >
+          <ion-avatar>
+            <ion-img [src]="item.iconBase64"></ion-img>
+          </ion-avatar>
+          <ion-label>{{ item.name }}</ion-label>
+        </div>
+      </div>
+    </div>
+
+    <div class="segment" *ngIf="activeSegment === 'sea-creatures'">
+      <div class="filters-container small" [ngClass]="{'open': filtersOpen}">
+        <div class="filters-title" (click)="filtersOpen = !filtersOpen">
+          Filters
+          <ion-icon name="chevron-down"></ion-icon>
+        </div>
+        <div class="filters-chips-container">
+          <ion-chip [ngClass]="{'active': onlyNotCaught}" (click)="onlyNotCaught = !onlyNotCaught;filterData()">
+            Not Caught
+          </ion-chip>
+        </div>
+      </div>
+      <div *ngIf="availableNow" class="critters-grid">
+        <div
+          class="critter"
+          *ngFor="let item of availableNow.seaCreatures"
           (click)="openDetails(item)"
           [ngClass]="{'caught': item.caught}"
         >

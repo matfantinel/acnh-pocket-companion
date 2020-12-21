@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppState, Plugins } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
 import { LoadBugs, LoadFishes, LoadSeaCreatures, SetSelectedItem } from 'src/app/domains/critterpedia/critterpedia.actions';
 import { Bug, CritterBase, Fish, SeaCreature } from 'src/app/domains/critterpedia/critterpedia.model';
 import { selectBugs, selectFishes, selectSeaCreatures } from 'src/app/domains/critterpedia/critterpedia.reducer';
@@ -35,8 +36,7 @@ export class AvailablePage implements OnInit {
   
   activeSegment = 'bugs';
 
-  filtersOpen: boolean;
-  bugFilter: string;
+  bugFilters: string[] = [];
   bugLocations: string[] = null;
 
   hemisphere: string;
@@ -82,10 +82,11 @@ export class AvailablePage implements OnInit {
   }
 
   setBugFilter(filter: string) {
-    if (this.bugFilter == filter) {
-      this.bugFilter = null;
+    let index = this.bugFilters.indexOf(filter);
+    if (index >= 0) {
+      this.bugFilters.splice(index, 1);
     } else {
-      this.bugFilter = filter;
+      this.bugFilters.push(filter);
     }
 
     this.filterData()
@@ -129,8 +130,12 @@ export class AvailablePage implements OnInit {
     if (type == 'bugs') {
       this.bugLocations = [...new Set(items.map(item => item.availability.location))].filter(x => x);
 
-      if (this.bugFilter) {
-        items = items.filter(x => x.availability.location == this.bugFilter);
+      if (this.bugFilters && this.bugFilters.length > 0) {
+        this.bugFilters = this.bugFilters.filter(x => this.bugLocations.indexOf(x) >= 0);
+
+        if (this.bugFilters.length > 0) {
+          items = items.filter(x => this.bugFilters.some(f => f == x.availability.location));
+        }
       }
     }
 

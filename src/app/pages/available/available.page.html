@@ -24,14 +24,20 @@
 
   <div class="segments">
     <div class="segment" *ngIf="activeSegment === 'bugs'">
-      <div class="filters-container" [ngClass]="{'open': filtersOpen}">
-        <ion-button mode="ios" class="expand-button" color="light" (click)="filtersOpen = !filtersOpen">Filters</ion-button>
-        <ion-chip [ngClass]="{'active': onlyNotCaught}" (click)="onlyNotCaught = !onlyNotCaught;filterData()">
-          Not Caught
-        </ion-chip>
-        <ion-chip *ngFor="let filter of bugLocations" [ngClass]="{'active': bugFilter == filter}" (click)="setBugFilter(filter)">
-          {{ filter }}
-        </ion-chip>
+      <div class="filters-container">
+        <span class="filters-title">Filters</span>
+        <div class="filters-chips-container">
+          <ion-chip [ngClass]="{'active': onlyNotCaught}" (click)="onlyNotCaught = !onlyNotCaught;filterData()">
+            Not Caught
+          </ion-chip>
+          <ion-chip
+            *ngFor="let filter of bugLocations"
+            [ngClass]="{'active': bugFilters.indexOf(filter) >= 0}"
+            (click)="setBugFilter(filter)"
+          >
+            {{ filter }}
+          </ion-chip>
+        </div>
       </div>
       <div *ngIf="availableNow" class="critters-grid">
         <div

@@ -9,6 +9,7 @@ import { Bug, CritterBase, Fish, SeaCreature } from 'src/app/domains/critterpedi
 import { selectBugs, selectFishes, selectSeaCreatures } from 'src/app/domains/critterpedia/critterpedia.reducer';
 import { selectIslandHemisphere } from 'src/app/domains/island/island.reducer';
 import { Utils } from 'src/utils';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 const { StatusBar } = Plugins;
 
@@ -16,6 +17,29 @@ const { StatusBar } = Plugins;
   selector: 'app-available',
   templateUrl: './available.page.html',
   styleUrls: ['./available.page.scss'],
+  animations: [
+    trigger(
+      'inOutAnimation', 
+      [
+        transition(
+          ':enter', 
+          [
+            style({ transform: 'scale(0)', opacity: 0 }),
+            animate('.3s ease-out', 
+                    style({ transform: 'scale(1)', opacity: 1 }))
+          ]
+        ),
+        transition(
+          ':leave', 
+          [
+            style({ transform: 'scale(1)', opacity: 1 }),
+            animate('.3s ease-in', 
+                    style({ transform: 'scale(0)', opacity: 0 }))
+          ]
+        )
+      ]
+    )
+  ]
 })
 export class AvailablePage implements OnInit {
 

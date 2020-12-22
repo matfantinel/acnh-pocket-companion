@@ -55,6 +55,10 @@ ion-segment {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    ion-icon {
+      transition: transform .3s ease-in-out;
+    }
   }
 
   .filters-chips-container {
@@ -86,6 +90,12 @@ ion-segment {
       .filters-chips-container {
         height: auto;
         flex-direction: row;
+      }
+    }
+
+    .filters-title {
+      ion-icon {
+        transform: rotate(-180deg);
       }
     }
   }

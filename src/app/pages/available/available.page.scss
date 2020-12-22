@@ -1,8 +1,12 @@
+ion-segment {
+  margin: 0 5px;
+}
+
 .critters-grid {
   display: flex;
   flex-wrap: wrap;
   padding: 0 5px;
-  justify-content: space-between;
+  justify-content: center;
 
   .critter {
     flex: 0 0 80px;
@@ -39,7 +43,7 @@
 }
 
 .filters-container {
-  margin-top: 10px;
+  margin: 10px 5px;
   padding: 5px 0;
   border-radius: 10px;
   background-color: var(--ion-color-step-100);
@@ -47,7 +51,7 @@
   .filters-title {
     font-weight: 700;
     font-size: 12px;
-    padding: 5px 10px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;

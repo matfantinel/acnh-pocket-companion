@@ -2,17 +2,13 @@ ion-slides {
   height: 100%;
 }
 
-.btn-next {
-  position: absolute;
-  bottom: 30px;
-}
-
 ion-slide {
   display: flex;
   flex-direction: column;
 
   ion-img {
-    max-height: 30%;
+    width: auto;
+    height: 100px;
   }
 }
 

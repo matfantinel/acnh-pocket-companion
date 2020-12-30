@@ -17,6 +17,7 @@ h1 {
   border-radius: 70px;
   margin: 0 30px;
   padding: 20px;
+  overflow: auto;
 
   .header-bar {
     display: flex;
@@ -49,7 +50,6 @@ h1 {
 
 .about-link {
   color: var(--ion-text-color);
-  position: absolute;
-  bottom: 25px;
   text-decoration: none;
+  margin: 10px 0;
 }
